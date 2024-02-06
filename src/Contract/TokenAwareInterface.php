@@ -11,7 +11,7 @@ interface TokenAwareInterface
     /**
      * @param Token $token
      */
-    public function setToken(Token $token): void;
+    public function setToken(Token $token): self;
 
     /**
      * @return Token

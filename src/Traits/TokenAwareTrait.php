@@ -13,9 +13,10 @@ trait TokenAwareTrait
     /**
      * @inheritDoc
      */
-    public function setToken(Token $token): void
+    public function setToken(Token $token): self
     {
         $this->token = $token;
+        return $this;
     }
 
     /**
