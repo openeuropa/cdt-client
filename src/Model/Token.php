@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model;
 
+/**
+ * Class Token
+ *
+ * Represents an authentication token obtained from the CDT API.
+ * Stores essential token information including access token, token type,
+ * expiration time, and refresh token.
+ */
 class Token
 {
     /**

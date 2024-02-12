@@ -26,7 +26,14 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Base class for the endpoints.
+ * Class EndpointBase
+ *
+ * Serves as the base for all endpoint classes. It provides a set of common functionalities such as handing HTTP
+ * requests and other utilities. It also includes methods for handling endpoint configurations.
+ *
+ * The class is designed to be extended by specific endpoint classes, which can leverage these common functionalities
+ * for their specific needs.
+ *
  */
 abstract class EndpointBase implements EndpointInterface
 {

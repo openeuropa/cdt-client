@@ -7,6 +7,13 @@ namespace OpenEuropa\CdtClient\Endpoint;
 use OpenEuropa\CdtClient\Model\Token;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class TokenEndpoint
+ *
+ * Fetches an authentication token from the "Token" endpoint of the API using the password grant flow.
+ *
+ * @see EndpointBase
+ */
 class TokenEndpoint extends EndpointBase
 {
     /**
