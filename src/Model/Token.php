@@ -53,25 +53,6 @@ class Token
     }
 
     /**
-     * @param string $scope
-     *
-     * @return $this
-     */
-    public function setScope(string $scope): self
-    {
-        $this->scope = $scope;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getScope(): string
-    {
-        return $this->scope;
-    }
-
-    /**
      * @param string $tokenType
      *
      * @return $this
