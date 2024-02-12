@@ -1,4 +1,4 @@
-# CDT Client
+# OpenEuropa CDT Client
 [![Build Status](https://drone.fpfis.eu/api/badges/openeuropa/cdt-client/status.svg)](https://drone.fpfis.eu/openeuropa/cdt-client)
 [![Packagist](https://img.shields.io/packagist/v/openeuropa/cdt-client.svg)](https://packagist.org/packages/openeuropa/cdt-client)
 
