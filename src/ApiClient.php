@@ -9,17 +9,25 @@ use League\Container\Argument\LiteralArgument;
 use League\Container\Container;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Contract\EndpointInterface;
-use OpenEuropa\CdtClient\Contract\TokenAwareInterface;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Model\Token;
 use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use Psr\Http\Client\ClientInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
+/**
+ * Class ApiClient
+ *
+ * Provides a centralized client for interacting with the CDT API.
+ * It handles requesting and setting up what is necessary to execute calls to the endpoints.
+ *
+ * @see ApiClientInterface
+ * @see TokenAwareTrait
+ */
 class ApiClient implements ApiClientInterface
 {
     use TokenAwareTrait;

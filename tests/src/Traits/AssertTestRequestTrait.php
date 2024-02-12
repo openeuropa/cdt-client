@@ -6,6 +6,15 @@ namespace OpenEuropa\Tests\CdtClient\Traits;
 
 use Psr\Http\Message\RequestInterface;
 
+/**
+ * Trait AssertTestRequestTrait
+ *
+ * Provides methods for asserting common request properties in tests, particularly those related to:
+ *  - Authentication and authorization
+ *  - Multipart form data handling
+ *
+ * This trait can be used in test classes to streamline assertions and improve code readability.
+ */
 trait AssertTestRequestTrait
 {
     /**

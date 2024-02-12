@@ -12,6 +12,11 @@ use GuzzleHttp\Psr7\HttpFactory;
 use OpenEuropa\CdtClient\ApiClient;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 
+/**
+ * Trait ClientTestTrait
+ *
+ * Provides helper methods for testing classes that utilize the ApiClient.
+ */
 trait ClientTestTrait
 {
     /**
