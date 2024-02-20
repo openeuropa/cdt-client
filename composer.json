@@ -19,7 +19,7 @@
     "guzzlehttp/guzzle": "^7",
     "guzzlehttp/psr7": "^2",
     "openeuropa/code-review": "^2.0",
-    "phpunit/phpunit": "^10"
+    "phpunit/phpunit": "^10.4"
   },
   "autoload": {
     "psr-4": {
