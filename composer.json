@@ -18,7 +18,7 @@
   "require-dev": {
     "guzzlehttp/guzzle": "^7",
     "guzzlehttp/psr7": "^2",
-    "openeuropa/code-review": "^2.0.0-alpha6",
+    "openeuropa/code-review": "^2.0",
     "phpunit/phpunit": "^10"
   },
   "autoload": {
@@ -36,7 +36,8 @@
     "allow-plugins": {
       "phpro/grumphp": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
-      "php-http/discovery": true
+      "php-http/discovery": true,
+      "cweagans/composer-patches": true
     }
   }
 }
