@@ -18,8 +18,8 @@
   "require-dev": {
     "guzzlehttp/guzzle": "^7",
     "guzzlehttp/psr7": "^2",
-    "openeuropa/code-review": "^2.0.0-alpha6",
-    "phpunit/phpunit": "^10"
+    "openeuropa/code-review": "^2.0",
+    "phpunit/phpunit": "^10.4"
   },
   "autoload": {
     "psr-4": {
@@ -31,12 +31,18 @@
       "OpenEuropa\\Tests\\CdtClient\\": "./tests/src/"
     }
   },
+  "extra": {
+    "_readme": [
+      "The minimum requirement for phpunit/phpunit is ^10.4, to support the PHPUnit\\Framework\\MockObject\\Generator\\Generator class."
+    ]
+  },
   "config": {
     "sort-packages": true,
     "allow-plugins": {
       "phpro/grumphp": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
-      "php-http/discovery": true
+      "php-http/discovery": true,
+      "cweagans/composer-patches": true
     }
   }
 }
