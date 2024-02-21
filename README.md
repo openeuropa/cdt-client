@@ -14,9 +14,6 @@ Use [Composer](https://getcomposer.org/) to install the package:
 $ composer require openeuropa/cdt-client
 ```
 
-***Note**: `cweagans/composer-patches` should be removed from the allowed plugin list after 
-removing the `openeuropa/code-review` package.* 
-
 ## Usage
 
 All calls should be done by instantiating the client class:
