@@ -30,8 +30,6 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
  */
 class ApiClient implements ApiClientInterface
 {
-    use TokenAwareTrait;
-
     /**
      * @var array
      */
@@ -46,6 +44,11 @@ class ApiClient implements ApiClientInterface
      * @var UriFactoryInterface
      */
     protected $uriFactory;
+
+    /**
+     * @var Token
+     */
+    protected $token;
 
     /**
      * @param ClientInterface     $httpClient
@@ -177,5 +180,22 @@ class ApiClient implements ApiClientInterface
     private function getConfigValue(string $name)
     {
         return array_key_exists($name, $this->configuration) ? $this->configuration[$name] : null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setToken(Token $token): self
+    {
+        $this->token = $token;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getToken(): Token
+    {
+        return $this->token;
     }
 }

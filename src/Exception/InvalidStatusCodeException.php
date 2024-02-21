@@ -9,5 +9,4 @@ namespace OpenEuropa\CdtClient\Exception;
  */
 class InvalidStatusCodeException extends \RuntimeException
 {
-
 }
