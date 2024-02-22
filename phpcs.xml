@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset name="CdtClient">
+  <description>Custom coding rules for the CdtClient.</description>
+
+  <!-- Include the rules you want. -->
+  <rule ref="PSR12"/>
+
+  <!-- Add all code directories here. -->
+  <file>src</file>
+  <file>tests/src</file>
+
+  <!-- Adjust the list of extensions, separated by comma. -->
+  <arg name="extensions" value="php"/>
+
+  <!-- Adjust the severity of warnings. -->
+  <arg name="warning-severity" value="0"/>
+
+  <!-- Comments and multi-line statements should be indented with 4 spaces. -->
+  <rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+      <property name="ignoreIndentationTokens" type="array" value="" />
+      <property name="exact" value="true" />
+    </properties>
+  </rule>
+
+  <!-- Arrays that span multiple lines should be indented with 4 spaces. -->
+  <rule ref="Generic.Arrays.ArrayIndent" />
+
+  <!-- Chained method calls should be indented with 4 spaces. -->
+  <rule ref="PEAR.WhiteSpace.ObjectOperatorIndent" />
+</ruleset>
