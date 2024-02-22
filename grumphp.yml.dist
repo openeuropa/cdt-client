@@ -43,6 +43,6 @@ parameters:
     - vendor/
   tasks.phpcs.triggered_by:
     - php
-  tasks.phpstan.level: 5
+  tasks.phpstan.level: 8
   tasks.git_commit_message.matchers:
     - '/^([A-Z0-9]+\-\d+|Issue #\d+): [A-Z].+\./'

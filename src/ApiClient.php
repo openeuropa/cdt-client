@@ -13,6 +13,7 @@ use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Model\Token;
 use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -31,31 +32,24 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 class ApiClient implements ApiClientInterface
 {
     /**
-     * @var array
+     * The configuration.
+     *
+     * @var array<string, mixed>
      */
-    protected $configuration = [];
+    protected array $configuration = [];
+
+    protected ContainerInterface $container;
+
+    protected UriFactoryInterface $uriFactory;
+
+    protected Token $token;
 
     /**
-     * @var \Psr\Container\ContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var UriFactoryInterface
-     */
-    protected $uriFactory;
-
-    /**
-     * @var Token
-     */
-    protected $token;
-
-    /**
-     * @param ClientInterface     $httpClient
+     * @param ClientInterface         $httpClient
      * @param RequestFactoryInterface $requestFactory
      * @param StreamFactoryInterface  $streamFactory
      * @param UriFactoryInterface     $uriFactory
-     * @param array                   $configuration
+     * @param array<string, mixed>    $configuration
      */
     public function __construct(
         ClientInterface $httpClient,
@@ -152,9 +146,9 @@ class ApiClient implements ApiClientInterface
      *
      * Non-existing keys are not returned.
      *
-     * @param array $names
+     * @param string[] $names
      *   A list of configuration keys to extract.
-     * @return array
+     * @return array<string, mixed>
      */
     private function extractConfigValues(array $names): array
     {
