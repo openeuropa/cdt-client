@@ -28,6 +28,9 @@ class TokenEndpointTest extends TestCase
      * @param array<string, mixed> $clientConfig
      * @param Response[] $responses
      * @param mixed $expectedResult
+     *
+     * @covers ::__construct
+     * @covers ::execute
      */
     public function testToken(array $clientConfig, array $responses, mixed $expectedResult): void
     {
@@ -44,6 +47,8 @@ class TokenEndpointTest extends TestCase
 
     /**
      * @dataProvider providerTestInvalidConfig
+     *
+     * @covers ::__construct
      */
     public function testInvalidConfig(string|int $username, string|int $password, string|int $client, string $exceptionMessage): void
     {
@@ -55,12 +60,18 @@ class TokenEndpointTest extends TestCase
         ]);
     }
 
+    /**
+     * @covers ::__construct
+     */
     public function testMissingConfig(): void
     {
         $this->expectExceptionObject(new MissingOptionsException('The required options "client", "password", "username" are missing.'));
         new TokenEndpoint('https://example.com/token');
     }
 
+    /**
+     * @covers ::__construct
+     */
     public function testDefinedConfig(): void
     {
         $this->expectExceptionObject(new UndefinedOptionsException('The option "foo" does not exist. Defined options are: "client", "endpointUrl", "password", "username".'));

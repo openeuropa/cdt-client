@@ -24,6 +24,9 @@ class MainEndpointTest extends TestCase
      * @param array<string, mixed> $clientConfig
      * @param Response[] $responses
      * @param mixed $expectedResult
+     *
+     * @covers ::__construct
+     * @covers ::execute
      */
     public function testCheckConnection(array $clientConfig, array $responses, $expectedResult): void
     {

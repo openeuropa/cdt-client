@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="vendor/autoload.php" colors="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheResult="false"
+         executionOrder="depends,defects"
+         requireCoverageMetadata="true"
+         beStrictAboutCoverageMetadata="false"
+         beStrictAboutOutputDuringTests="true"
+         failOnRisky="true"
+         failOnWarning="true">
   <testsuites>
-    <testsuite name="CDT client Test suite">
-      <directory>./tests</directory>
+    <testsuite name="default">
+      <directory>tests</directory>
     </testsuite>
   </testsuites>
-  <source>
+
+  <source restrictDeprecations="true" restrictNotices="true" restrictWarnings="true">
     <include>
-      <directory>./src</directory>
+      <directory>src</directory>
     </include>
   </source>
+
+  <coverage pathCoverage="true" />
+
 </phpunit>
