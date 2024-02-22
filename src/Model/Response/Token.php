@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\CdtClient\Model;
+namespace OpenEuropa\CdtClient\Model\Response;
 
 /**
  * Class Token

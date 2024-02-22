@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Contract;
 
-use OpenEuropa\CdtClient\Model\Token;
+use OpenEuropa\CdtClient\Model\Response\Token;
 
 interface TokenAwareInterface
 {

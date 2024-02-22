@@ -6,9 +6,9 @@ namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
-use OpenEuropa\CdtClient\Model\Token;
-use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
+use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
