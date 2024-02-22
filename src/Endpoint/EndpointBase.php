@@ -189,7 +189,7 @@ abstract class EndpointBase implements EndpointInterface
         $response = $this->httpClient->sendRequest($request);
 
         if (!in_array($response->getStatusCode(), [200, 201], true)) {
-            throw new  InvalidStatusCodeException("{$method} {$uri} returns {$response->getStatusCode()}");
+            throw new InvalidStatusCodeException("{$method} {$uri} returns {$response->getStatusCode()}");
         }
 
         return $response;

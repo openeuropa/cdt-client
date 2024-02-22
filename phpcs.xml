@@ -26,6 +26,9 @@
   <!-- Arrays that span multiple lines should be indented with 4 spaces. -->
   <rule ref="Generic.Arrays.ArrayIndent" />
 
+  <!-- Use one space after keyword. -->
+  <rule ref="Generic.WhiteSpace.LanguageConstructSpacing" />
+
   <!-- Chained method calls should be indented with 4 spaces. -->
   <rule ref="PEAR.WhiteSpace.ObjectOperatorIndent" />
 </ruleset>
