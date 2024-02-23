@@ -48,7 +48,7 @@ class TokenEndpoint extends EndpointBase
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     protected function getRequestFormElements(): array
     {

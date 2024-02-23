@@ -18,8 +18,10 @@
   "require-dev": {
     "guzzlehttp/guzzle": "^7",
     "guzzlehttp/psr7": "^2",
-    "openeuropa/code-review": "^2.0",
-    "phpunit/phpunit": "^10.4"
+    "phpro/grumphp": "^1.7",
+    "phpstan/phpstan": "^1.10",
+    "phpunit/phpunit": "^10.4",
+    "squizlabs/php_codesniffer": "^3.9"
   },
   "autoload": {
     "psr-4": {
@@ -41,8 +43,7 @@
     "allow-plugins": {
       "phpro/grumphp": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
-      "php-http/discovery": true,
-      "cweagans/composer-patches": true
+      "php-http/discovery": true
     }
   }
 }

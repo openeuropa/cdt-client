@@ -18,7 +18,7 @@ class EndpointBaseTest extends TestCase
     public function testEndpointUrlValidation(): void
     {
         $this->expectExceptionObject(new InvalidOptionsException('The option "endpointUrl" with value "INVALID_URL" is invalid.'));
-        (new Generator)->testDouble(EndpointBase::class, true, ['execute'], [
+        (new Generator())->testDouble(EndpointBase::class, true, ['execute'], [
             'INVALID_URL',
         ]);
     }
@@ -29,7 +29,7 @@ class EndpointBaseTest extends TestCase
     public function testDefinedConfig(): void
     {
         $this->expectExceptionObject(new UndefinedOptionsException('The option "foo" does not exist. Defined options are: "endpointUrl".'));
-        (new Generator)->testDouble(EndpointBase::class, true, ['execute'], [
+        (new Generator())->testDouble(EndpointBase::class, true, ['execute'], [
             'http://example.com/v2/checkConnection',
             [
                 'foo' => 'bar',

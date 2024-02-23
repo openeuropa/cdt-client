@@ -10,6 +10,7 @@ use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
@@ -38,45 +39,33 @@ use Symfony\Component\Serializer\SerializerInterface;
 abstract class EndpointBase implements EndpointInterface
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $configuration;
+    protected array $configuration;
+
+    protected ClientInterface $httpClient;
+
+    protected RequestFactoryInterface $requestFactory;
+
+    protected StreamFactoryInterface $streamFactory;
+
+    protected UriFactoryInterface $uriFactory;
+
+    protected MultipartStreamBuilder $multipartStreamBuilder;
+
+    protected EncoderInterface $jsonEncoder;
 
     /**
-     * @var ClientInterface
+     * @var string[]
      */
-    protected $httpClient;
+    protected array $headers = [];
 
     /**
-     * @var RequestFactoryInterface
+     * @param string $endpointUrl
+     *   The endpoint URL.
+     * @param array<string, mixed> $configuration
+     *   The endpoint configuration.
      */
-    protected $requestFactory;
-
-    /**
-     * @var StreamFactoryInterface
-     */
-    protected $streamFactory;
-
-    /**
-     * @var UriFactoryInterface
-     */
-    protected $uriFactory;
-
-    /**
-     * @var MultipartStreamBuilder
-     */
-    protected $multipartStreamBuilder;
-
-    /**
-     * @var EncoderInterface
-     */
-    protected $jsonEncoder;
-
-    /**
-     * @var array
-     */
-    protected $headers = [];
-
     public function __construct(string $endpointUrl, array $configuration = [])
     {
         $configuration['endpointUrl'] = $endpointUrl;
@@ -159,7 +148,7 @@ abstract class EndpointBase implements EndpointInterface
      * @param string $configKey
      * @return mixed
      */
-    protected function getConfigValue(string $configKey)
+    protected function getConfigValue(string $configKey): mixed
     {
         if (!array_key_exists($configKey, $this->configuration)) {
             throw new \InvalidArgumentException("Invalid config key: '{$configKey}'. Valid keys: '" . implode("', '", array_keys($this->configuration)) . "'.");
@@ -198,6 +187,7 @@ abstract class EndpointBase implements EndpointInterface
             }
         }
 
+        assert($request instanceof RequestInterface);
         $response = $this->httpClient->sendRequest($request);
 
         if (!in_array($response->getStatusCode(), [200, 201], true)) {
@@ -218,9 +208,9 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
-     * @param \Psr\Http\Message\UriInterface $uri
+     * @param UriInterface $uri
      *
-     * @return array
+     * @return array<string|array<mixed>>
      */
     protected function getRequestUriQuery(UriInterface $uri): array
     {
@@ -233,7 +223,7 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     protected function getRequestHeaders(): array
     {
@@ -243,7 +233,7 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
-     * @return \Psr\Http\Message\StreamInterface|null
+     * @return StreamInterface|null
      */
     protected function getRequestBody(): ?StreamInterface
     {
@@ -278,7 +268,7 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
-     * @return array
+     * @return array<array<string>>
      *   Associative array of multipart parts keyed by the part name. The values
      *   are associative arrays with two keys:
      *   - content (string): The multipart part contents.
@@ -291,7 +281,7 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     protected function getRequestFormElements(): array
     {

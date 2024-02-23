@@ -9,8 +9,11 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\HttpFactory;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\ApiClient;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Trait ClientTestTrait
@@ -20,13 +23,13 @@ use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 trait ClientTestTrait
 {
     /**
-     * @var array
+     * @var array<int, array<string, mixed>>
      */
-    protected $clientHistory = [];
+    protected array $clientHistory = [];
 
     /**
-     * @param array $configuration
-     * @param array $responseQueue
+     * @param array<string, mixed> $configuration
+     * @param array<int, mixed> $responseQueue
      * @return ApiClientInterface
      */
     protected function getTestingClient(array $configuration = [], array $responseQueue = []): ApiClientInterface
@@ -44,15 +47,13 @@ trait ClientTestTrait
         );
     }
 
-    /**
-     * @param ApiClientInterface $client
-     * @return mixed
-     */
-    protected function getClientContainer(ApiClientInterface $client)
+    protected function getClientContainer(ApiClientInterface $client): ContainerInterface
     {
         $reflection = new \ReflectionClass($client);
         $property = $reflection->getProperty('container');
         $property->setAccessible(true);
-        return $property->getValue($client);
+        $container = $property->getValue($client);
+        assert($container instanceof ContainerInterface);
+        return $container;
     }
 }

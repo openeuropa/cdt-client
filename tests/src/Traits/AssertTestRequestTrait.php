@@ -77,7 +77,7 @@ trait AssertTestRequestTrait
         return $parts;
     }
 
-    protected function assertMultipartStreamResource(string $part, string $contentType, string $name, int $length, string $expected_content)
+    protected function assertMultipartStreamResource(string $part, string $contentType, string $name, int $length, string $expected_content): void
     {
         [$headers, $content] = explode("\r\n\r\n", $part);
         $headers = explode("\r\n", $headers);

@@ -25,16 +25,18 @@ class TokenEndpointTest extends TestCase
     /**
      * @dataProvider providerTestToken
      *
-     * @param array $clientConfig
-     * @param array $responses
+     * @param array<string, mixed> $clientConfig
+     * @param Response[] $responses
      * @param mixed $expectedResult
      */
-    public function testToken(array $clientConfig, array $responses, $expectedResult): void
+    public function testToken(array $clientConfig, array $responses, mixed $expectedResult): void
     {
         $client = $this->getTestingClient($clientConfig, $responses);
         $container = $this->getClientContainer($client);
 
-        $this->assertEquals($expectedResult, $container->get('auth')->execute());
+        $tokenEndpoint = $container->get('auth');
+        assert($tokenEndpoint instanceof TokenEndpoint);
+        $this->assertEquals($expectedResult, $tokenEndpoint->execute());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
         $this->assertTokenRequest($request);
@@ -43,7 +45,7 @@ class TokenEndpointTest extends TestCase
     /**
      * @dataProvider providerTestInvalidConfig
      */
-    public function testInvalidConfig($username, $password, $client, string $exceptionMessage): void
+    public function testInvalidConfig(string|int $username, string|int $password, string|int $client, string $exceptionMessage): void
     {
         $this->expectExceptionObject(new InvalidOptionsException($exceptionMessage));
         new TokenEndpoint('https://example.com/token', [
@@ -68,7 +70,7 @@ class TokenEndpointTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array<int, mixed>>
      */
     public static function providerTestToken(): array
     {
@@ -81,7 +83,7 @@ class TokenEndpointTest extends TestCase
                     'client' => 'foo',
                 ],
                 [
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/simple_token_call_response.json'))
+                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/simple_token_call_response.json'))
                 ],
                 (new Token())
                     ->setAccessToken('JWT_TOKEN')
@@ -93,7 +95,7 @@ class TokenEndpointTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<string, array<int, mixed>>
      */
     public static function providerTestInvalidConfig(): array
     {

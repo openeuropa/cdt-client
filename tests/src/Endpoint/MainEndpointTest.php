@@ -21,8 +21,8 @@ class MainEndpointTest extends TestCase
     /**
      * @dataProvider providerTestCheckConection
      *
-     * @param array $clientConfig
-     * @param array $responses
+     * @param array<string, mixed> $clientConfig
+     * @param Response[] $responses
      * @param mixed $expectedResult
      */
     public function testCheckConnection(array $clientConfig, array $responses, $expectedResult): void
@@ -39,6 +39,8 @@ class MainEndpointTest extends TestCase
 
     /**
      * @see self::testCheckConnection()
+     *
+     * @return array<string, array<int, mixed>>
      */
     public static function providerTestCheckConection(): array
     {
