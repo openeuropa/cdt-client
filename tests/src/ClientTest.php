@@ -21,6 +21,8 @@ class ClientTest extends TestCase
     /**
      * @covers ::__construct
      * @covers ::createContainer
+     * @covers ::getConfigValue
+     * @covers ::extractConfigValues
      */
     public function testContainer(): void
     {

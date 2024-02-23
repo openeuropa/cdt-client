@@ -19,7 +19,7 @@ class MainEndpointTest extends TestCase
     use AssertTestRequestTrait;
 
     /**
-     * @dataProvider providerTestCheckConection
+     * @dataProvider providerTestMain
      *
      * @param array<string, mixed> $clientConfig
      * @param Response[] $responses
@@ -27,17 +27,24 @@ class MainEndpointTest extends TestCase
      *
      * @covers ::__construct
      * @covers ::execute
+     * @covers ::setToken
+     * @covers ::getToken
+     * @covers ::getRequestHeaders
      */
-    public function testCheckConnection(array $clientConfig, array $responses, $expectedResult): void
+    public function testMain(array $clientConfig, array $responses, $expectedResult): void
     {
-        $token = (new Token())->setAccessToken('testtoekn')
+        $token = (new Token())->setAccessToken('JWT_TOKEN')
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
-        $actualResult = $this->getTestingClient($clientConfig, $responses)->setToken($token)->checkConnection();
-        $this->assertEquals($expectedResult, $actualResult);
+        $client = $this->getTestingClient($clientConfig, $responses);
+        $container = $this->getClientContainer($client);
+        $mainEndpoint = $container->get('main');
+        $this->assertEquals($expectedResult, $mainEndpoint->setToken($token)->execute());
+        $this->assertEquals($token, $mainEndpoint->getToken());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
-        $this->assertEquals('https://example.com/v2/CheckConnection', $request->getUri());
+        $this->assertMainRequest($request);
+        $this->assertAuthorizationHeaders($request);
     }
 
     /**
@@ -45,7 +52,7 @@ class MainEndpointTest extends TestCase
      *
      * @return array<string, array<int, mixed>>
      */
-    public static function providerTestCheckConection(): array
+    public static function providerTestMain(): array
     {
         return [
             'connected' => [
@@ -57,7 +64,7 @@ class MainEndpointTest extends TestCase
                 ],
                 true,
             ],
-            'falied' => [
+            'failed' => [
                 [
                     'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
                 ],
