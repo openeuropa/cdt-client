@@ -4,5 +4,7 @@
 /docker-compose.*.yml
 /grumphp.yml
 /phpunit.xml
+/phpstan.neon
+/phpcs.xml
 /runner.yml
 /vendor/

@@ -1,20 +1,18 @@
 grumphp:
   git_hook_variables:
-    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -T web'
+    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -e XDEBUG_MODE=off -T web'
 
   # Tasks.
   tasks:
 
     # PHP Code Sniffer.
     phpcs:
-      standard: '%tasks.phpcs.standard%'
       triggered_by: '%tasks.triggered_by%'
       metadata:
         priority: 300
 
     # PHPStan.
     phpstan:
-      configuration: '%tasks.phpstan.configuration%'
       triggered_by: '%tasks.triggered_by%'
       memory_limit: "-1"
       use_grumphp_paths: true
@@ -30,7 +28,5 @@ grumphp:
 
 parameters:
   tasks.triggered_by: ['php']
-  tasks.phpcs.standard: phpcs.xml
-  tasks.phpstan.configuration: phpstan.neon
   tasks.git_commit_message.matchers:
     - '/^([A-Z0-9]+\-\d+|Issue #\d+): [A-Z].+\./'

@@ -23,7 +23,7 @@ use Psr\Container\ContainerInterface;
 trait ClientTestTrait
 {
     /**
-     * @var array<int, array{request: Request, response: Response, error: mixed, options: mixed[]}>
+     * @var array<int, array<string, mixed>>
      */
     protected array $clientHistory = [];
 

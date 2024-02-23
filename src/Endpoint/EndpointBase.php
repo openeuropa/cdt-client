@@ -10,6 +10,7 @@ use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
@@ -186,6 +187,7 @@ abstract class EndpointBase implements EndpointInterface
             }
         }
 
+        assert($request instanceof RequestInterface);
         $response = $this->httpClient->sendRequest($request);
 
         if (!in_array($response->getStatusCode(), [200, 201], true)) {
