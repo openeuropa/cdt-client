@@ -40,8 +40,9 @@ trait TokenAwareTrait
      */
     public function getRequestHeaders(): array
     {
+        $tokenType = ucfirst(strtolower($this->token->getTokenType()));
         return [
-            'Authorization' => "{$this->token->getTokenType()} {$this->token->getAccessToken()}",
+            'Authorization' => "$tokenType {$this->token->getAccessToken()}",
         ] + parent::getRequestHeaders();
     }
 }
