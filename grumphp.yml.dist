@@ -1,6 +1,6 @@
 grumphp:
   git_hook_variables:
-    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -e XDEBUG_MODE=off -T web'
+    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -T web'
 
   # Tasks.
   tasks:

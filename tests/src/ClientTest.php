@@ -41,6 +41,7 @@ class ClientTest extends TestCase
      */
     public function testToken(): void
     {
+        // @todo Make the example configuration reusable, if it is irrelevant to the test.
         $client = $this->getTestingClient([
             'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
             'tokenApiEndpoint' => 'https://example.com/token',
