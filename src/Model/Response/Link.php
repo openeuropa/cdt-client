@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  */
 class Link
 {
-
     /**
      * The URL.
      */

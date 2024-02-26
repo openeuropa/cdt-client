@@ -8,11 +8,10 @@ namespace OpenEuropa\CdtClient\Model\Callback;
  * Class RequestUpdate.
  *
  * Represents the single callback sent to the defined endpoint
- * @todo all properties are Uppercase in the request.
+ * @todo All properties are Uppercase in the request.
  */
 class RequestUpdate
 {
-
     /**
      * The request identifier.
      */
@@ -45,12 +44,15 @@ class RequestUpdate
 
     /**
      * The update type.
-     * @todo create some enums?
+     * @todo Create some enums?
      */
     protected string $updateType;
 
     /**
      * The property changes.
+     * @todo Verify the type with real data.
+     *
+     * @var array<int, mixed>
      */
     protected array $propertiesChanges;
 }

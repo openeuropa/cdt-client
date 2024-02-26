@@ -11,7 +11,6 @@ namespace OpenEuropa\CdtClient\Model\Response;
  */
 class FileList
 {
-
     /**
      * The files
      *

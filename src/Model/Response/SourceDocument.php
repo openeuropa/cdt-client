@@ -14,7 +14,6 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  */
 class SourceDocument
 {
-
     /**
      * The file name.
      */

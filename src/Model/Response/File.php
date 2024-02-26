@@ -15,7 +15,6 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  */
 class File
 {
-
     /**
      * The file content encoded in base64 (optional).
      * @todo Implement base64 encoding in the serializer. It may require adding DataUriNormalizer and prepending the field content by "data:".

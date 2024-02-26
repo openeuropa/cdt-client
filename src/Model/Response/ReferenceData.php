@@ -14,7 +14,6 @@ namespace OpenEuropa\CdtClient\Model\Response;
  */
 class ReferenceData
 {
-
     /**
      * The list of departments (code and description).
      * Ex. 250772 / Service Finance

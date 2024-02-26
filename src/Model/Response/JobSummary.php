@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\Annotation\SerializedPath;
  */
 class JobSummary
 {
-
     /**
      * Total price.
      * @todo This should be a float or decimal.

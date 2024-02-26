@@ -15,7 +15,6 @@ use Symfony\Component\Serializer\Annotation\SerializedPath;
  */
 class Translation
 {
-
     /**
      * The request identifier.
      */

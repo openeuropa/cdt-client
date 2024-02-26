@@ -12,7 +12,6 @@ namespace OpenEuropa\CdtClient\Model\Response;
  */
 class ReferenceItem
 {
-
     /**
      * The code of the value.
      */

@@ -12,7 +12,6 @@ namespace OpenEuropa\CdtClient\Model\Response;
  */
 class ReferenceContact
 {
-
     /**
      * The email of the contact.
      */

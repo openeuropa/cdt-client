@@ -12,7 +12,6 @@ namespace OpenEuropa\CdtClient\Model\Response;
  */
 class Error
 {
-
     /**
      * The errors.
      *

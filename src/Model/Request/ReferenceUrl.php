@@ -11,7 +11,6 @@ namespace OpenEuropa\CdtClient\Model\Request;
  */
 class ReferenceUrl
 {
-
     /**
      * The URL.
      */

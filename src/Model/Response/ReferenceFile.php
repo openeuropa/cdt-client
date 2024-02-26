@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  */
 class ReferenceFile
 {
-
     /**
      * The list of languages.
      *

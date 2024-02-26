@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\Annotation\SerializedPath;
  */
 class Translation
 {
-
     /**
      * The department code from the ReferenceData.
      */

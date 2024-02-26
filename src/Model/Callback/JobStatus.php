@@ -12,7 +12,6 @@ namespace OpenEuropa\CdtClient\Model\Callback;
  */
 class JobStatus
 {
-
     /**
      * The request identifier.
      */
