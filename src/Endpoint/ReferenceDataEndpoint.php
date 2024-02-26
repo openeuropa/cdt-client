@@ -9,7 +9,7 @@ use OpenEuropa\CdtClient\Model\Response\ReferenceData;
 use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
 
 /**
- * Class BusinessReferenceDataEndpoint
+ * Class ReferenceDataEndpoint
  *
  * Defines how the client should handle requests to the "Requests/ReferenceData" space of the API.
  * Implements the TokenAwareInterface to handle authentication tokens for secure communication.
@@ -17,7 +17,7 @@ use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
  * @see EndpointBase
  * @see TokenAwareInterface
  */
-class BusinessReferenceDataEndpoint extends EndpointBase implements TokenAwareInterface
+class ReferenceDataEndpoint extends EndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
 

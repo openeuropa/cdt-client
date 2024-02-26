@@ -29,7 +29,6 @@ class TokenEndpointTest extends TestCase
      * @param Response[] $responses
      * @param mixed $expectedResult
      *
-     * @covers ::__construct
      * @covers ::execute
      * @covers ::getRequestFormElements
      */
@@ -49,7 +48,6 @@ class TokenEndpointTest extends TestCase
     /**
      * @dataProvider providerTestInvalidConfig
      *
-     * @covers ::__construct
      * @covers ::getConfigurationResolver
      */
     public function testInvalidConfig(string|int $username, string|int $password, string|int $client, string $exceptionMessage): void
@@ -63,7 +61,6 @@ class TokenEndpointTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
      * @covers ::getConfigurationResolver
      */
     public function testMissingConfig(): void
@@ -73,7 +70,6 @@ class TokenEndpointTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
      * @covers ::getConfigurationResolver
      */
     public function testDefinedConfig(): void

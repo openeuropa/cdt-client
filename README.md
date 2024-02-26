@@ -30,6 +30,7 @@ $client = new \OpenEuropa\CdtClient\ApiClient(
         // For a full list of options see "Configuration".
         'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
         'tokenApiEndpoint' => 'https://example.com//token',
+        'referenceDataApiEndpoint' => 'https://example.com/v2/requests/businessReferenceData',
         'username' => 'your-user-name',
         'password' => 'your-password',
         'client' => 'client-name',
@@ -48,14 +49,23 @@ Possible configurations:
 - `client` (string): Used for authentication.
 - `tokenApiEndpoint` (string, valid URI): The Token API endpoint.
 - `mainApiEndpoint` (string, valid URI): The Main API endpoint.
+- `referenceDataApiEndpoint` (string, valid URI): The Reference Data API endpoint.
 
 ### Check connection
 
 ```php
 $response = $client->checkConnection();
 ```
-
 Will return true or false depending on the availability of the CDT service.
+
+### Get reference data
+
+```php
+$response = $client->getReferenceData();
+```
+Will return an array of business reference data, with the list of departments, priorities, purposes, delivery modes, 
+confidentialities, languages, statuses, services and send options. It also contains the contact data for the translation service.
+The response is of the type `OpenEuropa\CdtClient\Model\Response\ReferenceData`.  
 
 ## Contributing
 

@@ -9,7 +9,7 @@ use League\Container\Argument\LiteralArgument;
 use League\Container\Container;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Contract\EndpointInterface;
-use OpenEuropa\CdtClient\Endpoint\BusinessReferenceDataEndpoint;
+use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Model\Response\ReferenceData;
@@ -96,10 +96,10 @@ class ApiClient implements ApiClientInterface
     /**
      * @inheritDoc
      */
-    public function getBusinessReferenceData(): ReferenceData
+    public function getReferenceData(): ReferenceData
     {
-        /** @var BusinessReferenceDataEndpoint $endpoint */
-        $endpoint = $this->container->get('businessReferenceData');
+        /** @var ReferenceDataEndpoint $endpoint */
+        $endpoint = $this->container->get('referenceData');
         $endpoint->setToken($this->getToken());
 
         return $endpoint->execute();
@@ -134,8 +134,8 @@ class ApiClient implements ApiClientInterface
             ->addArgument($streamFactory);
         $container->add('main', MainEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('mainApiEndpoint')));
-        $container->add('businessReferenceData', BusinessReferenceDataEndpoint::class)
-            ->addArgument(new LiteralArgument($this->getConfigValue('businessReferenceDataApiEndpoint')));
+        $container->add('referenceData', ReferenceDataEndpoint::class)
+            ->addArgument(new LiteralArgument($this->getConfigValue('referenceDataApiEndpoint')));
         $container->add('auth', TokenEndpoint::class)
             ->addArguments([
                 new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),

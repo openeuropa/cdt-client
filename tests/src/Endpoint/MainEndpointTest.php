@@ -25,7 +25,6 @@ class MainEndpointTest extends TestCase
      * @param Response[] $responses
      * @param mixed $expectedResult
      *
-     * @covers ::__construct
      * @covers ::execute
      * @covers ::setToken
      * @covers ::getToken

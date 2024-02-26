@@ -19,7 +19,6 @@ class ClientTest extends TestCase
     use ClientTestTrait;
 
     /**
-     * @covers ::__construct
      * @covers ::createContainer
      * @covers ::getConfigValue
      * @covers ::extractConfigValues

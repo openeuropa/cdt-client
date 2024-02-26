@@ -32,5 +32,5 @@ interface ApiClientInterface
     /**
      * @return ReferenceData
      */
-    public function getBusinessReferenceData(): ReferenceData;
+    public function getReferenceData(): ReferenceData;
 }

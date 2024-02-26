@@ -43,6 +43,14 @@ trait AssertTestRequestTrait
     /**
      * @param RequestInterface $request
      */
+    protected function assertReferenceDataRequest(RequestInterface $request): void
+    {
+        $this->assertEquals('https://example.com/v2/requests/businessReferenceData', $request->getUri());
+    }
+
+    /**
+     * @param RequestInterface $request
+     */
     protected function assertAuthorizationHeaders(RequestInterface $request): void
     {
         $this->assertSame('Bearer JWT_TOKEN', $request->getHeaderLine('Authorization'));

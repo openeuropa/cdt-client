@@ -1,0 +1,130 @@
+{
+  "departments": [
+    {
+      "code": "250771",
+      "description": "External Translation Unit - Contracts Execution Department"
+    },
+    {
+      "code": "250772",
+      "description": "Service Finance"
+    }
+  ],
+  "priorities": [
+    {
+      "code": "SL",
+      "description": "Slow"
+    },
+    {
+      "code": "NO",
+      "description": "Normal"
+    },
+    {
+      "code": "TU",
+      "description": "Urgent"
+    },
+    {
+      "code": "VU",
+      "description": "Very Urgent"
+    }
+  ],
+  "purposes": [
+    {
+      "code": "BF",
+      "description": "Budget / Financial text"
+    },
+    {
+      "code": "PC",
+      "description": "Podcasts"
+    }
+  ],
+  "deliveryModes": [
+    {
+      "code": "No",
+      "description": "No"
+    },
+    {
+      "code": "YesMF",
+      "description": "Yes(Multiple Files)"
+    },
+    {
+      "code": "YesSF",
+      "description": "Yes(Single File)"
+    }
+  ],
+  "confidentialities": [
+    {
+      "code": "NO",
+      "description": "None"
+    },
+    {
+      "code": "SN",
+      "description": "Sensitive non-classified – with retention"
+    },
+    {
+      "code": "SR",
+      "description": "Sensitive non-classified – without retention"
+    },
+    {
+      "code": "SC",
+      "description": "Classified"
+    }
+  ],
+  "languages": [
+    "AR",
+    "AZ",
+    "BE",
+    "BG",
+    "BN",
+    "BS"
+  ],
+  "statuses": [
+    {
+      "code": "DRAF",
+      "description": "Draft"
+    },
+    {
+      "code": "MTS",
+      "description": "Marked to Send"
+    },
+    {
+      "code": "PEND",
+      "description": "Quoted - Pending Approval"
+    }
+  ],
+  "services": [
+    {
+      "code": "Editing",
+      "description": "Editing"
+    },
+    {
+      "code": "LightPostEditing",
+      "description": "Light post-editing"
+    }
+  ],
+  "sendOptions": [
+    {
+      "code": "MarkToSend",
+      "description": "Mark To send"
+    },
+    {
+      "code": "Send",
+      "description": "Send"
+    },
+    {
+      "code": "SendAsDraft",
+      "description": "Send as draft"
+    }
+  ],
+  "contacts": [
+    {
+      "email": "contact@example.com",
+      "firstName": "John",
+      "lastName": "Smith",
+      "userName": "JohnSmith",
+      "countryCode": null,
+      "phoneCountryCode": null,
+      "phoneNumber": "+353333222111",
+      "countryName": ""
+    }
+  ]
+}
