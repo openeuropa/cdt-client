@@ -11,8 +11,9 @@ use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Contract\EndpointInterface;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
+use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
+use OpenEuropa\CdtClient\Model\Request\Translation;
 use OpenEuropa\CdtClient\Model\Token;
-use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -92,6 +93,19 @@ class ApiClient implements ApiClientInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function validateTranslationRequest(Translation $translationRequest): bool
+    {
+        /** @var ValidateEndpoint $endpoint */
+        $endpoint = $this->container->get('validate');
+        return $endpoint
+            ->setToken($this->getToken())
+            ->setTranslationRequest($translationRequest)
+            ->execute();
+    }
+
+    /**
      * @param ClientInterface     $httpClient
      * @param RequestFactoryInterface $requestFactory
      * @param StreamFactoryInterface  $streamFactory
@@ -120,6 +134,8 @@ class ApiClient implements ApiClientInterface
             ->addArgument($streamFactory);
         $container->add('main', MainEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('mainApiEndpoint')));
+        $container->add('validate', ValidateEndpoint::class)
+            ->addArgument(new LiteralArgument($this->getConfigValue('validateApiEndpoint')));
         $container->add('auth', TokenEndpoint::class)
             ->addArguments([
                 new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),

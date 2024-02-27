@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Contract;
 
+use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
+use OpenEuropa\CdtClient\Model\Request\Translation;
 use OpenEuropa\CdtClient\Model\Token;
 
 interface ApiClientInterface
@@ -27,4 +29,11 @@ interface ApiClientInterface
      * @return bool
      */
     public function checkConnection(): bool;
+
+    /**
+     * Perform the validation of the translation request.
+     *
+     * @throws ValidationErrorsException
+     */
+    public function validateTranslationRequest(Translation $translationRequest): bool;
 }
