@@ -20,7 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -168,7 +169,7 @@ abstract class EndpointBase implements EndpointInterface
      * @throws ClientExceptionInterface
      *   Thrown if a network error happened while processing the request.
      * @throws InvalidStatusCodeException
-     *   Thrown when the API endpoint returns code other than 200.
+     *   Thrown when the API endpoint returns code other than 200 or 201.
      */
     protected function send(string $method): ResponseInterface
     {
@@ -191,10 +192,26 @@ abstract class EndpointBase implements EndpointInterface
         $response = $this->httpClient->sendRequest($request);
 
         if (!in_array($response->getStatusCode(), [200, 201], true)) {
-            throw new InvalidStatusCodeException("{$method} {$uri} returns {$response->getStatusCode()}");
+            $this->handleResponseException($response);
         }
 
         return $response;
+    }
+
+    /**
+     * The separate method for handling exceptions, that may be changed by child classes and traits.
+     *
+     * @param ResponseInterface $response
+     *   The response that triggered the exception.
+     *
+     * @throws InvalidStatusCodeException
+     *   Thrown when the API endpoint returns code other than 200 or 201.
+     */
+    protected function handleResponseException(ResponseInterface $response): void
+    {
+        throw new InvalidStatusCodeException(
+            "The API endpoint returns {$response->getStatusCode()}"
+        );
     }
 
     /**
@@ -263,11 +280,20 @@ abstract class EndpointBase implements EndpointInterface
             return $this->streamFactory->createStream(http_build_query($parts));
         }
 
+        // Simple JSON body.
+        if ($json = $this->getRequestJsonBody()) {
+            $this->headers['Content-Type'] = 'application/json';
+            file_put_contents('req.json', $json);
+            return $this->streamFactory->createStream($json);
+        }
+
         // This endpoint didn't define a request body.
         return null;
     }
 
     /**
+     * Override this method to define the multipart stream elements.
+     *
      * @return array<array<string>>
      *   Associative array of multipart parts keyed by the part name. The values
      *   are associative arrays with two keys:
@@ -281,11 +307,21 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
+     * Override this method to define the simple form elements.
+     *
      * @return string[]
      */
     protected function getRequestFormElements(): array
     {
         return [];
+    }
+
+    /**
+     * Override this method to define the body of the request as JSON.
+     */
+    protected function getRequestJsonBody(): string
+    {
+        return '';
     }
 
     /**
@@ -297,8 +333,10 @@ abstract class EndpointBase implements EndpointInterface
     {
         return new Serializer([
             new GetSetMethodNormalizer(
+                new ClassMetadataFactory(
+                    new AttributeLoader()
+                ),
                 null,
-                new CamelCaseToSnakeCaseNameConverter(),
                 new PhpDocExtractor()
             ),
             new ArrayDenormalizer(),

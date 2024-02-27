@@ -6,6 +6,13 @@ namespace OpenEuropa\CdtClient\Endpoint;
 
 use OpenEuropa\CdtClient\Model\Token;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class TokenEndpoint
@@ -58,5 +65,22 @@ class TokenEndpoint extends EndpointBase
             'password' => $this->getConfigValue('password'),
             'client' => $this->getConfigValue('client'),
         ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getSerializer(): SerializerInterface
+    {
+        return new Serializer([
+            new GetSetMethodNormalizer(
+                null,
+                new CamelCaseToSnakeCaseNameConverter(),
+                new PhpDocExtractor()
+            ),
+            new ArrayDenormalizer(),
+        ], [
+            new JsonEncoder(),
+        ]);
     }
 }
