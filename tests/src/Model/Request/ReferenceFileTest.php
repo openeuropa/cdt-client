@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Model\Request;
 
 use OpenEuropa\CdtClient\Model\Request\File;
-use OpenEuropa\Tests\CdtClient\Traits\ModelTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\RequestModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ReferenceFileTest extends TestCase
 {
-    use ModelTestTrait;
+    use RequestModelTestTrait;
 
     /**
      * @covers \OpenEuropa\CdtClient\Model\Request\ReferenceFile

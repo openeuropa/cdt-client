@@ -6,8 +6,8 @@ namespace OpenEuropa\Tests\CdtClient\Model\Request;
 
 use OpenEuropa\CdtClient\Model\Request\ReferenceFile;
 use OpenEuropa\CdtClient\Model\Request\ReferenceFileCollection;
-use OpenEuropa\Tests\CdtClient\Traits\AssertCollectionTrait;
-use OpenEuropa\Tests\CdtClient\Traits\ModelTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestCollectionTrait;
+use OpenEuropa\Tests\CdtClient\Traits\RequestModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,11 +15,12 @@ use PHPUnit\Framework\TestCase;
  */
 class ReferenceFileCollectionTest extends TestCase
 {
-    use ModelTestTrait;
-    use AssertCollectionTrait;
+    use RequestModelTestTrait;
+    use AssertTestCollectionTrait;
 
     /**
      * @covers \OpenEuropa\CdtClient\Model\Request\ReferenceFileCollection
+     * @covers \OpenEuropa\CdtClient\Model\BaseCollection
      */
     public function testCollection(): void
     {
@@ -36,9 +37,7 @@ class ReferenceFileCollectionTest extends TestCase
             ])
         ];
 
-        $extraItem = $this->createRequestReferenceFile();
-
         $collection = new ReferenceFileCollection($items);
-        $this->assertCollection($collection, ReferenceFile::class, $items, $extraItem);
+        $this->assertCollection($collection, ReferenceFile::class, $items);
     }
 }

@@ -28,42 +28,38 @@ abstract class BaseCollection extends \ArrayIterator
      */
     public function __construct(array $array, int $flags = 0)
     {
-        $itemType = $this->getItemType();
         foreach ($array as $value) {
-            if (!$value instanceof $itemType) {
-                throw new \InvalidArgumentException(sprintf(
-                    'Invalid argument type: expected %s.',
-                    $itemType
-                ));
-            }
+            $this->checkArgumentType($value);
         }
-
         parent::__construct($array, $flags);
     }
 
     public function offsetSet(mixed $key, mixed $value): void
     {
-        $itemType = $this->getItemType();
-        if (!$value instanceof $itemType) {
-            throw new \InvalidArgumentException(sprintf(
-                'Invalid argument type: expected %s.',
-                $itemType
-            ));
-        }
-
+        $this->checkArgumentType($value);
         parent::offsetSet($key, $value);
     }
 
     public function append(mixed $value): void
     {
+        $this->checkArgumentType($value);
+        parent::append($value);
+    }
+
+    protected function checkArgumentType(mixed $value): void
+    {
         $itemType = $this->getItemType();
         if (!$value instanceof $itemType) {
+            // Get variable type
+            $detectedType = gettype($value);
+            if ($detectedType === 'object') {
+                $detectedType = get_class($value);
+            }
             throw new \InvalidArgumentException(sprintf(
-                'Invalid argument type: expected %s.',
+                'Invalid argument type: %s, expected instance of %s.',
+                $detectedType,
                 $itemType
             ));
         }
-
-        parent::append($value);
     }
 }
