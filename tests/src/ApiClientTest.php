@@ -29,6 +29,7 @@ class ApiClientTest extends TestCase
         $client = $this->getTestingClient([
             'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
             'tokenApiEndpoint' => 'https://example.com/token',
+            'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
             'username' => 'testuser',
             'password' => 'pass',
             'client' => 'digit',
@@ -51,6 +52,7 @@ class ApiClientTest extends TestCase
         $client = $this->getTestingClient([
             'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
             'tokenApiEndpoint' => 'https://example.com/token',
+            'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
             'username' => 'testuser',
             'password' => 'pass',
             'client' => 'digit',
