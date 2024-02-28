@@ -32,8 +32,8 @@ trait RequestModelTestTrait
     public function createRequestFile(array $data = []): File
     {
         return (new File())
-            ->setFilename($data['filename'] ?? 'test.txt')
-            ->setBase64Data($data['content'] ?? 'Test content');
+            ->setFilename($data['filename'] ?? 'test.xml')
+            ->setBase64Data($data['content'] ?? 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+');
     }
 
     /**
@@ -45,7 +45,7 @@ trait RequestModelTestTrait
     {
         return (new ReferenceFile())
             ->setFile($data['file'] ?? $this->createRequestFile())
-            ->setReferenceLanguages($data['referenceLanguages'] ?? ['en']);
+            ->setReferenceLanguages($data['referenceLanguages'] ?? ['EN']);
     }
 
     /**
@@ -57,7 +57,7 @@ trait RequestModelTestTrait
     {
         return (new ReferenceUrl())
             ->setUrl($data['url'] ?? 'https://example.com')
-            ->setReferenceLanguages($data['referenceLanguages'] ?? ['en'])
+            ->setReferenceLanguages($data['referenceLanguages'] ?? ['EN'])
             ->setShortName($data['shortName'] ?? 'Example');
     }
 
@@ -70,10 +70,10 @@ trait RequestModelTestTrait
     {
         return (new SourceDocument())
             ->setFile($data['file'] ?? $this->createRequestFile())
-            ->setSourceLanguages($data['sourceLanguages'] ?? ['en'])
+            ->setSourceLanguages($data['sourceLanguages'] ?? ['EN'])
             ->setOutputDocumentFormatCode($data['outputDocumentFormatCode'] ?? 'XM')
             ->setTranslationJobs(new TranslationJobCollection($data['translationJobs'] ?? [$this->createRequestTranslationJob()]))
-            ->setConfidentialityCode($data['confidentialityCode'] ?? 'N')
+            ->setConfidentialityCode($data['confidentialityCode'] ?? 'NO')
             ->setIsPrivate($data['isPrivate'] ?? false);
     }
 
@@ -85,8 +85,8 @@ trait RequestModelTestTrait
     public function createRequestTranslationJob(array $data = []): TranslationJob
     {
         return (new TranslationJob())
-            ->setSourceLanguage($data['sourceLanguage'] ?? 'en')
-            ->setTargetLanguage($data['targetLanguage'] ?? 'fr')
+            ->setSourceLanguage($data['sourceLanguage'] ?? 'EN')
+            ->setTargetLanguage($data['targetLanguage'] ?? 'FR')
             ->setVolume($data['volume'] ?? 0.5);
     }
 
@@ -111,14 +111,14 @@ trait RequestModelTestTrait
     public function createRequestTranslation(array $data = []): Translation
     {
         return (new Translation())
-            ->setDepartmentCode($data['departmentCode'] ?? '123')
-            ->setContactUserNames($data['contactUserNames'] ?? ['TESTUSER'])
-            ->setDeliveryContactUsernames($data['deliveryContactUsernames'] ?? ['TESTUSER'])
+            ->setDepartmentCode($data['departmentCode'] ?? '250771')
+            ->setContactUserNames($data['contactUserNames'] ?? ['DGTRADETUCE'])
+            ->setDeliveryContactUsernames($data['deliveryContactUsernames'] ?? ['DGTRADETUCE'])
             ->setPhoneNumber($data['phoneNumber'] ?? '123456789')
             ->setTitle($data['title'] ?? 'Test Title')
             ->setClientReference($data['clientReference'] ?? '1')
             ->setPurposeCode($data['purposeCode'] ?? 'PC')
-            ->setDeliveryModeCode($data['deliveryModeCode'] ?? 'DMC')
+            ->setDeliveryModeCode($data['deliveryModeCode'] ?? 'YesSF')
             ->setPriorityCode($data['priorityCode'] ?? 'SL')
             ->setComments($data['comments'] ?? 'Test Comments')
             ->setReferenceSetUrls(new ReferenceUrlCollection($data['referenceSetUrls'] ?? [$this->createRequestReferenceUrl()]))

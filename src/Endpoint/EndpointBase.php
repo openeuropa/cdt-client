@@ -283,7 +283,6 @@ abstract class EndpointBase implements EndpointInterface
         // Simple JSON body.
         if ($json = $this->getRequestJsonBody()) {
             $this->headers['Content-Type'] = 'application/json';
-            file_put_contents('req.json', $json);
             return $this->streamFactory->createStream($json);
         }
 
