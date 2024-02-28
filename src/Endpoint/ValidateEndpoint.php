@@ -10,9 +10,9 @@ use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
 use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
 
 /**
- * Class ReferenceDataEndpoint
+ * Class ValidateEndpoint
  *
- * Defines how the client should handle requests to the "Requests/Validate" space of the API.
+ * Defines how the client should handle requests to the "Validate" space of the API.
  * Implements the TokenAwareInterface to handle authentication tokens for secure communication.
  *
  * @see EndpointBase
