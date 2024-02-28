@@ -29,7 +29,8 @@ $client = new \OpenEuropa\CdtClient\ApiClient(
     [
         // For a full list of options see "Configuration".
         'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
-        'tokenApiEndpoint' => 'https://example.com//token',
+        'tokenApiEndpoint' => 'https://example.com/token',
+        'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
         'username' => 'your-user-name',
         'password' => 'your-password',
         'client' => 'client-name',
@@ -48,6 +49,7 @@ Possible configurations:
 - `client` (string): Used for authentication.
 - `tokenApiEndpoint` (string, valid URI): The Token API endpoint.
 - `mainApiEndpoint` (string, valid URI): The Main API endpoint.
+- `validateApiEndpoint` (string, valid URI): The Validate API endpoint.
 
 ### Check connection
 
