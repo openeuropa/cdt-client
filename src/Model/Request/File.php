@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model\Request;
 
+use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 /**
  * Class File.
  *
  * Represents the single file sent to the CDT API.
  */
-class File
+class File implements NormalizableInterface
 {
     /**
      * The file name.
@@ -17,10 +20,9 @@ class File
     protected string $fileName;
 
     /**
-     * The file content encoded in base64.
-     * @todo: Encode while setting?
+     * The file content.
      */
-    protected string $base64Data;
+    protected string $content;
 
     public function getFileName(): string
     {
@@ -33,14 +35,26 @@ class File
         return $this;
     }
 
-    public function getBase64Data(): string
+    public function getContent(): string
     {
-        return $this->base64Data;
+        return $this->content;
     }
 
-    public function setBase64Data(string $base64Data): self
+    public function setContent(string $content): self
     {
-        $this->base64Data = $base64Data;
+        $this->content = $content;
         return $this;
+    }
+
+    /**
+     * @param array<int|string, mixed> $context
+     * @return array<int|string, mixed>|string|int|float|bool|\ArrayObject<int|string, mixed>|null
+     */
+    public function normalize(NormalizerInterface $normalizer, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        return [
+            'fileName' => $this->fileName,
+            'base64Data' => base64_encode($this->content),
+        ];
     }
 }
