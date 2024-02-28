@@ -33,7 +33,7 @@ trait RequestModelTestTrait
     {
         return (new File())
             ->setFilename($data['filename'] ?? 'test.xml')
-            ->setBase64Data($data['content'] ?? 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+');
+            ->setContent($data['content'] ?? '<?xml version="1.0" encoding="UTF-8" standalone="no"?>');
     }
 
     /**

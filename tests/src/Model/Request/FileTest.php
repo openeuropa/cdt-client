@@ -26,6 +26,6 @@ class FileTest extends TestCase
         $file = $this->createRequestFile($data);
 
         $this->assertEquals($data['filename'], $file->getFilename());
-        $this->assertEquals($data['content'], $file->getBase64Data());
+        $this->assertEquals($data['content'], $file->getContent());
     }
 }
