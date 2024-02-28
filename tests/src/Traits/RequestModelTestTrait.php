@@ -18,11 +18,11 @@ use OpenEuropa\CdtClient\Model\Request\TranslationJob;
 use OpenEuropa\CdtClient\Model\Request\TranslationJobCollection;
 
 /**
- * Trait ModelTestTrait
+ * Trait RequestModelTestTrait
  *
- * Provides helper methods for testing classes that utilize the data models.
+ * Provides helper methods for testing classes that utilize the request data models.
  */
-trait ModelTestTrait
+trait RequestModelTestTrait
 {
     /**
      * Creates a File request object.
@@ -33,7 +33,7 @@ trait ModelTestTrait
     {
         return (new File())
             ->setFilename($data['filename'] ?? 'test.txt')
-            ->setBase64Data(base64_encode($data['content'] ?? 'Test content'));
+            ->setBase64Data($data['content'] ?? 'Test content');
     }
 
     /**
@@ -118,6 +118,7 @@ trait ModelTestTrait
             ->setTitle($data['title'] ?? 'Test Title')
             ->setClientReference($data['clientReference'] ?? '1')
             ->setPurposeCode($data['purposeCode'] ?? 'PC')
+            ->setDeliveryModeCode($data['deliveryModeCode'] ?? 'DMC')
             ->setPriorityCode($data['priorityCode'] ?? 'SL')
             ->setComments($data['comments'] ?? 'Test Comments')
             ->setReferenceSetUrls(new ReferenceUrlCollection($data['referenceSetUrls'] ?? [$this->createRequestReferenceUrl()]))

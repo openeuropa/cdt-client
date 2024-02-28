@@ -8,7 +8,7 @@ use OpenEuropa\CdtClient\Model\Request\CallbackCollection;
 use OpenEuropa\CdtClient\Model\Request\ReferenceFileCollection;
 use OpenEuropa\CdtClient\Model\Request\ReferenceUrlCollection;
 use OpenEuropa\CdtClient\Model\Request\SourceDocumentCollection;
-use OpenEuropa\Tests\CdtClient\Traits\ModelTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\RequestModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 class TranslationTest extends TestCase
 {
-    use ModelTestTrait;
+    use RequestModelTestTrait;
 
     /**
      * @covers \OpenEuropa\CdtClient\Model\Request\Translation
@@ -31,6 +31,7 @@ class TranslationTest extends TestCase
             'title' => 'Test Title',
             'clientReference' => '1',
             'purposeCode' => 'PC',
+            'deliveryModeCode' => 'DMC',
             'priorityCode' => 'SL',
             'comments' => 'Test Comments',
             'sendOptions' => 'Send',
@@ -46,6 +47,7 @@ class TranslationTest extends TestCase
         $this->assertEquals($data['title'], $translation->getTitle());
         $this->assertEquals($data['clientReference'], $translation->getClientReference());
         $this->assertEquals($data['purposeCode'], $translation->getPurposeCode());
+        $this->assertEquals($data['deliveryModeCode'], $translation->getDeliveryModeCode());
         $this->assertEquals($data['priorityCode'], $translation->getPriorityCode());
         $this->assertEquals($data['comments'], $translation->getComments());
         $this->assertInstanceOf(ReferenceUrlCollection::class, $translation->getReferenceSetUrls());

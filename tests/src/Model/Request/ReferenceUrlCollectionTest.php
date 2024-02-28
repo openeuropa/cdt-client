@@ -6,8 +6,8 @@ namespace OpenEuropa\Tests\CdtClient\Model\Request;
 
 use OpenEuropa\CdtClient\Model\Request\ReferenceUrl;
 use OpenEuropa\CdtClient\Model\Request\ReferenceUrlCollection;
-use OpenEuropa\Tests\CdtClient\Traits\AssertCollectionTrait;
-use OpenEuropa\Tests\CdtClient\Traits\ModelTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestCollectionTrait;
+use OpenEuropa\Tests\CdtClient\Traits\RequestModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,21 +15,25 @@ use PHPUnit\Framework\TestCase;
  */
 class ReferenceUrlCollectionTest extends TestCase
 {
-    use ModelTestTrait;
-    use AssertCollectionTrait;
+    use RequestModelTestTrait;
+    use AssertTestCollectionTrait;
 
     /**
      * @covers \OpenEuropa\CdtClient\Model\Request\ReferenceUrlCollection
+     * @covers \OpenEuropa\CdtClient\Model\BaseCollection
      */
     public function testCollection(): void
     {
         $items = [
-            $this->createRequestReferenceUrl(),
-            $this->createRequestReferenceUrl(),
+            $this->createRequestReferenceUrl([
+                'url' => 'https://example1.com',
+            ]),
+            $this->createRequestReferenceUrl([
+                'url' => 'https://example2.com',
+            ]),
         ];
 
-        $extraItem = $this->createRequestReferenceUrl();
         $collection = new ReferenceUrlCollection($items);
-        $this->assertCollection($collection, ReferenceUrl::class, $items, $extraItem);
+        $this->assertCollection($collection, ReferenceUrl::class, $items);
     }
 }
