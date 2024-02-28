@@ -86,7 +86,7 @@ class RequestsEndpointTest extends TestCase
                 ],
                 (string) file_get_contents(__DIR__ . '/../../fixtures/json/requests_valid_request.json'),
                 [
-                    new Response(200, [], 'true')
+                    new Response(200, [], '1xWrUG')
                 ],
                 '1xWrUG',
             ],

@@ -123,7 +123,7 @@ class ApiClient implements ApiClientInterface
             ->addArgument(new LiteralArgument($this->getConfigValue('mainApiEndpoint')));
         $container->add('validate', ValidateEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('validateApiEndpoint')));
-        $container->add('requests', ValidateEndpoint::class)
+        $container->add('requests', RequestsEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('requestsApiEndpoint')));
         $container->add('auth', TokenEndpoint::class)
             ->addArguments([
