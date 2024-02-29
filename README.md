@@ -33,6 +33,7 @@ $client = new \OpenEuropa\CdtClient\ApiClient(
         'referenceDataApiEndpoint' => 'https://example.com/v2/requests/businessReferenceData',' => 'https://example.com/v2/requests/businessReferenceData',
         'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
         'requestsApiEndpoint' => 'https://example.com/v2/requests',
+        'identifierApiEndpoint' => 'https://example.com/v2/requests/requestIdentifierByCorrelationId/:correlationId',
         'username' => 'your-user-name',
         'password' => 'your-password',
         'client' => 'client-name',
@@ -54,6 +55,7 @@ Possible configurations:
 - `referenceDataApiEndpoint` (string, valid URI): The Reference Data API endpoint.
 - `validateApiEndpoint` (string, valid URI): The Validate API endpoint.
 - `requestsApiEndpoint` (string, valid URI): The Requests API endpoint.
+- `identifierApiEndpoint` (string, valid URI): The Identifier API endpoint.
 
 ### Check connection
 
@@ -90,6 +92,14 @@ try {
 ```
 
 On success, the `sendTranslationRequest()` method will return the temporary Correlation ID.
+
+### Get permanent request identifier
+
+```php
+$permanentId = $client->getPermanentIdentifier($correlationId);
+```
+
+Will return a permanent string identifier for the translation request, based on correlation ID. Throws the `ValidationErrorsException` if the correlation ID is not found.
 
 ## Contributing
 

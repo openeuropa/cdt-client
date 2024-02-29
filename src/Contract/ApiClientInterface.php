@@ -29,6 +29,13 @@ interface ApiClientInterface
 
     /**
      * @throws ValidationErrorsException
+     *   Thrown if there are validation errors.
      */
     public function sendTranslationRequest(Translation $translationRequest): string;
+
+    /**
+     * @throws ValidationErrorsException
+     * *   Thrown if there are validation errors.
+     */
+    public function getPermanentIdentifier(string $correlationId): string;
 }

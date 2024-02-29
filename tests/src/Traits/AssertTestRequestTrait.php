@@ -33,6 +33,11 @@ trait AssertTestRequestTrait
         $this->assertEquals('https://example.com/v2/requests/businessReferenceData', $request->getUri());
     }
 
+    protected function assertIdentifierRequest(RequestInterface $request, string $correlationId): void
+    {
+        $this->assertEquals('https://example.com/v2/requests/requestIdentifierByCorrelationId/' . $correlationId, $request->getUri());
+    }
+
     protected function assertAuthorizationHeaders(RequestInterface $request): void
     {
         $this->assertSame('Bearer JWT_TOKEN', $request->getHeaderLine('Authorization'));
