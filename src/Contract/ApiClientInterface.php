@@ -6,6 +6,7 @@ namespace OpenEuropa\CdtClient\Contract;
 
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Request\Translation;
+use OpenEuropa\CdtClient\Model\Response\ReferenceData;
 use OpenEuropa\CdtClient\Model\Token;
 
 interface ApiClientInterface
@@ -17,6 +18,8 @@ interface ApiClientInterface
     public function requestToken(): Token;
 
     public function checkConnection(): bool;
+
+    public function getReferenceData(): ReferenceData;
 
     /**
      * @throws ValidationErrorsException

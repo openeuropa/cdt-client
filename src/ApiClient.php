@@ -9,10 +9,12 @@ use League\Container\Container;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Contract\EndpointInterface;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
+use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
 use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
 use OpenEuropa\CdtClient\Model\Request\Translation;
+use OpenEuropa\CdtClient\Model\Response\ReferenceData;
 use OpenEuropa\CdtClient\Model\Token;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
@@ -80,6 +82,21 @@ class ApiClient implements ApiClientInterface
         return $endpoint->execute();
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getReferenceData(): ReferenceData
+    {
+        /** @var ReferenceDataEndpoint $endpoint */
+        $endpoint = $this->container->get('referenceData');
+        $endpoint->setToken($this->getToken());
+
+        return $endpoint->execute();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function validateTranslationRequest(Translation $translationRequest): bool
     {
         /** @var ValidateEndpoint $endpoint */
@@ -121,6 +138,8 @@ class ApiClient implements ApiClientInterface
         // usage may leak into the later usages.
         $container->add('main', MainEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('mainApiEndpoint')));
+        $container->add('referenceData', ReferenceDataEndpoint::class)
+            ->addArgument(new LiteralArgument($this->getConfigValue('referenceDataApiEndpoint')));
         $container->add('validate', ValidateEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('validateApiEndpoint')));
         $container->add('requests', RequestsEndpoint::class)
