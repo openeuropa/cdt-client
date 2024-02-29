@@ -8,6 +8,7 @@ use League\Container\Argument\LiteralArgument;
 use League\Container\Container;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Contract\EndpointInterface;
+use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
 use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
@@ -114,6 +115,19 @@ class ApiClient implements ApiClientInterface
             ->execute();
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getPermanentIdentifier(string $correlationId): string
+    {
+        /** @var IdentifierEndpoint $endpoint */
+        $endpoint = $this->container->get('identifier');
+        $endpoint->setToken($this->getToken());
+        $endpoint->setCorrelationId($correlationId);
+
+        return $endpoint->execute();
+    }
+
     private function createContainer(
         ClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
@@ -141,6 +155,8 @@ class ApiClient implements ApiClientInterface
             ->addArgument(new LiteralArgument($this->getConfigValue('validateApiEndpoint')));
         $container->add('requests', RequestsEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('requestsApiEndpoint')));
+        $container->add('identifier', IdentifierEndpoint::class)
+            ->addArgument(new LiteralArgument($this->getConfigValue('identifierApiEndpoint')));
         $container->add('auth', TokenEndpoint::class)
             ->addArguments([
                 new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),

@@ -120,15 +120,18 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
+     * @param array<string, string> $replacements
+     *   An associative array of replacements to be made in the request URI.
+     *
      * @throws ClientExceptionInterface
      *   Thrown if a network error happened while processing the request.
      * @throws InvalidStatusCodeException
      *   Thrown when the API endpoint returns code other than 200 or 201.
      */
-    protected function send(string $method): ResponseInterface
+    protected function send(string $method, array $replacements = []): ResponseInterface
     {
         $method = strtoupper($method);
-        $uri = $this->getRequestUri();
+        $uri = $this->getRequestUri($replacements);
         $request = $this->requestFactory->createRequest($method, $uri);
 
         $methodsWithBody = ['POST', 'PUT', 'PATCH'];
@@ -163,9 +166,16 @@ abstract class EndpointBase implements EndpointInterface
         );
     }
 
-    protected function getRequestUri(): string
+    /**
+     * @param array<string, string> $replacements
+     */
+    protected function getRequestUri(array $replacements = []): string
     {
-        $uri = $this->uriFactory->createUri($this->getConfigValue('endpointUrl'));
+        $endpointUrl = $this->getConfigValue('endpointUrl');
+        if ($replacements) {
+            $endpointUrl = str_replace(array_keys($replacements), array_values($replacements), $endpointUrl);
+        }
+        $uri = $this->uriFactory->createUri($endpointUrl);
         $query = $this->getRequestUriQuery($uri);
         return $uri->withQuery(http_build_query($query))->__toString();
     }
