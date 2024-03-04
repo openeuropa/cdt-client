@@ -144,7 +144,7 @@ class ApiClient implements ApiClientInterface
     /**
      * Extracts a subset of values from the client configuration.
      *
-     * Non-existing keys are not returned.
+     * Non-existing and boolean keys are not returned.
      *
      * @param string[] $names
      *   A list of configuration keys to extract.
@@ -152,17 +152,10 @@ class ApiClient implements ApiClientInterface
      */
     private function extractConfigValues(array $names): array
     {
-        $config = [];
-
-        foreach ($names as $name) {
-            // We do not use self::getConfigValue() as we need to prevent
-            // adding NULL for non-existing values.
-            if (array_key_exists($name, $this->configuration)) {
-                $config[$name] = $this->configuration[$name];
-            }
-        }
-
-        return $config;
+        return array_intersect_key(
+            $this->configuration,
+            array_flip($names)
+        );
     }
 
     /**

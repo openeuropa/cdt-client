@@ -9,8 +9,6 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\HttpFactory;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\ApiClient;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use Psr\Container\ContainerInterface;
@@ -28,7 +26,7 @@ trait ClientTestTrait
     protected array $clientHistory = [];
 
     /**
-     * @param array<string, mixed> $configuration
+     * @param array<mixed> $configuration
      * @param array<int, mixed> $responseQueue
      * @return ApiClientInterface
      */
@@ -51,7 +49,6 @@ trait ClientTestTrait
     {
         $reflection = new \ReflectionClass($client);
         $property = $reflection->getProperty('container');
-        $property->setAccessible(true);
         $container = $property->getValue($client);
         assert($container instanceof ContainerInterface);
         return $container;

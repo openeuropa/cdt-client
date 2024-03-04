@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @coversDefaultClass \OpenEuropa\CdtClient\ApiClient
  */
-class ClientTest extends TestCase
+class ApiClientTest extends TestCase
 {
     use ClientTestTrait;
 
@@ -60,5 +60,36 @@ class ClientTest extends TestCase
         $token->setAccessToken('testtoken');
         $client->setToken($token);
         $this->assertEquals($token, $client->getToken());
+    }
+
+    /**
+     * @covers ::extractConfigValues
+     */
+    public function testExtractConfigValues(): void
+    {
+        $keys_to_extract = [
+            'existing_key',
+            'non_existing_key',
+            0,
+            '99',
+        ];
+
+        $client = $this->getTestingClient([
+            'existing_key' => 'Existing Key',
+            'other_key' => 'Other Key',
+            'boolean_value_key' => false,
+            0 => 'Zero',
+            '99' => 'Bottles',
+        ]);
+
+        $reflection = new \ReflectionClass($client);
+        $method = $reflection->getMethod('extractConfigValues');
+        $result = $method->invoke($client, $keys_to_extract);
+
+        $this->assertEquals([
+            'existing_key' => 'Existing Key',
+            0 => 'Zero',
+            '99' => 'Bottles',
+        ], $result);
     }
 }
