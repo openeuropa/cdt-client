@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model\Request;
 
-use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 /**
  * Class File.
  *
  * Represents the single file sent to the CDT API.
  */
-class File implements NormalizableInterface
+class File implements \JsonSerializable
 {
     /**
      * The file name.
@@ -47,10 +44,9 @@ class File implements NormalizableInterface
     }
 
     /**
-     * @param array<int|string, mixed> $context
-     * @return array<int|string, mixed>|string|int|float|bool|\ArrayObject<int|string, mixed>|null
+     * @return array<string, string>
      */
-    public function normalize(NormalizerInterface $normalizer, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function jsonSerialize(): array
     {
         return [
             'fileName' => $this->fileName,

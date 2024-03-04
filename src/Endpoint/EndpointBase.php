@@ -23,8 +23,8 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
-use Symfony\Component\Serializer\Normalizer\CustomNormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -332,7 +332,7 @@ abstract class EndpointBase implements EndpointInterface
     protected function getSerializer(): SerializerInterface
     {
         return new Serializer([
-            new CustomNormalizer(),
+            new JsonSerializableNormalizer(),
             new GetSetMethodNormalizer(
                 new ClassMetadataFactory(
                     new AttributeLoader()
