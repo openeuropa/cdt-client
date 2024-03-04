@@ -31,8 +31,10 @@ class SourceDocument
 
     /**
      * The translation jobs.
+     *
+     * @var array<int, TranslationJob>
      */
-    protected TranslationJobCollection $translationJobs;
+    protected array $translationJobs;
 
     /**
      * Is private?
@@ -83,12 +85,18 @@ class SourceDocument
         return $this;
     }
 
-    public function getTranslationJobs(): TranslationJobCollection
+    /**
+     * @return array<int, TranslationJob>
+     */
+    public function getTranslationJobs(): array
     {
         return $this->translationJobs;
     }
 
-    public function setTranslationJobs(TranslationJobCollection $translationJobs): self
+    /**
+     * @param array<int, TranslationJob> $translationJobs
+     */
+    public function setTranslationJobs(array $translationJobs): self
     {
         $this->translationJobs = $translationJobs;
         return $this;

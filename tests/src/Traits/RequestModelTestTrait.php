@@ -5,17 +5,12 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Traits;
 
 use OpenEuropa\CdtClient\Model\Request\Callback;
-use OpenEuropa\CdtClient\Model\Request\CallbackCollection;
 use OpenEuropa\CdtClient\Model\Request\File;
 use OpenEuropa\CdtClient\Model\Request\ReferenceFile;
-use OpenEuropa\CdtClient\Model\Request\ReferenceFileCollection;
 use OpenEuropa\CdtClient\Model\Request\ReferenceUrl;
-use OpenEuropa\CdtClient\Model\Request\ReferenceUrlCollection;
 use OpenEuropa\CdtClient\Model\Request\SourceDocument;
-use OpenEuropa\CdtClient\Model\Request\SourceDocumentCollection;
 use OpenEuropa\CdtClient\Model\Request\Translation;
 use OpenEuropa\CdtClient\Model\Request\TranslationJob;
-use OpenEuropa\CdtClient\Model\Request\TranslationJobCollection;
 
 /**
  * Trait RequestModelTestTrait
@@ -72,7 +67,7 @@ trait RequestModelTestTrait
             ->setFile($data['file'] ?? $this->createRequestFile())
             ->setSourceLanguages($data['sourceLanguages'] ?? ['EN'])
             ->setOutputDocumentFormatCode($data['outputDocumentFormatCode'] ?? 'XM')
-            ->setTranslationJobs(new TranslationJobCollection($data['translationJobs'] ?? [$this->createRequestTranslationJob()]))
+            ->setTranslationJobs([$this->createRequestTranslationJob()])
             ->setConfidentialityCode($data['confidentialityCode'] ?? 'NO')
             ->setIsPrivate($data['isPrivate'] ?? false);
     }
@@ -121,12 +116,12 @@ trait RequestModelTestTrait
             ->setDeliveryModeCode($data['deliveryModeCode'] ?? 'YesSF')
             ->setPriorityCode($data['priorityCode'] ?? 'SL')
             ->setComments($data['comments'] ?? 'Test Comments')
-            ->setReferenceSetUrls(new ReferenceUrlCollection($data['referenceSetUrls'] ?? [$this->createRequestReferenceUrl()]))
-            ->setReferenceSetFiles(new ReferenceFileCollection($data['referenceSetFiles'] ?? [$this->createRequestReferenceFile()]))
-            ->setSourceDocuments(new SourceDocumentCollection($data['sourceDocuments'] ?? [$this->createRequestSourceDocument()]))
+            ->setReferenceSetUrls([$this->createRequestReferenceUrl()])
+            ->setReferenceSetFiles([$this->createRequestReferenceFile()])
+            ->setSourceDocuments([$this->createRequestSourceDocument()])
             ->setSendOptions($data['sendOptions'] ?? 'Send')
             ->setService($data['service'] ?? 'Translation')
             ->setIsQuotationOnly($data['isQuotationOnly'] ?? false)
-            ->setCallbacks(new CallbackCollection($data['callbacks'] ?? [$this->createRequestCallback()]));
+            ->setCallbacks([$this->createRequestCallback()]);
     }
 }
