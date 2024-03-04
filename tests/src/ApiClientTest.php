@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\CdtClient;
 
-use Http\Message\MultipartStream\MultipartStreamBuilder;
 use OpenEuropa\CdtClient\Contract\TokenAwareInterface;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Model\Token;
@@ -37,7 +36,6 @@ class ApiClientTest extends TestCase
         $container = $this->getClientContainer($client);
 
         // Check container services.
-        $this->assertInstanceOf(MultipartStreamBuilder::class, $container->get('multipartStreamBuilder'));
         $this->assertInstanceOf(TokenEndpoint::class, $container->get('auth'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('main'));
     }

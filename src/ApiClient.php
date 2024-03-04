@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient;
 
-use Http\Message\MultipartStream\MultipartStreamBuilder;
 use League\Container\Argument\LiteralArgument;
 use League\Container\Container;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
@@ -109,8 +108,6 @@ class ApiClient implements ApiClientInterface
         // We're doing this because such a service might be called more than
         // once during the lifetime of a request, so internals set in a previous
         // usage may leak into the later usages.
-        $container->add('multipartStreamBuilder', MultipartStreamBuilder::class)
-            ->addArgument($streamFactory);
         $container->add('main', MainEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('mainApiEndpoint')));
         $container->add('validate', ValidateEndpoint::class)
@@ -128,7 +125,6 @@ class ApiClient implements ApiClientInterface
                 'setRequestFactory' => [$requestFactory],
                 'setStreamFactory' => [$streamFactory],
                 'setUriFactory' => [$uriFactory],
-                'setMultipartStreamBuilder' => ['multipartStreamBuilder'],
                 'setJsonEncoder' => [new JsonEncoder()],
             ]);
 

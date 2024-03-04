@@ -11,14 +11,11 @@ use Psr\Http\Message\RequestInterface;
  *
  * Provides methods for asserting common request properties in tests, particularly those related to:
  *  - Authentication and authorization
- *  - Multipart form data handling
  *
  * This trait can be used in test classes to streamline assertions and improve code readability.
  */
 trait AssertTestRequestTrait
 {
-    protected string $boundary;
-
     protected function assertTokenRequest(RequestInterface $request): void
     {
         $this->assertEquals('https://example.com/token', $request->getUri());
@@ -34,40 +31,5 @@ trait AssertTestRequestTrait
     protected function assertAuthorizationHeaders(RequestInterface $request): void
     {
         $this->assertSame('Bearer JWT_TOKEN', $request->getHeaderLine('Authorization'));
-    }
-
-    protected function assertBoundary(RequestInterface $request, string $boundary): void
-    {
-        $this->assertSame('multipart/form-data; boundary="' . $boundary . '"', $request->getHeaderLine('Content-Type'));
-    }
-
-    protected function getRequestBoundary(RequestInterface $request): ?string
-    {
-        preg_match('/; boundary="([^"].*)"/', $request->getHeaderLine('Content-Type'), $found);
-        return $found[1] ?? null;
-    }
-
-    /**
-     * @return false|string[]
-     */
-    protected function getRequestMultipartStreamResources(RequestInterface $request, string $boundary)
-    {
-        $parts = explode("--{$boundary}", $request->getBody()->getContents());
-        // The first and last entries are empty.
-        // @todo Improve this.
-        array_shift($parts);
-        array_pop($parts);
-
-        return $parts;
-    }
-
-    protected function assertMultipartStreamResource(string $part, string $contentType, string $name, int $length, string $expected_content): void
-    {
-        [$headers, $content] = explode("\r\n\r\n", $part);
-        $headers = explode("\r\n", $headers);
-        $this->assertContains("Content-Type: $contentType", $headers);
-        $this->assertContains("Content-Disposition: form-data; name=\"$name\"; filename=\"$name\"", $headers);
-        $this->assertContains("Content-Length: $length", $headers);
-        $this->assertSame($expected_content . "\r\n", $content);
     }
 }
