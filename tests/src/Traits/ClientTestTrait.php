@@ -51,7 +51,6 @@ trait ClientTestTrait
     {
         $reflection = new \ReflectionClass($client);
         $property = $reflection->getProperty('container');
-        $property->setAccessible(true);
         $container = $property->getValue($client);
         assert($container instanceof ContainerInterface);
         return $container;
