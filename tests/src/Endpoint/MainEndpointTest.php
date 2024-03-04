@@ -31,7 +31,7 @@ class MainEndpointTest extends TestCase
      * @covers ::getToken
      * @covers ::getRequestHeaders
      */
-    public function testMain(array $clientConfig, array $responses, $expectedResult): void
+    public function testMain(array $clientConfig, array $responses, mixed $expectedResult): void
     {
         $token = (new Token())->setAccessToken('JWT_TOKEN')
             ->setTokenType('bearer')
