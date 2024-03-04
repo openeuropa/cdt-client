@@ -61,79 +61,12 @@ Will return true or false depending on the availability of the CDT service.
 
 ### Translation requests
 
-To create the translation request, you need to build the `OpenEuropa\CdtClient\Model\Request\Translation` object:
-
+To validate a translation request, run the following code:
 ```php
-use OpenEuropa\CdtClient\Model\Request\Callback;
-use OpenEuropa\CdtClient\Model\Request\CallbackCollection;
-use OpenEuropa\CdtClient\Model\Request\File;
-use OpenEuropa\CdtClient\Model\Request\ReferenceFile;
-use OpenEuropa\CdtClient\Model\Request\ReferenceFileCollection;
-use OpenEuropa\CdtClient\Model\Request\ReferenceUrl
-use OpenEuropa\CdtClient\Model\Request\ReferenceUrlCollection;
-use OpenEuropa\CdtClient\Model\Request\SourceDocument;
-use OpenEuropa\CdtClient\Model\Request\SourceDocumentCollection;
 use OpenEuropa\CdtClient\Model\Request\Translation;
-use OpenEuropa\CdtClient\Model\Request\TranslationJob;
-use OpenEuropa\CdtClient\Model\Request\TranslationJobCollection;
-
-$translationRequest = (new Translation())
-    ->setDepartmentCode('250771')
-    ->setContactUserNames(['DGTRADETUCE'])
-    ->setDeliveryContactUsernames(['DGTRADETUCE'])
-    ->setPhoneNumber('123456789')
-    ->setTitle('Translation for Translation Centre For the Bodies of the EU')
-    ->setClientReference('3')
-    ->setPurposeCode('PC')
-    ->setPriorityCode('SL')
-    ->setComments('Do not translate the URLs')
-    ->setReferenceSetUrls(new ReferenceUrlCollection([
-        (new ReferenceUrl())
-            ->setUrl('http://cdt.europa.eu')
-            ->setShortName('Translation Centre For the Bodies of the EU"')
-            ->setReferenceLanguages(['EN'])
-    ]))
-    ->setReferenceSetFiles(new ReferenceFileCollection([
-        (new ReferenceFile())
-            ->setFile((new File())
-                ->setFileName('reference_file_TEST_request.xml')
-                ->setBase64Data('PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+')
-            )
-            ->setReferenceLanguages(['EN'])
-    ]))
-    ->setSourceDocuments(new SourceDocumentCollection([
-        (new SourceDocument())
-            ->setFile((new File())
-                ->setFileName('translation_job_TEST_request.xml')
-                ->setBase64Data('PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+')
-            )
-            ->setSourceLanguages(['EN'])
-            ->setOutputDocumentFormatCode('XM')
-            ->setTranslationJobs(new TranslationJobCollection([
-                (new TranslationJob())
-                    ->setTargetLanguage('FR')
-                    ->setSourceLanguage('EN')
-                    ->setVolume(0.5)
-            ]))
-            ->setConfidentialityCode('NO')
-        ])
-    )
-    ->setSendOptions('Send')
-    ->setService('Translation')
-    ->setIsQuotationOnly(false)
-    ->setCallbacks(new CallbackCollection([
-        (new Callback())
-            ->setCallbackBaseUrl('https://example.com/callback')
-            ->setCallbackType('REQUEST_STATUS')
-            ->setClientApiKey('1234567890')
-    ]));
-```
-
-To validate the above request, run the following code:
-
-```php
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 
+$translationRequest = new Translation()
 try {
     $response = $client->validateTranslationRequest($translationRequest);
 } catch (ValidationErrorsException $e) {
