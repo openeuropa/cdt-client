@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @coversDefaultClass \OpenEuropa\CdtClient\ApiClient
  */
-class ClientTest extends TestCase
+class ApiClientTest extends TestCase
 {
     use ClientTestTrait;
 
