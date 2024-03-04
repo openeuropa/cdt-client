@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Contract;
 
-use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -22,8 +21,6 @@ interface EndpointInterface
     public function setStreamFactory(StreamFactoryInterface $streamFactory): self;
 
     public function setUriFactory(UriFactoryInterface $uriFactory): self;
-
-    public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): self;
 
     public function setJsonEncoder(EncoderInterface $jsonEncoder): self;
 }

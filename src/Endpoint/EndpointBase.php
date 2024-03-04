@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Endpoint;
 
-use Http\Message\MultipartStream\MultipartStreamBuilder;
 use OpenEuropa\CdtClient\Contract\EndpointInterface;
 use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -53,8 +52,6 @@ abstract class EndpointBase implements EndpointInterface
 
     protected UriFactoryInterface $uriFactory;
 
-    protected MultipartStreamBuilder $multipartStreamBuilder;
-
     protected EncoderInterface $jsonEncoder;
 
     /**
@@ -92,12 +89,6 @@ abstract class EndpointBase implements EndpointInterface
     public function setUriFactory(UriFactoryInterface $uriFactory): EndpointInterface
     {
         $this->uriFactory = $uriFactory;
-        return $this;
-    }
-
-    public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): EndpointInterface
-    {
-        $this->multipartStreamBuilder = $multipartStreamBuilder;
         return $this;
     }
 
@@ -204,25 +195,6 @@ abstract class EndpointBase implements EndpointInterface
 
     protected function getRequestBody(): ?StreamInterface
     {
-        // Multipart stream has precedence, if it has been defined.
-        if ($parts = $this->getRequestMultipartStreamElements()) {
-            foreach ($parts as $name => $part) {
-                $contentType = $part['contentType'] ?? 'application/json';
-                $this->multipartStreamBuilder->addResource($name, $part['content'], [
-                    'headers' => [
-                        'Content-Type' => $contentType,
-                    ],
-                    'filename' => $name,
-                ]);
-            }
-
-            // The multipart stream needs to inform the server about the
-            // Content-Type and  multipart parts boundary ID.
-            $this->headers['Content-Type'] = 'multipart/form-data; boundary="' . $this->multipartStreamBuilder->getBoundary() . '"';
-
-            return $this->multipartStreamBuilder->build();
-        }
-
         // Simple form elements.
         if ($parts = $this->getRequestFormElements()) {
             // Give server guidance on how to decode the stream.
@@ -241,23 +213,6 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
-     * Override this method to define the multipart stream elements.
-     *
-     * @return array<array<string>>
-     *   Associative array of multipart parts keyed by the part name. The values
-     *   are associative arrays with two keys:
-     *   - content (string): The multipart part contents.
-     *   - contentType (string, optional): The multipart part content type. If
-     *     omitted, 'application/json' is assumed.
-     */
-    protected function getRequestMultipartStreamElements(): array
-    {
-        return [];
-    }
-
-    /**
-     * Override this method to define the simple form elements.
-     *
      * @return string[]
      */
     protected function getRequestFormElements(): array
