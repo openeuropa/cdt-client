@@ -28,7 +28,7 @@ trait ClientTestTrait
     protected array $clientHistory = [];
 
     /**
-     * @param array<string, mixed> $configuration
+     * @param array<mixed> $configuration
      * @param array<int, mixed> $responseQueue
      * @return ApiClientInterface
      */

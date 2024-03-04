@@ -61,4 +61,38 @@ class ApiClientTest extends TestCase
         $client->setToken($token);
         $this->assertEquals($token, $client->getToken());
     }
+
+    /**
+     * @covers ::extractConfigValues
+     */
+    public function testExtractConfigValues(): void
+    {
+        $keys_to_extract = [
+            'existing_key',
+            'non_existing_key',
+            0,
+            '99',
+            true,
+        ];
+
+        $client = $this->getTestingClient([
+            'existing_key' => 'Existing Key',
+            'other_key' => 'Other Key',
+            'boolean_value_key' => false,
+            0 => 'Zero',
+            '99' => 'Bottles',
+            true => 'True',
+        ]);
+
+        $reflection = new \ReflectionClass($client);
+        $method = $reflection->getMethod('extractConfigValues');
+        $result = $method->invoke($client, $keys_to_extract);
+
+        $this->assertEquals([
+            'existing_key' => 'Existing Key',
+            0 => 'Zero',
+            '99' => 'Bottles',
+            true => 'True',
+        ], $result);
+    }
 }
