@@ -69,20 +69,26 @@ class Translation
 
     /**
      * The reference URLs.
+     *
+     * @var array<int, ReferenceUrl>
      */
     #[SerializedPath('[referenceSet][urls]')]
-    protected ReferenceUrlCollection $referenceSetUrls;
+    protected array $referenceSetUrls;
 
     /**
      * The reference files.
+     *
+     * @var array<int, ReferenceFile>
      */
     #[SerializedPath('[referenceSet][files]')]
-    protected ReferenceFileCollection $referenceSetFiles;
+    protected array $referenceSetFiles;
 
     /**
      * The source documents.
+     *
+     * @var array<int, SourceDocument>
      */
-    protected SourceDocumentCollection $sourceDocuments;
+    protected array $sourceDocuments;
 
     /**
      * The send options from the ReferenceData.
@@ -101,8 +107,10 @@ class Translation
 
     /**
      * The callbacks.
+     *
+     * @var array<int, Callback>
      */
-    protected CallbackCollection $callbacks;
+    protected array $callbacks;
 
     public function getDepartmentCode(): string
     {
@@ -228,34 +236,52 @@ class Translation
         return $this;
     }
 
-    public function getReferenceSetUrls(): ReferenceUrlCollection
+    /**
+     * @return array<int, ReferenceUrl>
+     */
+    public function getReferenceSetUrls(): array
     {
         return $this->referenceSetUrls;
     }
 
-    public function setReferenceSetUrls(ReferenceUrlCollection $referenceSetUrls): self
+    /**
+     * @param array<int, ReferenceUrl> $referenceSetUrls
+     */
+    public function setReferenceSetUrls(array $referenceSetUrls): self
     {
         $this->referenceSetUrls = $referenceSetUrls;
         return $this;
     }
 
-    public function getReferenceSetFiles(): ReferenceFileCollection
+    /**
+     * @return array<int, ReferenceFile>
+     */
+    public function getReferenceSetFiles(): array
     {
         return $this->referenceSetFiles;
     }
 
-    public function setReferenceSetFiles(ReferenceFileCollection $referenceSetFiles): self
+    /**
+     * @param array<int, ReferenceFile> $referenceSetFiles
+     */
+    public function setReferenceSetFiles(array $referenceSetFiles): self
     {
         $this->referenceSetFiles = $referenceSetFiles;
         return $this;
     }
 
-    public function getSourceDocuments(): SourceDocumentCollection
+    /**
+     * @return array<int, SourceDocument>
+     */
+    public function getSourceDocuments(): array
     {
         return $this->sourceDocuments;
     }
 
-    public function setSourceDocuments(SourceDocumentCollection $sourceDocuments): self
+    /**
+     * @param array<int, SourceDocument> $sourceDocuments
+     */
+    public function setSourceDocuments(array $sourceDocuments): self
     {
         $this->sourceDocuments = $sourceDocuments;
         return $this;
@@ -294,12 +320,18 @@ class Translation
         return $this;
     }
 
-    public function getCallbacks(): CallbackCollection
+    /**
+     * @return array<int, Callback>
+     */
+    public function getCallbacks(): array
     {
         return $this->callbacks;
     }
 
-    public function setCallbacks(CallbackCollection $callbacks): self
+    /**
+     * @param array<int, Callback> $callbacks
+     */
+    public function setCallbacks(array $callbacks): self
     {
         $this->callbacks = $callbacks;
         return $this;

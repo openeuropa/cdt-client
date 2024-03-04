@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Model\Request;
 
 use OpenEuropa\CdtClient\Model\Request\File;
-use OpenEuropa\CdtClient\Model\Request\TranslationJobCollection;
 use OpenEuropa\Tests\CdtClient\Traits\RequestModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -34,6 +33,6 @@ class SourceDocumentTest extends TestCase
         $this->assertEquals($data['confidentialityCode'], $sourceDocument->getConfidentialityCode());
         $this->assertEquals($data['isPrivate'], $sourceDocument->isPrivate());
         $this->assertInstanceOf(File::class, $sourceDocument->getFile());
-        $this->assertInstanceOf(TranslationJobCollection::class, $sourceDocument->getTranslationJobs());
+        $this->assertIsArray($sourceDocument->getTranslationJobs());
     }
 }
