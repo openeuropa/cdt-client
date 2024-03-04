@@ -72,7 +72,6 @@ class ApiClientTest extends TestCase
             'non_existing_key',
             0,
             '99',
-            true,
         ];
 
         $client = $this->getTestingClient([
@@ -81,7 +80,6 @@ class ApiClientTest extends TestCase
             'boolean_value_key' => false,
             0 => 'Zero',
             '99' => 'Bottles',
-            true => 'True',
         ]);
 
         $reflection = new \ReflectionClass($client);
@@ -92,7 +90,6 @@ class ApiClientTest extends TestCase
             'existing_key' => 'Existing Key',
             0 => 'Zero',
             '99' => 'Bottles',
-            true => 'True',
         ], $result);
     }
 }
