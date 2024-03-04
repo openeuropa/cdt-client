@@ -17,14 +17,8 @@ use Psr\Http\Message\RequestInterface;
  */
 trait AssertTestRequestTrait
 {
-    /**
-     * @var string
-     */
-    protected $boundary;
+    protected string $boundary;
 
-    /**
-     * @param RequestInterface $request
-     */
     protected function assertTokenRequest(RequestInterface $request): void
     {
         $this->assertEquals('https://example.com/token', $request->getUri());
@@ -32,36 +26,21 @@ trait AssertTestRequestTrait
         $this->assertSame('grant_type=password&username=baz&password=qux&client=foo', $request->getBody()->__toString());
     }
 
-    /**
-     * @param RequestInterface $request
-     */
     protected function assertMainRequest(RequestInterface $request): void
     {
         $this->assertEquals('https://example.com/v2/CheckConnection', $request->getUri());
     }
 
-    /**
-     * @param RequestInterface $request
-     */
     protected function assertAuthorizationHeaders(RequestInterface $request): void
     {
         $this->assertSame('Bearer JWT_TOKEN', $request->getHeaderLine('Authorization'));
     }
 
-    /**
-     * @param RequestInterface $request
-     * @param string $boundary
-     */
     protected function assertBoundary(RequestInterface $request, string $boundary): void
     {
         $this->assertSame('multipart/form-data; boundary="' . $boundary . '"', $request->getHeaderLine('Content-Type'));
     }
 
-    /**
-     * @param RequestInterface $request
-     * @return string
-     *    The boundary.
-     */
     protected function getRequestBoundary(RequestInterface $request): ?string
     {
         preg_match('/; boundary="([^"].*)"/', $request->getHeaderLine('Content-Type'), $found);
@@ -69,8 +48,6 @@ trait AssertTestRequestTrait
     }
 
     /**
-     * @param RequestInterface $request
-     * @param string $boundary
      * @return false|string[]
      */
     protected function getRequestMultipartStreamResources(RequestInterface $request, string $boundary)

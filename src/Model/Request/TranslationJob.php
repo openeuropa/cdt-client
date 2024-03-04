@@ -11,19 +11,10 @@ namespace OpenEuropa\CdtClient\Model\Request;
  */
 class TranslationJob
 {
-    /**
-     * The volume.
-     */
     protected float $volume;
 
-    /**
-     * The source language.
-     */
     protected string $sourceLanguage;
 
-    /**
-     * The target language.
-     */
     protected string $targetLanguage;
 
     public function getVolume(): float

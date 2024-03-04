@@ -23,9 +23,6 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class TokenEndpoint extends EndpointBase
 {
-    /**
-     * @inheritDoc
-     */
     protected function getConfigurationResolver(): OptionsResolver
     {
         $resolver = parent::getConfigurationResolver();
@@ -40,9 +37,6 @@ class TokenEndpoint extends EndpointBase
         return $resolver;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function execute(): Token
     {
         /** @var Token $token */
@@ -67,9 +61,6 @@ class TokenEndpoint extends EndpointBase
         ];
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function getSerializer(): SerializerInterface
     {
         return new Serializer([

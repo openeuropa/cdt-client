@@ -11,14 +11,8 @@ namespace OpenEuropa\CdtClient\Model\Request;
  */
 class File implements \JsonSerializable
 {
-    /**
-     * The file name.
-     */
     protected string $fileName;
 
-    /**
-     * The file content.
-     */
     protected string $content;
 
     public function getFileName(): string

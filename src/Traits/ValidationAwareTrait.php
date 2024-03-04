@@ -17,9 +17,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 trait ValidationAwareTrait
 {
-    /**
-     * Override the exception handling to handle validation errors.
-     */
     protected function handleResponseException(ResponseInterface $response): void
     {
         if ($response->getStatusCode() === 400) {

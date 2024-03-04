@@ -13,101 +13,56 @@ use Symfony\Component\Serializer\Annotation\SerializedPath;
  */
 class Translation
 {
-    /**
-     * The department code from the ReferenceData.
-     */
     protected string $departmentCode;
 
     /**
-     * The contact names.
-     *
      * @var string[]
      */
     protected array $contactUserNames;
 
     /**
-     * The delivery contact usernames.
-     *
      * @var string[]
      */
     protected array $deliveryContactUsernames;
 
-    /**
-     * The phone number.
-     */
     protected string $phoneNumber;
 
-    /**
-     * The title.
-     */
     protected string $title;
 
-    /**
-     * The client reference.
-     */
     protected string $clientReference;
 
-    /**
-     * The purpose code from the ReferenceData.
-     */
     protected string $purposeCode;
 
-    /**
-     * The priority code from the ReferenceData.
-     */
     protected string $priorityCode;
 
-    /**
-     * The delivery mode code from the ReferenceData.
-     */
     protected string $deliveryModeCode;
 
-    /**
-     * The comments.
-     */
     protected string $comments;
 
     /**
-     * The reference URLs.
-     *
      * @var array<int, ReferenceUrl>
      */
     #[SerializedPath('[referenceSet][urls]')]
     protected array $referenceSetUrls;
 
     /**
-     * The reference files.
-     *
      * @var array<int, ReferenceFile>
      */
     #[SerializedPath('[referenceSet][files]')]
     protected array $referenceSetFiles;
 
     /**
-     * The source documents.
-     *
      * @var array<int, SourceDocument>
      */
     protected array $sourceDocuments;
 
-    /**
-     * The send options from the ReferenceData.
-     */
     protected string $sendOptions;
 
-    /**
-     * The service from the ReferenceData.
-     */
     protected string $service;
 
-    /**
-     * Is it a quotation only?
-     */
     protected bool $isQuotationOnly;
 
     /**
-     * The callbacks.
-     *
      * @var array<int, Callback>
      */
     protected array $callbacks;
@@ -133,7 +88,6 @@ class Translation
 
     /**
      * @param string[] $contactUserNames
-     * @return self
      */
     public function setContactUserNames(array $contactUserNames): self
     {
@@ -151,7 +105,6 @@ class Translation
 
     /**
      * @param string[] $deliveryContactUsernames
-     * @return self
      */
     public function setDeliveryContactUsernames(array $deliveryContactUsernames): self
     {

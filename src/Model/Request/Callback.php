@@ -11,19 +11,10 @@ namespace OpenEuropa\CdtClient\Model\Request;
  */
 class Callback
 {
-    /**
-     * The callback type.
-     */
     protected string $callbackType;
 
-    /**
-     * The callback base url.
-     */
     protected string $callbackBaseUrl;
 
-    /**
-     * The client api key.
-     */
     protected string $clientApiKey;
 
     public function getCallbackType(): string

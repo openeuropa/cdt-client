@@ -13,52 +13,17 @@ use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
 interface EndpointInterface
 {
-    /**
-     * Executes the endpoint.
-     *
-     * @return mixed
-     */
-    public function execute();
+    public function execute(): mixed;
 
-    /**
-     * @param ClientInterface $httpClient
-     *
-     * @return $this
-     */
     public function setHttpClient(ClientInterface $httpClient): self;
 
-    /**
-     * @param RequestFactoryInterface $requestFactory
-     *
-     * @return $this
-     */
     public function setRequestFactory(RequestFactoryInterface $requestFactory): self;
 
-    /**
-     * @param StreamFactoryInterface $streamFactory
-     *
-     * @return $this
-     */
     public function setStreamFactory(StreamFactoryInterface $streamFactory): self;
 
-    /**
-     * @param UriFactoryInterface $uriFactory
-     *
-     * @return $this
-     */
     public function setUriFactory(UriFactoryInterface $uriFactory): self;
 
-    /**
-     * @param MultipartStreamBuilder $multipartStreamBuilder
-     *
-     * @return $this
-     */
     public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): self;
 
-    /**
-     * @param EncoderInterface $jsonEncoder
-     *
-     * @return $this
-     */
     public function setJsonEncoder(EncoderInterface $jsonEncoder): self;
 }

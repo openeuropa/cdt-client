@@ -10,30 +10,17 @@ use OpenEuropa\CdtClient\Model\Token;
 
 interface ApiClientInterface
 {
-    /**
-     * @param Token $token
-     */
     public function setToken(Token $token): self;
 
-    /**
-     * @return Token
-     */
     public function getToken(): Token;
 
-    /**
-     * @return Token
-     */
     public function requestToken(): Token;
 
-    /**
-     * @return bool
-     */
     public function checkConnection(): bool;
 
     /**
-     * Perform the validation of the translation request.
-     *
      * @throws ValidationErrorsException
+     *   Thrown if there are validation errors.
      */
     public function validateTranslationRequest(Translation $translationRequest): bool;
 }

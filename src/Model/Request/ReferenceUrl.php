@@ -11,19 +11,11 @@ namespace OpenEuropa\CdtClient\Model\Request;
  */
 class ReferenceUrl
 {
-    /**
-     * The URL.
-     */
     protected string $url;
 
-    /**
-     * The short name.
-     */
     protected string $shortName;
 
     /**
-     * The reference languages.
-     *
      * @var string[]
      */
     protected array $referenceLanguages;
