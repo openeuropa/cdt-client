@@ -18,26 +18,17 @@ trait TokenAwareTrait
 {
     private Token $token;
 
-    /**
-     * @inheritDoc
-     */
     public function setToken(Token $token): self
     {
         $this->token = $token;
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getToken(): Token
     {
         return $this->token;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getRequestHeaders(): array
     {
         $tokenType = ucfirst(strtolower($this->token->getTokenType()));

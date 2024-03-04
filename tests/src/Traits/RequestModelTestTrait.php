@@ -20,8 +20,6 @@ use OpenEuropa\CdtClient\Model\Request\TranslationJob;
 trait RequestModelTestTrait
 {
     /**
-     * Creates a File request object.
-     *
      * @param array<string, mixed> $data
      */
     public function createRequestFile(array $data = []): File
@@ -32,8 +30,6 @@ trait RequestModelTestTrait
     }
 
     /**
-     * Creates a ReferenceFile request object.
-     *
      * @param array<string, mixed> $data
      */
     public function createRequestReferenceFile(array $data = []): ReferenceFile
@@ -44,8 +40,6 @@ trait RequestModelTestTrait
     }
 
     /**
-     * Creates a ReferenceUrl request object.
-     *
      * @param array<string, mixed> $data
      */
     public function createRequestReferenceUrl(array $data = []): ReferenceUrl
@@ -57,8 +51,6 @@ trait RequestModelTestTrait
     }
 
     /**
-     * Creates a SourceDocument request object.
-     *
      * @param array<string, mixed> $data
      */
     public function createRequestSourceDocument(array $data = []): SourceDocument
@@ -73,8 +65,6 @@ trait RequestModelTestTrait
     }
 
     /**
-     * Creates a TranslationJob request object.
-     *
      * @param array<string, mixed> $data
      */
     public function createRequestTranslationJob(array $data = []): TranslationJob
@@ -86,8 +76,6 @@ trait RequestModelTestTrait
     }
 
     /**
-     * Creates a Callback request object.
-     *
      * @param array<string, mixed> $data
      */
     public function createRequestCallback(array $data = []): Callback
@@ -99,8 +87,6 @@ trait RequestModelTestTrait
     }
 
     /**
-     * Creates a Translation request object.
-     *
      * @param array<string, mixed> $data
      */
     public function createRequestTranslation(array $data = []): Translation

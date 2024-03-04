@@ -63,10 +63,7 @@ abstract class EndpointBase implements EndpointInterface
     protected array $headers = [];
 
     /**
-     * @param string $endpointUrl
-     *   The endpoint URL.
      * @param array<string, mixed> $configuration
-     *   The endpoint configuration.
      */
     public function __construct(string $endpointUrl, array $configuration = [])
     {
@@ -74,65 +71,42 @@ abstract class EndpointBase implements EndpointInterface
         $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setHttpClient(ClientInterface $httpClient): EndpointInterface
     {
         $this->httpClient = $httpClient;
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setRequestFactory(RequestFactoryInterface $requestFactory): EndpointInterface
     {
         $this->requestFactory = $requestFactory;
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setStreamFactory(StreamFactoryInterface $streamFactory): EndpointInterface
     {
         $this->streamFactory = $streamFactory;
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setUriFactory(UriFactoryInterface $uriFactory): EndpointInterface
     {
         $this->uriFactory = $uriFactory;
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): EndpointInterface
     {
         $this->multipartStreamBuilder = $multipartStreamBuilder;
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setJsonEncoder(EncoderInterface $jsonEncoder): EndpointInterface
     {
         $this->jsonEncoder = $jsonEncoder;
         return $this;
     }
 
-    /**
-     * Returns an option resolver configured to validate the configuration.
-     *
-     * @return OptionsResolver
-     */
     protected function getConfigurationResolver(): OptionsResolver
     {
         $resolver = new OptionsResolver();
@@ -146,10 +120,6 @@ abstract class EndpointBase implements EndpointInterface
         return $resolver;
     }
 
-    /**
-     * @param string $configKey
-     * @return mixed
-     */
     protected function getConfigValue(string $configKey): mixed
     {
         if (!array_key_exists($configKey, $this->configuration)) {
@@ -159,14 +129,6 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
-     * Sends a request and return its response.
-     *
-     * @param string $method
-     *   The request method.
-     *
-     * @return ResponseInterface
-     *   The response.
-     *
      * @throws ClientExceptionInterface
      *   Thrown if a network error happened while processing the request.
      * @throws InvalidStatusCodeException
@@ -200,11 +162,6 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
-     * The separate method for handling exceptions, that may be changed by child classes and traits.
-     *
-     * @param ResponseInterface $response
-     *   The response that triggered the exception.
-     *
      * @throws InvalidStatusCodeException
      *   Thrown when the API endpoint returns code other than 200 or 201.
      */
@@ -215,9 +172,6 @@ abstract class EndpointBase implements EndpointInterface
         );
     }
 
-    /**
-     * @return string
-     */
     protected function getRequestUri(): string
     {
         $uri = $this->uriFactory->createUri($this->getConfigValue('endpointUrl'));
@@ -226,8 +180,6 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
-     * @param UriInterface $uri
-     *
      * @return array<string|array<mixed>>
      */
     protected function getRequestUriQuery(UriInterface $uri): array
@@ -250,9 +202,6 @@ abstract class EndpointBase implements EndpointInterface
         return $this->headers;
     }
 
-    /**
-     * @return StreamInterface|null
-     */
     protected function getRequestBody(): ?StreamInterface
     {
         // Multipart stream has precedence, if it has been defined.
@@ -316,9 +265,6 @@ abstract class EndpointBase implements EndpointInterface
         return [];
     }
 
-    /**
-     * Override this method to define the body of the request as JSON.
-     */
     protected function getRequestJsonBody(): string
     {
         return '';
@@ -326,8 +272,6 @@ abstract class EndpointBase implements EndpointInterface
 
     /**
      * Returns a serializer configured to decode the endpoint response.
-     *
-     * @return SerializerInterface
      */
     protected function getSerializer(): SerializerInterface
     {

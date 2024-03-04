@@ -13,15 +13,10 @@ namespace OpenEuropa\CdtClient\Model\Response;
 class ValidationErrors
 {
     /**
-     * The errors.
-     *
      * @var array<string, array<int, string>>
      */
     protected array $errors;
 
-    /**
-     * The global message.
-     */
     protected string $message;
 
     /**
@@ -34,8 +29,6 @@ class ValidationErrors
 
     /**
      * @param array<string, array<int, string>> $errors
-     *
-     * @return self
      */
     public function setErrors(array $errors): self
     {

@@ -28,7 +28,6 @@ trait ClientTestTrait
     /**
      * @param array<mixed> $configuration
      * @param array<int, mixed> $responseQueue
-     * @return ApiClientInterface
      */
     protected function getTestingClient(array $configuration = [], array $responseQueue = []): ApiClientInterface
     {

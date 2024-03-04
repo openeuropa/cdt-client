@@ -11,39 +11,22 @@ namespace OpenEuropa\CdtClient\Model\Request;
  */
 class SourceDocument
 {
-    /**
-     * The file.
-     */
     protected File $file;
 
     /**
-     * The source languages.
-     *
      * @var string[]
      */
     protected array $sourceLanguages;
 
-    /**
-     * The output document format code.
-     * Ex. TXT, HTML, XML, etc.
-     */
     protected string $outputDocumentFormatCode;
 
     /**
-     * The translation jobs.
-     *
      * @var array<int, TranslationJob>
      */
     protected array $translationJobs;
 
-    /**
-     * Is private?
-     */
     protected bool $isPrivate;
 
-    /**
-     * The confidentiality code from the ReferenceData.
-     */
     protected string $confidentialityCode;
 
     public function getFile(): File

@@ -11,14 +11,9 @@ namespace OpenEuropa\CdtClient\Model\Request;
  */
 class ReferenceFile
 {
-    /**
-     * The file.
-     */
     protected File $file;
 
     /**
-     * The reference languages.
-     *
      * @var string[]
      */
     protected array $referenceLanguages;
