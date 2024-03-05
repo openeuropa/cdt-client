@@ -12,9 +12,11 @@ use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
 use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
+use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
-use OpenEuropa\CdtClient\Model\Request\Translation;
+use OpenEuropa\CdtClient\Model\Request\Translation as TranslationRequest;
+use OpenEuropa\CdtClient\Model\Response\Translation as TranslationResponse;
 use OpenEuropa\CdtClient\Model\Response\ReferenceData;
 use OpenEuropa\CdtClient\Model\Token;
 use Psr\Container\ContainerInterface;
@@ -95,7 +97,7 @@ class ApiClient implements ApiClientInterface
     /**
      * @inheritDoc
      */
-    public function validateTranslationRequest(Translation $translationRequest): bool
+    public function validateTranslationRequest(TranslationRequest $translationRequest): bool
     {
         /** @var ValidateEndpoint $endpoint */
         $endpoint = $this->container->get('validate');
@@ -105,7 +107,7 @@ class ApiClient implements ApiClientInterface
             ->execute();
     }
 
-    public function sendTranslationRequest(Translation $translationRequest): string
+    public function sendTranslationRequest(TranslationRequest $translationRequest): string
     {
         /** @var RequestsEndpoint $endpoint */
         $endpoint = $this->container->get('requests');
@@ -124,6 +126,19 @@ class ApiClient implements ApiClientInterface
         $endpoint = $this->container->get('identifier');
         $endpoint->setToken($this->getToken());
         $endpoint->setCorrelationId($correlationId);
+
+        return $endpoint->execute();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRequestStatus(string $permanentId): TranslationResponse
+    {
+        /** @var StatusEndpoint $endpoint */
+        $endpoint = $this->container->get('status');
+        $endpoint->setToken($this->getToken());
+        $endpoint->setPermanentId($permanentId);
 
         return $endpoint->execute();
     }
@@ -157,6 +172,8 @@ class ApiClient implements ApiClientInterface
             ->addArgument(new LiteralArgument($this->getConfigValue('requestsApiEndpoint')));
         $container->add('identifier', IdentifierEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('identifierApiEndpoint')));
+        $container->add('status', StatusEndpoint::class)
+            ->addArgument(new LiteralArgument($this->getConfigValue('statusApiEndpoint')));
         $container->add('auth', TokenEndpoint::class)
             ->addArguments([
                 new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),

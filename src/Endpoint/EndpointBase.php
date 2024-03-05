@@ -22,6 +22,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -249,6 +250,7 @@ abstract class EndpointBase implements EndpointInterface
                 null,
                 new PhpDocExtractor()
             ),
+            new DateTimeNormalizer(),
             new ArrayDenormalizer(),
         ], [
             new JsonEncoder(),
