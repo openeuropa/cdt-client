@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
-use OpenEuropa\CdtClient\Model\Response\ReferenceContact;
-use OpenEuropa\CdtClient\Model\Response\ReferenceData;
-use OpenEuropa\CdtClient\Model\Response\ReferenceItem;
 use OpenEuropa\CdtClient\Model\Token;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
@@ -113,8 +110,8 @@ class ReferenceDataEndpointTest extends TestCase
                             'lastName' => 'Smith',
                             'userName' => 'JohnSmith',
                             'phoneNumber' => '+353333222111',
-                            'countryCode' => null,
-                            'phoneCountryCode' => null,
+                            'countryCode' => '',
+                            'phoneCountryCode' => '',
                             'countryName' => '',
                         ],
                     ],
