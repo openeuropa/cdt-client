@@ -13,28 +13,38 @@ class ReferenceData
 {
     /**
      * The list of departments.
+     *
+     * @var array<int, ReferenceItem>
      */
-    protected ReferenceItemCollection $departments;
+    protected array $departments;
 
     /**
      * The list of priorities.
+     *
+     * @var array<int, ReferenceItem>
      */
-    protected ReferenceItemCollection $priorities;
+    protected array $priorities;
 
     /**
      * The list of purposes.
+     *
+     * @var array<int, ReferenceItem>
      */
-    protected ReferenceItemCollection $purposes;
+    protected array $purposes;
 
     /**
      * The list of delivery modes.
+     *
+     * @var array<int, ReferenceItem>
      */
-    protected ReferenceItemCollection $deliveryModes;
+    protected array $deliveryModes;
 
     /**
      * The list of confidentialities.
+     *
+     * @var array<int, ReferenceItem>
      */
-    protected ReferenceItemCollection $confidentialities;
+    protected array $confidentialities;
 
     /**
      * The list of languages.
@@ -45,91 +55,114 @@ class ReferenceData
 
     /**
      * The list of statuses.
+     *
+     * @var array<int, ReferenceItem>
      */
-    protected ReferenceItemCollection $statuses;
+    protected array $statuses;
 
     /**
      * The list of services.
+     *
+     * @var array<int, ReferenceItem>
      */
-    protected ReferenceItemCollection $services;
+    protected array $services;
 
     /**
      * The list of send options.
+     *
+     * @var array<int, ReferenceItem>
      */
-    protected ReferenceItemCollection $sendOptions;
+    protected array $sendOptions;
 
     /**
      * The contacts for the translation service.
+     *
+     * @var array<int, ReferenceContact>
      */
-    protected ReferenceContactCollection $contacts;
+    protected array $contacts;
 
-    public function getDepartments(): ReferenceItemCollection
+    /**
+     * @return array<int, ReferenceItem>
+     */
+    public function getDepartments(): array
     {
         return $this->departments;
     }
 
     /**
-     * @param ReferenceItemCollection|array<int, array<string, string>> $departments
+     * @param array<int, ReferenceItem> $departments
      */
-    public function setDepartments(ReferenceItemCollection|array $departments): self
+    public function setDepartments(array $departments): self
     {
-        $this->departments = is_array($departments) ? new ReferenceItemCollection($departments) : $departments;
+        $this->departments = $departments;
         return $this;
     }
 
-    public function getPriorities(): ReferenceItemCollection
+    /**
+     * @return array<int, ReferenceItem>
+     */
+    public function getPriorities(): array
     {
         return $this->priorities;
     }
 
     /**
-     * @param ReferenceItemCollection|array<int, array<string, string>> $priorities
+     * @param array<int, ReferenceItem> $priorities
      */
-    public function setPriorities(ReferenceItemCollection|array $priorities): self
+    public function setPriorities(array $priorities): self
     {
-        $this->priorities = is_array($priorities) ? new ReferenceItemCollection($priorities) : $priorities;
+        $this->priorities = $priorities;
         return $this;
     }
 
-    public function getPurposes(): ReferenceItemCollection
+    /**
+     * @return array<int, ReferenceItem>
+     */
+    public function getPurposes(): array
     {
         return $this->purposes;
     }
 
     /**
-     * @param ReferenceItemCollection|array<int, array<string, string>> $purposes
+     * @param array<int, ReferenceItem> $purposes
      */
-    public function setPurposes(ReferenceItemCollection|array $purposes): self
+    public function setPurposes(array $purposes): self
     {
-        $this->purposes = is_array($purposes) ? new ReferenceItemCollection($purposes) : $purposes;
+        $this->purposes = $purposes;
         return $this;
     }
 
-    public function getDeliveryModes(): ReferenceItemCollection
+    /**
+     * @return array<int, ReferenceItem>
+     */
+    public function getDeliveryModes(): array
     {
         return $this->deliveryModes;
     }
 
     /**
-     * @param ReferenceItemCollection|array<int, array<string, string>> $deliveryModes
+     * @param array<int, ReferenceItem> $deliveryModes
      */
-    public function setDeliveryModes(ReferenceItemCollection|array $deliveryModes): self
+    public function setDeliveryModes(array $deliveryModes): self
     {
-        $this->deliveryModes = is_array($deliveryModes) ? new ReferenceItemCollection($deliveryModes) : $deliveryModes;
+        $this->deliveryModes = $deliveryModes;
         return $this;
     }
 
-    public function getConfidentialities(): ReferenceItemCollection
+    /**
+     * @return array<int, ReferenceItem>
+     */
+    public function getConfidentialities(): array
     {
         return $this->confidentialities;
     }
 
     /**
-     * @param ReferenceItemCollection|array<int, array<string, string>> $confidentialities
+     * @param array<int, ReferenceItem> $confidentialities
      */
-    public function setConfidentialities(ReferenceItemCollection|array $confidentialities): self
+    public function setConfidentialities(array $confidentialities): self
     {
-        $this->confidentialities = is_array($confidentialities) ? new ReferenceItemCollection($confidentialities) : $confidentialities;
+        $this->confidentialities = $confidentialities;
         return $this;
     }
 
@@ -150,59 +183,71 @@ class ReferenceData
         return $this;
     }
 
-    public function getStatuses(): ReferenceItemCollection
+    /**
+     * @return array<int, ReferenceItem>
+     */
+    public function getStatuses(): array
     {
         return $this->statuses;
     }
 
     /**
-     * @param ReferenceItemCollection|array<int, array<string, string>> $statuses
+     * @param array<int, ReferenceItem> $statuses
      */
-    public function setStatuses(ReferenceItemCollection|array $statuses): self
+    public function setStatuses(array $statuses): self
     {
-        $this->statuses = is_array($statuses) ? new ReferenceItemCollection($statuses) : $statuses;
+        $this->statuses = $statuses;
         return $this;
     }
 
-    public function getServices(): ReferenceItemCollection
+    /**
+     * @return array<int, ReferenceItem>
+     */
+    public function getServices(): array
     {
         return $this->services;
     }
 
     /**
-     * @param ReferenceItemCollection|array<int, array<string, string>> $services
+     * @param array<int, ReferenceItem> $services
      */
-    public function setServices(ReferenceItemCollection|array $services): self
+    public function setServices(array $services): self
     {
-        $this->services = is_array($services) ? new ReferenceItemCollection($services) : $services;
+        $this->services = $services;
         return $this;
     }
 
-    public function getSendOptions(): ReferenceItemCollection
+    /**
+     * @return array<int, ReferenceItem>
+     */
+    public function getSendOptions(): array
     {
         return $this->sendOptions;
     }
 
     /**
-     * @param ReferenceItemCollection|array<int, array<string, string>> $sendOptions
+     * @param array<int, ReferenceItem> $sendOptions
      */
-    public function setSendOptions(ReferenceItemCollection|array $sendOptions): self
+    public function setSendOptions(array $sendOptions): self
     {
-        $this->sendOptions = is_array($sendOptions) ? new ReferenceItemCollection($sendOptions) : $sendOptions;
+        $this->sendOptions = $sendOptions;
         return $this;
     }
 
-    public function getContacts(): ReferenceContactCollection
+    /**
+     * @return array<int, ReferenceContact>
+     */
+    public function getContacts(): array
     {
         return $this->contacts;
     }
 
     /**
-     * @param ReferenceContactCollection|array<int, array<string, string>> $contacts
+     * @param array<int, ReferenceContact> $contacts
      */
-    public function setContacts(ReferenceContactCollection|array $contacts): self
+    public function setContacts(array $contacts): self
     {
-        $this->contacts = is_array($contacts) ? new ReferenceContactCollection($contacts) : $contacts;
+        $this->contacts = $contacts;
         return $this;
     }
 }

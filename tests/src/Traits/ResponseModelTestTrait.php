@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Traits;
 
 use OpenEuropa\CdtClient\Model\Response\ReferenceContact;
-use OpenEuropa\CdtClient\Model\Response\ReferenceContactCollection;
 use OpenEuropa\CdtClient\Model\Response\ReferenceData;
 use OpenEuropa\CdtClient\Model\Response\ReferenceItem;
-use OpenEuropa\CdtClient\Model\Response\ReferenceItemCollection;
 
 /**
  * Trait ResponseModelTestTrait
@@ -25,16 +23,16 @@ trait ResponseModelTestTrait
     public function createResponseReferenceData(array $data = []): ReferenceData
     {
         return (new ReferenceData())
-            ->setDepartments(new ReferenceItemCollection($data['departments'] ?? [$this->createResponseReferenceItem()]))
-            ->setPriorities(new ReferenceItemCollection($data['priorities'] ?? [$this->createResponseReferenceItem()]))
-            ->setPurposes(new ReferenceItemCollection($data['purposes'] ?? [$this->createResponseReferenceItem()]))
-            ->setDeliveryModes(new ReferenceItemCollection($data['deliveryModes'] ?? [$this->createResponseReferenceItem()]))
-            ->setConfidentialities(new ReferenceItemCollection($data['confidentialities'] ?? [$this->createResponseReferenceItem()]))
+            ->setDepartments($data['departments'] ? $this->createResponseReferenceItemList($data['departments']) : [$this->createResponseReferenceItem()])
+            ->setPriorities($data['priorities'] ? $this->createResponseReferenceItemList($data['priorities']) : [$this->createResponseReferenceItem()])
+            ->setPurposes($data['purposes'] ? $this->createResponseReferenceItemList($data['purposes']) : [$this->createResponseReferenceItem()])
+            ->setDeliveryModes($data['deliveryModes'] ? $this->createResponseReferenceItemList($data['deliveryModes']) : [$this->createResponseReferenceItem()])
+            ->setConfidentialities($data['confidentialities'] ? $this->createResponseReferenceItemList($data['confidentialities']) : [$this->createResponseReferenceItem()])
             ->setLanguages($data['languages'] ?? ['EN'])
-            ->setStatuses(new ReferenceItemCollection($data['statuses'] ?? [$this->createResponseReferenceItem()]))
-            ->setServices(new ReferenceItemCollection($data['services'] ?? [$this->createResponseReferenceItem()]))
-            ->setSendOptions(new ReferenceItemCollection($data['sendOptions'] ?? [$this->createResponseReferenceItem()]))
-            ->setContacts(new ReferenceContactCollection($data['contacts'] ?? [$this->createResponseReferenceContact()]));
+            ->setStatuses($data['statuses'] ? $this->createResponseReferenceItemList($data['statuses']) : [$this->createResponseReferenceItem()])
+            ->setServices($data['services'] ? $this->createResponseReferenceItemList($data['services']) : [$this->createResponseReferenceItem()])
+            ->setSendOptions($data['sendOptions'] ? $this->createResponseReferenceItemList($data['sendOptions']) : [$this->createResponseReferenceItem()])
+            ->setContacts($data['contacts'] ? $this->createResponseReferenceContactList($data['contacts']) : [$this->createResponseReferenceContact()]);
     }
 
     /**
@@ -50,6 +48,19 @@ trait ResponseModelTestTrait
     }
 
     /**
+     * @param array<int, mixed> $data
+     * @return array<int, ReferenceItem>
+     */
+    public function createResponseReferenceItemList(array $data = []): array
+    {
+        $result = [];
+        foreach ($data as $item) {
+            $result[] = $this->createResponseReferenceItem($item);
+        }
+        return $result;
+    }
+
+    /**
      * Creates a ReferenceContact response object.
      *
      * @param array<string, mixed> $data
@@ -58,12 +69,25 @@ trait ResponseModelTestTrait
     {
         return (new ReferenceContact())
             ->setEmail($data['email'] ?? 'someone@example.com')
-            ->setPhoneNumber($data['phone'] ?? '1234567890')
+            ->setPhoneNumber($data['phoneNumber'] ?? '1234567890')
             ->setPhoneCountryCode($data['phoneCountryCode'] ?? '')
             ->setCountryCode($data['countryCode'] ?? '')
             ->setCountryName($data['countryName'] ?? '')
             ->setFirstName($data['firstName'] ?? 'John')
-            ->setLastName($data['lastName'] ?? 'Doe')
+            ->setLastName($data['lastName'] ?? 'Smith')
             ->setUserName($data['userName'] ?? 'DGTRADETUCE');
+    }
+
+    /**
+     * @param array<int, mixed> $data
+     * @return array<int, ReferenceContact>
+     */
+    public function createResponseReferenceContactList(array $data = []): array
+    {
+        $result = [];
+        foreach ($data as $contact) {
+            $result[] = $this->createResponseReferenceContact($contact);
+        }
+        return $result;
     }
 }

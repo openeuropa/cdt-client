@@ -21,18 +21,6 @@ class ReferenceItem
      */
     protected string $description;
 
-    /**
-     * @param array<string, mixed> $values
-     */
-    public function __construct(array $values = [])
-    {
-        foreach ($values as $key => $value) {
-            if (property_exists($this, $key)) {
-                $this->{$key} = $value;
-            }
-        }
-    }
-
     public function getCode(): string
     {
         return $this->code;

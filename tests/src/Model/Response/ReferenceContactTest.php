@@ -21,7 +21,7 @@ class ReferenceContactTest extends TestCase
     {
         $data = [
             'email' => 'someone@example.com',
-            'phone' => '1234567890',
+            'phoneNumber' => '1234567890',
             'phoneCountryCode' => 'ES',
             'countryCode' => 'ES',
             'countryName' => 'Spain',
@@ -32,7 +32,7 @@ class ReferenceContactTest extends TestCase
         $referenceContact = $this->createResponseReferenceContact($data);
 
         $this->assertEquals($data['email'], $referenceContact->getEmail());
-        $this->assertEquals($data['phone'], $referenceContact->getPhoneNumber());
+        $this->assertEquals($data['phoneNumber'], $referenceContact->getPhoneNumber());
         $this->assertEquals($data['phoneCountryCode'], $referenceContact->getPhoneCountryCode());
         $this->assertEquals($data['countryCode'], $referenceContact->getCountryCode());
         $this->assertEquals($data['countryName'], $referenceContact->getCountryName());
