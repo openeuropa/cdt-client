@@ -16,8 +16,6 @@ use OpenEuropa\CdtClient\Model\Response\ReferenceItem;
 trait ResponseModelTestTrait
 {
     /**
-     * Creates a ReferenceData response object.
-     *
      * @param array<string, mixed> $data
      */
     public function createResponseReferenceData(array $data = []): ReferenceData
@@ -36,8 +34,6 @@ trait ResponseModelTestTrait
     }
 
     /**
-     * Creates a ReferenceItem response object.
-     *
      * @param array<string, mixed> $data
      */
     public function createResponseReferenceItem(array $data = []): ReferenceItem
@@ -61,8 +57,6 @@ trait ResponseModelTestTrait
     }
 
     /**
-     * Creates a ReferenceContact response object.
-     *
      * @param array<string, mixed> $data
      */
     public function createResponseReferenceContact(array $data = []): ReferenceContact

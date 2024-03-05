@@ -11,14 +11,8 @@ namespace OpenEuropa\CdtClient\Model\Response;
  */
 class ReferenceItem
 {
-    /**
-     * The code of the value.
-     */
     protected string $code;
 
-    /**
-     * The description of the value.
-     */
     protected string $description;
 
     public function getCode(): string
