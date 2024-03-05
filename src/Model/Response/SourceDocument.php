@@ -18,7 +18,7 @@ class SourceDocument
     protected bool $isPrivate;
 
     /**
-     * @var Link[]
+     * @var array<string, Link>
      */
     #[SerializedPath('[_links]')]
     protected array $links;

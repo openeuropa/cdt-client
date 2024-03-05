@@ -27,9 +27,15 @@ class Translation
      */
     protected array $targetLanguages;
 
+    /**
+     * @var \DateTimeInterface
+     */
     protected \DateTimeInterface $creationDate;
 
-    protected \DateTimeInterface $deliveryDate;
+    /**
+     * @var \DateTimeInterface|null
+     */
+    protected ?\DateTimeInterface $deliveryDate;
 
     protected string $title;
 
@@ -173,12 +179,12 @@ class Translation
         return $this;
     }
 
-    public function getDeliveryDate(): \DateTimeInterface
+    public function getDeliveryDate(): ?\DateTimeInterface
     {
         return $this->deliveryDate;
     }
 
-    public function setDeliveryDate(\DateTimeInterface $deliveryDate): self
+    public function setDeliveryDate(?\DateTimeInterface $deliveryDate): self
     {
         $this->deliveryDate = $deliveryDate;
         return $this;
