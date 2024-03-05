@@ -13,11 +13,14 @@ class Date
 {
     protected string $label;
 
+    /**
+     * @var \DateTimeInterface
+     */
     protected \DateTimeInterface $date;
 
     protected string $ecdtDateType;
 
-    protected string $tooltip;
+    protected ?string $tooltip;
 
     public function getLabel(): string
     {
@@ -52,12 +55,12 @@ class Date
         return $this;
     }
 
-    public function getTooltip(): string
+    public function getTooltip(): ?string
     {
         return $this->tooltip;
     }
 
-    public function setTooltip(string $tooltip): self
+    public function setTooltip(?string $tooltip): self
     {
         $this->tooltip = $tooltip;
         return $this;
