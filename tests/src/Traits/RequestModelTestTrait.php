@@ -59,7 +59,10 @@ trait RequestModelTestTrait
             ->setFile($data['file'] ?? $this->createRequestFile())
             ->setSourceLanguages($data['sourceLanguages'] ?? ['EN'])
             ->setOutputDocumentFormatCode($data['outputDocumentFormatCode'] ?? 'XM')
-            ->setTranslationJobs([$this->createRequestTranslationJob()])
+            ->setTranslationJobs($this->createRequestObjectList(
+                $data['translationJobs'] ?? [],
+                [$this, 'createRequestTranslationJob']
+            ))
             ->setConfidentialityCode($data['confidentialityCode'] ?? 'NO')
             ->setIsPrivate($data['isPrivate'] ?? false);
     }
@@ -102,12 +105,41 @@ trait RequestModelTestTrait
             ->setDeliveryModeCode($data['deliveryModeCode'] ?? 'YesSF')
             ->setPriorityCode($data['priorityCode'] ?? 'SL')
             ->setComments($data['comments'] ?? 'Test Comments')
-            ->setReferenceSetUrls([$this->createRequestReferenceUrl()])
-            ->setReferenceSetFiles([$this->createRequestReferenceFile()])
-            ->setSourceDocuments([$this->createRequestSourceDocument()])
+            ->setReferenceSetUrls($this->createRequestObjectList(
+                $data['referenceSetUrls'] ?? [],
+                [$this, 'createRequestReferenceUrl']
+            ))
+            ->setReferenceSetFiles($this->createRequestObjectList(
+                $data['referenceSetFiles'] ?? [],
+                [$this, 'createRequestReferenceFile']
+            ))
+            ->setSourceDocuments($this->createRequestObjectList(
+                $data['sourceDocuments'] ?? [],
+                [$this, 'createRequestSourceDocument']
+            ))
             ->setSendOptions($data['sendOptions'] ?? 'Send')
             ->setService($data['service'] ?? 'Translation')
             ->setIsQuotationOnly($data['isQuotationOnly'] ?? false)
-            ->setCallbacks([$this->createRequestCallback()]);
+            ->setCallbacks($this->createRequestObjectList(
+                $data['callbacks'] ?? [],
+                [$this, 'createRequestCallback']
+            ));
+    }
+
+    /**
+     * @param array<int, mixed> $items
+     * @return array<int, mixed>
+     */
+    public function createRequestObjectList(array $items, callable $callback): array
+    {
+        if (!empty($items)) {
+            $objects = [];
+            foreach ($items as $item) {
+                $objects[] = $callback($item);
+            }
+        } else {
+            $objects = [$callback([])];
+        }
+        return $objects;
     }
 }
