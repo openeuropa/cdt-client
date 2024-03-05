@@ -34,6 +34,7 @@ $client = new \OpenEuropa\CdtClient\ApiClient(
         'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
         'requestsApiEndpoint' => 'https://example.com/v2/requests',
         'identifierApiEndpoint' => 'https://example.com/v2/requests/requestIdentifierByCorrelationId/:correlationId',
+        'statusApiEndpoint' => 'https://example.com/v2/requests/:permanentId',
         'username' => 'your-user-name',
         'password' => 'your-password',
         'client' => 'client-name',
@@ -56,6 +57,9 @@ Possible configurations:
 - `validateApiEndpoint` (string, valid URI): The Validate API endpoint.
 - `requestsApiEndpoint` (string, valid URI): The Requests API endpoint.
 - `identifierApiEndpoint` (string, valid URI): The Identifier API endpoint.
+- `statusApiEndpoint` (string, valid URI): The Status API endpoint. Please note that the permanent ID 
+  contains of the year and the number, separated by slash. Therefore, the `:requestyear/:requestnumber`
+  part of the URL can be replaced with `:permanentId`.
 
 ### Check connection
 
@@ -100,6 +104,14 @@ $permanentId = $client->getPermanentIdentifier($correlationId);
 ```
 
 Will return a permanent string identifier for the translation request, based on correlation ID. Throws the `ValidationErrorsException` if the correlation ID is not found.
+
+### Get the status of a translation request
+
+```php
+$translationStatus = $client->getRequestStatus($permanentId);
+```
+Will return information on the status of translation request, based on permanent ID. Throws the `ValidationErrorsException` if the permanent ID is invalid.
+
 
 ## Contributing
 
