@@ -31,13 +31,8 @@ class RequestsEndpointTest extends TestCase
      * @param array<string, mixed> $requestArray
      * @param Response[] $responses
      *
-     * @covers ::execute
-     * @covers ::setToken
-     * @covers ::getToken
-     * @covers ::getRequestHeaders
-     * @covers ::getRequestJsonBody
-     * @covers ::setTranslationRequest
-     * @covers ::getTranslationRequest
+     * @covers \OpenEuropa\CdtClient\Endpoint\RequestsEndpoint
+     * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
      */
     public function testRequests(array $clientConfig, array $requestArray, string $requestJson, array $responses, string|ValidationErrors $expectedResult): void
     {
