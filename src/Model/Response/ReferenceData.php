@@ -12,71 +12,51 @@ namespace OpenEuropa\CdtClient\Model\Response;
 class ReferenceData
 {
     /**
-     * The list of departments.
-     *
      * @var array<int, ReferenceItem>
      */
     protected array $departments;
 
     /**
-     * The list of priorities.
-     *
      * @var array<int, ReferenceItem>
      */
     protected array $priorities;
 
     /**
-     * The list of purposes.
-     *
      * @var array<int, ReferenceItem>
      */
     protected array $purposes;
 
     /**
-     * The list of delivery modes.
-     *
      * @var array<int, ReferenceItem>
      */
     protected array $deliveryModes;
 
     /**
-     * The list of confidentialities.
-     *
      * @var array<int, ReferenceItem>
      */
     protected array $confidentialities;
 
     /**
-     * The list of languages.
-     *
      * @var array<int, string>
      */
     protected array $languages;
 
     /**
-     * The list of statuses.
-     *
      * @var array<int, ReferenceItem>
      */
     protected array $statuses;
 
     /**
-     * The list of services.
-     *
      * @var array<int, ReferenceItem>
      */
     protected array $services;
 
     /**
-     * The list of send options.
-     *
      * @var array<int, ReferenceItem>
      */
     protected array $sendOptions;
 
     /**
-     * The contacts for the translation service.
-     *
      * @var array<int, ReferenceContact>
      */
     protected array $contacts;

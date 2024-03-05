@@ -21,9 +21,6 @@ class ReferenceDataEndpoint extends EndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
 
-    /**
-     * @inheritDoc
-     */
     public function execute(): ReferenceData
     {
         /** @var ReferenceData $referenceData */

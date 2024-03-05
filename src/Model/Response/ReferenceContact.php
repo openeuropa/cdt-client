@@ -12,44 +12,20 @@ namespace OpenEuropa\CdtClient\Model\Response;
  */
 class ReferenceContact
 {
-    /**
-     * The email.
-     */
     protected string $email;
 
-    /**
-     * The first name.
-     */
     protected string $firstName;
 
-    /**
-     * The last name.
-     */
     protected string $lastName;
 
-    /**
-     * The username.
-     */
     protected string $userName;
 
-    /**
-     * The country code.
-     */
     protected ?string $countryCode;
 
-    /**
-     * The phone country code.
-     */
     protected ?string $phoneCountryCode;
 
-    /**
-     * The phone number.
-     */
     protected string $phoneNumber;
 
-    /**
-     * The country name.
-     */
     protected string $countryName;
 
     public function getEmail(): string
