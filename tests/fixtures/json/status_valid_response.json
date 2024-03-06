@@ -1,0 +1,120 @@
+{
+    "requestIdentifier": "2024/000001",
+    "status": "UNDE",
+    "sourceLanguages": [
+        "EN"
+    ],
+    "targetLanguages": [
+        "FR"
+    ],
+    "creationDate": "2024-02-29T12:03:03.6239422",
+    "deliveryDate": null,
+    "title": "Test Title",
+    "service": "Translation",
+    "department": "External Translation Unit - Contracts Execution Department",
+    "contacts": [
+        "DGTRAD - Ext. Transl. Unit  Contracts Execution Dept."
+    ],
+    "deliverToContacts": [
+        "DGTRAD - Ext. Transl. Unit  Contracts Execution Dept."
+    ],
+    "sourceDocuments": [
+        {
+            "fileName": "test.xml",
+            "isPrivate": false,
+            "_links": {
+                "files": {
+                    "href": "https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef",
+                    "method": "GET"
+                }
+            }
+        }
+    ],
+    "referenceFiles": [
+        {
+            "languages": [
+                "EN"
+            ],
+            "fileName": "test.xml",
+            "isPrivate": false,
+            "_links": {
+                "files": {
+                    "href": "https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef",
+                    "method": "GET"
+                }
+            }
+        }
+    ],
+    "bilingualFiles": [
+        {
+            "fileName": "bilingual.xml",
+            "isPrivate": false,
+            "_links": {
+                "files": {
+                    "href": "https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef",
+                    "method": "GET"
+                }
+            }
+        }
+    ],
+    "targetFiles": [],
+    "dates": [
+        {
+            "label": "Deadline",
+            "date": "2024-03-07T16:00:00+01:00",
+            "ecdtDateType": "Deadline",
+            "tooltip": null
+        },
+        {
+            "label": "Receipt date",
+            "date": "2024-02-28T13:03:03.4248457+01:00",
+            "ecdtDateType": "ReceiptDate",
+            "tooltip": "The receipt date depends on the date and time of request submission. Therefore, it is only displayed if the request is pre-approved."
+        }
+    ],
+    "comments": [
+        {
+            "comment": "Test Comments",
+            "isHTML": false,
+            "from": "Client"
+        }
+    ],
+    "pricing": {
+        "totalPrice": 0,
+        "jobSummary": [
+            {
+                "totalPrice": 24.5,
+                "surchargeConfidentiality": 2.5,
+                "surchargeComplexity": 3.0,
+                "surchargeNonEuLanguage": 4.0,
+                "surchargeWebUpload": 5.0,
+                "basePrice": 0.0,
+                "volume": 0.5,
+                "sourceLanguage": "DE",
+                "targetLanguage": "PL",
+                "fileName": "test1.xml",
+                "priorityCode": "LO",
+                "serviceVolume": {
+                    "volume": 200,
+                    "unit": "s",
+                    "stringVolume": "sentence"
+                },
+                "status": "INPR",
+                "isEstimatedPrice": true
+            }
+        ]
+    },
+    "isInProgress": true,
+    "clientReference": "1",
+    "deliveryModeCode": "YesSF",
+    "departmentCode": "250771",
+    "phoneNumber": "123456789",
+    "purposeCode": "PC",
+    "isQuotationOnly": false,
+    "_links": {
+        "self": {
+            "href": "https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef",
+            "method": "GET"
+        }
+    }
+}

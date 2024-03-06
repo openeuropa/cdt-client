@@ -105,7 +105,7 @@ trait ResponseModelTestTrait
             ->setSourceDocument($data['sourceDocument'] ?? 'test.xml')
             ->setIsPrivate($data['isPrivate'] ?? false)
             ->setLinks($this->createResponseObjectList(
-                $data['links'] ?? [],
+                $data['links'] ?? null,
                 [$this, 'createResponseLink'],
                 'first'
             ));
@@ -130,7 +130,7 @@ trait ResponseModelTestTrait
             ->setFileName($data['fileName'] ?? 'test.xml')
             ->setIsPrivate($data['isPrivate'] ?? false)
             ->setLinks($this->createResponseObjectList(
-                $data['links'] ?? [],
+                $data['links'] ?? null,
                 [$this, 'createResponseLink'],
                 'first'
             ));
@@ -193,7 +193,7 @@ trait ResponseModelTestTrait
             ->setFileName($data['fileName'] ?? 'test.xml')
             ->setIsPrivate($data['isPrivate'] ?? false)
             ->setLinks($this->createResponseObjectList(
-                $data['links'] ?? [],
+                $data['links'] ?? null,
                 [$this, 'createResponseLink'],
                 'first'
             ));
@@ -210,41 +210,41 @@ trait ResponseModelTestTrait
             ->setSourceLanguages($data['sourceLanguages'] ?? ['EN'])
             ->setTargetLanguages($data['targetLanguages'] ?? ['FR'])
             ->setCreationDate($data['creationDate'] ?? new \DateTime('2024-02-28T12:03:03.6239422'))
-            ->setDeliveryDate($data['deliveryDate'] ?? new \DateTime('2024-03-07T16:00:00+01:00'))
+            ->setDeliveryDate(array_key_exists('deliveryDate', $data) ? $data['deliveryDate'] : new \DateTime('2024-03-07T16:00:00+01:00'))
             ->setTitle($data['title'] ?? 'Test translation')
             ->setService($data['service'] ?? 'translation')
             ->setDepartment($data['department'] ?? 'TR')
             ->setContacts($data['contacts'] ?? ['JohnDoe'])
             ->setDeliverToContacts($data['deliverToContacts'] ?? ['JaneSmith'])
             ->setSourceDocuments($this->createResponseObjectList(
-                $data['sourceDocuments'] ?? [],
+                $data['sourceDocuments'] ?? null,
                 [$this, 'createResponseSourceDocument'],
             ))
             ->setReferenceFiles($this->createResponseObjectList(
-                $data['referenceFiles'] ?? [],
+                $data['referenceFiles'] ?? null,
                 [$this, 'createResponseReferenceFile'],
             ))
             ->setBilingualFiles($this->createResponseObjectList(
-                $data['bilingualFiles'] ?? [],
+                $data['bilingualFiles'] ?? null,
                 [$this, 'createResponseFile'],
             ))
             ->setTargetFiles($this->createResponseObjectList(
-                $data['targetFiles'] ?? [],
+                $data['targetFiles'] ?? null,
                 [$this, 'createResponseFile'],
             ))
             ->setDates($this->createResponseObjectList(
-                $data['dates'] ?? [],
+                $data['dates'] ?? null,
                 [$this, 'createResponseDate'],
                 'first'
             ))
             ->setComments($this->createResponseObjectList(
-                $data['comments'] ?? [],
+                $data['comments'] ?? null,
                 [$this, 'createResponseComment'],
                 'first'
             ))
             ->setTotalPrice($data['totalPrice'] ?? 240.5)
             ->setJobSummary($this->createResponseObjectList(
-                $data['jobSummary'] ?? [],
+                $data['jobSummary'] ?? null,
                 [$this, 'createResponseJobSummary'],
             ))
             ->setIsInProgress($data['isInProgress'] ?? false)
@@ -255,19 +255,19 @@ trait ResponseModelTestTrait
             ->setPurposeCode($data['purposeCode'] ?? 'TR')
             ->setIsQuotationOnly($data['isQuotationOnly'] ?? false)
             ->setLinks($this->createResponseObjectList(
-                $data['links'] ?? [],
+                $data['links'] ?? null,
                 [$this, 'createResponseLink'],
                 'first'
             ));
     }
 
     /**
-     * @param array<mixed> $items
+     * @param array<mixed>|null $items
      * @return array<mixed>
      */
-    public function createResponseObjectList(array $items, callable $callback, string|int $defaultKey = 0): array
+    public function createResponseObjectList(?array $items, callable $callback, string|int $defaultKey = 0): array
     {
-        if (!empty($items)) {
+        if (!is_null($items)) {
             $objects = [];
             foreach ($items as $key => $item) {
                 $objects[$key] = $callback($item);
