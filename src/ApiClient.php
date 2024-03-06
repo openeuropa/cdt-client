@@ -9,6 +9,7 @@ use League\Container\Container;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Contract\EndpointInterface;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
+use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
 use OpenEuropa\CdtClient\Model\Request\Translation;
@@ -89,6 +90,16 @@ class ApiClient implements ApiClientInterface
             ->execute();
     }
 
+    public function sendTranslationRequest(Translation $translationRequest): string
+    {
+        /** @var RequestsEndpoint $endpoint */
+        $endpoint = $this->container->get('requests');
+        return $endpoint
+            ->setToken($this->getToken())
+            ->setTranslationRequest($translationRequest)
+            ->execute();
+    }
+
     private function createContainer(
         ClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
@@ -112,6 +123,8 @@ class ApiClient implements ApiClientInterface
             ->addArgument(new LiteralArgument($this->getConfigValue('mainApiEndpoint')));
         $container->add('validate', ValidateEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('validateApiEndpoint')));
+        $container->add('requests', RequestsEndpoint::class)
+            ->addArgument(new LiteralArgument($this->getConfigValue('requestsApiEndpoint')));
         $container->add('auth', TokenEndpoint::class)
             ->addArguments([
                 new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),

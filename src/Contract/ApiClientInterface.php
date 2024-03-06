@@ -23,4 +23,9 @@ interface ApiClientInterface
      *   Thrown if there are validation errors.
      */
     public function validateTranslationRequest(Translation $translationRequest): bool;
+
+    /**
+     * @throws ValidationErrorsException
+     */
+    public function sendTranslationRequest(Translation $translationRequest): string;
 }

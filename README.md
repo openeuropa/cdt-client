@@ -31,6 +31,7 @@ $client = new \OpenEuropa\CdtClient\ApiClient(
         'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
         'tokenApiEndpoint' => 'https://example.com/token',
         'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
+        'requestsApiEndpoint' => 'https://example.com/v2/requests',
         'username' => 'your-user-name',
         'password' => 'your-password',
         'client' => 'client-name',
@@ -50,6 +51,7 @@ Possible configurations:
 - `tokenApiEndpoint` (string, valid URI): The Token API endpoint.
 - `mainApiEndpoint` (string, valid URI): The Main API endpoint.
 - `validateApiEndpoint` (string, valid URI): The Validate API endpoint.
+- `requestsApiEndpoint` (string, valid URI): The Requests API endpoint.
 
 ### Check connection
 
@@ -61,20 +63,23 @@ Will return true or false depending on the availability of the CDT service.
 
 ### Translation requests
 
-To validate a translation request, run the following code:
+To validate and send a translation request, run the following code:
 ```php
 use OpenEuropa\CdtClient\Model\Request\Translation;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 
 $translationRequest = new Translation()
 try {
-    $response = $client->validateTranslationRequest($translationRequest);
+    if ($client->validateTranslationRequest($translationRequest)) {
+        $correlationId = $client->sendTranslationRequest($translationRequest);
+    }
 } catch (ValidationErrorsException $e) {
     $errors = $e->getValidationErrors();
+    // Handle the errors.
 }
 ```
 
-The endpoint will return either `true`, or a list of validation errors.
+On success, the `sendTranslationRequest()` method will return the temporary Correlation ID.
 
 ## Contributing
 
