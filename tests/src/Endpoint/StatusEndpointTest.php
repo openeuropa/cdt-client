@@ -123,6 +123,7 @@ class StatusEndpointTest extends TestCase
                     ],
                     'bilingualFiles' => [
                         [
+                            'content' => '',
                             'sourceLanguage' => '',
                             'targetLanguage' => '',
                             'sourceDocument' => '',
