@@ -104,6 +104,7 @@ trait ResponseModelTestTrait
             ->setTargetLanguage($data['targetLanguage'] ?? 'FR')
             ->setSourceDocument($data['sourceDocument'] ?? 'test.xml')
             ->setIsPrivate($data['isPrivate'] ?? false)
+            ->setContent($data['content'] ?? 'The Content')
             ->setLinks($this->createResponseObjectList(
                 $data['links'] ?? null,
                 [$this, 'createResponseLink'],

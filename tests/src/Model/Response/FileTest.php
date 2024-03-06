@@ -24,7 +24,8 @@ class FileTest extends TestCase
             'sourceLanguage' => 'FR',
             'targetLanguage' => 'PL',
             'sourceDocument' => 'source.xml',
-            'isPrivate' => true
+            'isPrivate' => true,
+            'content' => 'The Test Content',
         ];
         $file = $this->createResponseFile($data);
 
@@ -33,6 +34,7 @@ class FileTest extends TestCase
         $this->assertEquals($data['targetLanguage'], $file->getTargetLanguage());
         $this->assertEquals($data['sourceDocument'], $file->getSourceDocument());
         $this->assertEquals($data['isPrivate'], $file->isPrivate());
+        $this->assertEquals($data['content'], $file->getContent());
         $this->assertIsArray($file->getLinks());
     }
 }
