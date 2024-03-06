@@ -9,8 +9,6 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\HttpFactory;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\ApiClient;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use Psr\Container\ContainerInterface;
@@ -30,7 +28,6 @@ trait ClientTestTrait
     /**
      * @param array<string, mixed> $configuration
      * @param array<int, mixed> $responseQueue
-     * @return ApiClientInterface
      */
     protected function getTestingClient(array $configuration = [], array $responseQueue = []): ApiClientInterface
     {

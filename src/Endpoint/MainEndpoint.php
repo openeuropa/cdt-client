@@ -20,9 +20,6 @@ class MainEndpoint extends EndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
 
-    /**
-     * @inheritDoc
-     */
     public function execute(): bool
     {
         return $this->send('GET')->getBody()->__toString() === 'true';

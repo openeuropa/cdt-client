@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\CdtClient;
 
-use Http\Message\MultipartStream\MultipartStreamBuilder;
 use OpenEuropa\CdtClient\Contract\TokenAwareInterface;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Model\Token;
@@ -29,6 +28,7 @@ class ClientTest extends TestCase
         $client = $this->getTestingClient([
             'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
             'tokenApiEndpoint' => 'https://example.com/token',
+            'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
             'username' => 'testuser',
             'password' => 'pass',
             'client' => 'digit',
@@ -36,7 +36,6 @@ class ClientTest extends TestCase
         $container = $this->getClientContainer($client);
 
         // Check container services.
-        $this->assertInstanceOf(MultipartStreamBuilder::class, $container->get('multipartStreamBuilder'));
         $this->assertInstanceOf(TokenEndpoint::class, $container->get('auth'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('main'));
     }
@@ -51,6 +50,7 @@ class ClientTest extends TestCase
         $client = $this->getTestingClient([
             'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
             'tokenApiEndpoint' => 'https://example.com/token',
+            'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
             'username' => 'testuser',
             'password' => 'pass',
             'client' => 'digit',

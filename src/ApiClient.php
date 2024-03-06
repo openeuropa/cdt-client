@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient;
 
-use Http\Message\MultipartStream\MultipartStreamBuilder;
 use League\Container\Argument\LiteralArgument;
 use League\Container\Container;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Contract\EndpointInterface;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
+use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
+use OpenEuropa\CdtClient\Model\Request\Translation;
 use OpenEuropa\CdtClient\Model\Token;
-use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -32,8 +32,6 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 class ApiClient implements ApiClientInterface
 {
     /**
-     * The configuration.
-     *
      * @var array<string, mixed>
      */
     protected array $configuration = [];
@@ -45,10 +43,6 @@ class ApiClient implements ApiClientInterface
     protected Token $token;
 
     /**
-     * @param ClientInterface         $httpClient
-     * @param RequestFactoryInterface $requestFactory
-     * @param StreamFactoryInterface  $streamFactory
-     * @param UriFactoryInterface     $uriFactory
      * @param array<string, mixed>    $configuration
      */
     public function __construct(
@@ -68,9 +62,6 @@ class ApiClient implements ApiClientInterface
         );
     }
 
-    /**
-     * @inheritDoc
-     */
     public function requestToken(): Token
     {
         /** @var TokenEndpoint $endpoint */
@@ -79,9 +70,6 @@ class ApiClient implements ApiClientInterface
         return $endpoint->execute();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function checkConnection(): bool
     {
         /** @var MainEndpoint $endpoint */
@@ -91,12 +79,16 @@ class ApiClient implements ApiClientInterface
         return $endpoint->execute();
     }
 
-    /**
-     * @param ClientInterface     $httpClient
-     * @param RequestFactoryInterface $requestFactory
-     * @param StreamFactoryInterface  $streamFactory
-     * @param UriFactoryInterface     $uriFactory
-     */
+    public function validateTranslationRequest(Translation $translationRequest): bool
+    {
+        /** @var ValidateEndpoint $endpoint */
+        $endpoint = $this->container->get('validate');
+        return $endpoint
+            ->setToken($this->getToken())
+            ->setTranslationRequest($translationRequest)
+            ->execute();
+    }
+
     private function createContainer(
         ClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
@@ -116,10 +108,10 @@ class ApiClient implements ApiClientInterface
         // We're doing this because such a service might be called more than
         // once during the lifetime of a request, so internals set in a previous
         // usage may leak into the later usages.
-        $container->add('multipartStreamBuilder', MultipartStreamBuilder::class)
-            ->addArgument($streamFactory);
         $container->add('main', MainEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('mainApiEndpoint')));
+        $container->add('validate', ValidateEndpoint::class)
+            ->addArgument(new LiteralArgument($this->getConfigValue('validateApiEndpoint')));
         $container->add('auth', TokenEndpoint::class)
             ->addArguments([
                 new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),
@@ -133,7 +125,6 @@ class ApiClient implements ApiClientInterface
                 'setRequestFactory' => [$requestFactory],
                 'setStreamFactory' => [$streamFactory],
                 'setUriFactory' => [$uriFactory],
-                'setMultipartStreamBuilder' => ['multipartStreamBuilder'],
                 'setJsonEncoder' => [new JsonEncoder()],
             ]);
 
@@ -167,27 +158,18 @@ class ApiClient implements ApiClientInterface
 
     /**
      * Retrieves a value from the client configuration.
-     *
-     * @param string $name
-     * @return mixed|null
      */
-    private function getConfigValue(string $name)
+    private function getConfigValue(string $name): mixed
     {
         return array_key_exists($name, $this->configuration) ? $this->configuration[$name] : null;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setToken(Token $token): self
     {
         $this->token = $token;
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getToken(): Token
     {
         return $this->token;
