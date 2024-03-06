@@ -13,11 +13,11 @@ use Symfony\Component\Serializer\Annotation\SerializedPath;
  */
 class File
 {
-    protected string $sourceLanguage;
+    protected ?string $sourceLanguage = null;
 
-    protected string $targetLanguage;
+    protected ?string $targetLanguage = null;
 
-    protected string $sourceDocument;
+    protected ?string $sourceDocument = null;
 
     protected string $fileName;
 
@@ -29,34 +29,34 @@ class File
     #[SerializedPath('[_links]')]
     protected array $links;
 
-    public function getSourceLanguage(): string
+    public function getSourceLanguage(): ?string
     {
         return $this->sourceLanguage;
     }
 
-    public function setSourceLanguage(string $sourceLanguage): self
+    public function setSourceLanguage(?string $sourceLanguage): self
     {
         $this->sourceLanguage = $sourceLanguage;
         return $this;
     }
 
-    public function getTargetLanguage(): string
+    public function getTargetLanguage(): ?string
     {
         return $this->targetLanguage;
     }
 
-    public function setTargetLanguage(string $targetLanguage): self
+    public function setTargetLanguage(?string $targetLanguage): self
     {
         $this->targetLanguage = $targetLanguage;
         return $this;
     }
 
-    public function getSourceDocument(): string
+    public function getSourceDocument(): ?string
     {
         return $this->sourceDocument;
     }
 
-    public function setSourceDocument(string $sourceDocument): self
+    public function setSourceDocument(?string $sourceDocument): self
     {
         $this->sourceDocument = $sourceDocument;
         return $this;
