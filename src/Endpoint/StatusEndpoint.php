@@ -32,16 +32,23 @@ class StatusEndpoint extends EndpointBase implements TokenAwareInterface
 
     public function setPermanentId(string $permanentId): self
     {
+        if (!preg_match('/^\d{4}\/[^\/]+$/', $permanentId)) {
+            throw new \InvalidArgumentException('Invalid permanent ID format (it should be formatted like 2024/1234567).');
+        }
+
         $this->permanentId = $permanentId;
         return $this;
     }
 
     public function execute(): Translation
     {
+        [$year, $id] = explode('/', $this->permanentId);
+
         /** @var Translation $translation */
         $translation = $this->getSerializer()->deserialize(
             $this->send('GET', [
-                ':permanentId' => $this->getPermanentId(),
+                ':requestyear' => $year,
+                ':requestnumber' => $id,
             ])->getBody()->__toString(),
             Translation::class,
             'json'
