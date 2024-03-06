@@ -35,7 +35,7 @@ class Translation
     /**
      * @var \DateTimeInterface|null
      */
-    protected ?\DateTimeInterface $deliveryDate;
+    protected ?\DateTimeInterface $deliveryDate = null;
 
     protected string $title;
 

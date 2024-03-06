@@ -20,7 +20,7 @@ class Date
 
     protected string $ecdtDateType;
 
-    protected ?string $tooltip;
+    protected ?string $tooltip = null;
 
     public function getLabel(): string
     {
