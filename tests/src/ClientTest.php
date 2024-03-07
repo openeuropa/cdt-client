@@ -6,7 +6,7 @@ namespace OpenEuropa\Tests\CdtClient;
 
 use OpenEuropa\CdtClient\Contract\TokenAwareInterface;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
-use OpenEuropa\CdtClient\Model\Token;
+use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
 
