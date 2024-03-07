@@ -82,9 +82,6 @@ class ApiClient implements ApiClientInterface
         return $endpoint->execute();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getReferenceData(): ReferenceData
     {
         /** @var ReferenceDataEndpoint $endpoint */
