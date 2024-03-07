@@ -263,6 +263,19 @@ trait ResponseModelTestTrait
     }
 
     /**
+     * @param array<string, mixed> $data
+     *
+     * @return array<int, File>
+     */
+    public function createResponseFileList(array $data): array
+    {
+        return $this->createResponseObjectList(
+            $data,
+            [$this, 'createResponseFile'],
+        );
+    }
+
+    /**
      * @param array<mixed>|null $items
      * @return array<mixed>
      */

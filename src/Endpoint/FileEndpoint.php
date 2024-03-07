@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient\Endpoint;
 
 use OpenEuropa\CdtClient\Contract\TokenAwareInterface;
-use OpenEuropa\CdtClient\Model\Response\FileList;
+use OpenEuropa\CdtClient\Model\Response\File;
 use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
 use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
 
@@ -40,17 +40,20 @@ class FileEndpoint extends EndpointBase implements TokenAwareInterface
         return $this;
     }
 
-    public function execute(): FileList
+    /**
+     * @return array<int, File>
+     */
+    public function execute(): array
     {
         [$year, $id] = explode('/', $this->permanentId);
 
-        /** @var FileList $fileList */
+        /** @var array<int, File> $fileList */
         $fileList = $this->getSerializer()->deserialize(
             $this->send('GET', [
                 ':requestyear' => $year,
                 ':requestnumber' => $id,
             ])->getBody()->__toString(),
-            FileList::class,
+            File::class . '[]',
             'json'
         );
         return $fileList;
