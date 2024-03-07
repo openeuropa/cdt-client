@@ -27,7 +27,7 @@ class ReferenceDataEndpointTest extends TestCase
      * @param Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint
-     * @covers \OpenEuropa\CdtClient\Endpoint\BaseEndpoint
+     * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
      */
     public function testReferenceData(array $clientConfig, array $responses, mixed $expectedResult): void
     {
