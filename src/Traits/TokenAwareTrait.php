@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Traits;
 
-use OpenEuropa\CdtClient\Model\Token;
+use OpenEuropa\CdtClient\Model\Response\Token;
 
 /**
  * Trait TokenAwareTrait
@@ -12,7 +12,7 @@ use OpenEuropa\CdtClient\Model\Token;
  * Provides methods for handling an authentication token and defines request headers needed for endpoints that need
  * authentication.
  *
- * @see Token
+ * @see \OpenEuropa\CdtClient\Model\Response\Token
  */
 trait TokenAwareTrait
 {

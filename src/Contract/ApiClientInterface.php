@@ -7,9 +7,9 @@ namespace OpenEuropa\CdtClient\Contract;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Request\Translation as TranslationRequest;
 use OpenEuropa\CdtClient\Model\Response\File;
+use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\Translation as TranslationResponse;
 use OpenEuropa\CdtClient\Model\Response\ReferenceData;
-use OpenEuropa\CdtClient\Model\Token;
 
 interface ApiClientInterface
 {
