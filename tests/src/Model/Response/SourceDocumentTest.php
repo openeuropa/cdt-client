@@ -27,5 +27,6 @@ class SourceDocumentTest extends TestCase
 
         $this->assertEquals($data['fileName'], $sourceDocument->getFileName());
         $this->assertEquals($data['isPrivate'], $sourceDocument->isPrivate());
+        $this->assertIsArray($sourceDocument->getLinks());
     }
 }
