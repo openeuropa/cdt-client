@@ -16,6 +16,7 @@ use OpenEuropa\CdtClient\Model\Response\ReferenceItem;
 use OpenEuropa\CdtClient\Model\Response\SourceDocument;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\Translation;
+use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
 
 /**
  * Trait ResponseModelTestTrait
@@ -104,6 +105,16 @@ trait ResponseModelTestTrait
             $result[] = $this->createResponseReferenceContact($contact);
         }
         return $result;
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function createResponseValidationErrors(array $data = []): ValidationErrors
+    {
+        return (new ValidationErrors())
+            ->setErrors($data['errors'] ?? ['field' => ['error']])
+            ->setMessage($data['message'] ?? 'Validation errors');
     }
 
     /**
