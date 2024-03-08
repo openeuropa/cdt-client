@@ -31,13 +31,8 @@ class ValidateEndpointTest extends TestCase
      * @param array<string, mixed> $requestArray
      * @param Response[] $responses
      *
-     * @covers ::execute
-     * @covers ::setToken
-     * @covers ::getToken
-     * @covers ::getRequestHeaders
-     * @covers ::getRequestJsonBody
-     * @covers ::setTranslationRequest
-     * @covers ::getTranslationRequest
+     * @covers \OpenEuropa\CdtClient\Endpoint\ValidateEndpoint
+     * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
      */
     public function testValidate(array $clientConfig, array $requestArray, string $requestJson, array $responses, bool|ValidationErrors $expectedResult): void
     {

@@ -18,7 +18,6 @@ class EndpointBaseTest extends TestCase
     /**
      * Tests that the endpoint URL is required.
      *
-     * @covers ::__construct
      * @covers ::getConfigurationResolver
      */
     public function testEndpointUrlValidation(): void
@@ -32,7 +31,6 @@ class EndpointBaseTest extends TestCase
     /**
      * Tests that the base endpoint class doesn't expect any configuration but the endpoint URL.
      *
-     * @covers ::__construct
      * @covers ::getConfigurationResolver
      */
     public function testDefinedConfig(): void
