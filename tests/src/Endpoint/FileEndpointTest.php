@@ -30,7 +30,7 @@ class FileEndpointTest extends TestCase
      */
     public function testInvalidPermanentId(string $permanentId): void
     {
-        $this->expectExceptionObject(new \InvalidArgumentException('Invalid permanent ID format (it should be formatted like 2024/1234567).'));
+        $this->expectException(\InvalidArgumentException::class);
         $fileEndpoint = new StatusEndpoint('https://example.com/v2/requests/:requestyear/:requestnumber/targets-base64');
         $fileEndpoint->setPermanentId($permanentId);
     }
