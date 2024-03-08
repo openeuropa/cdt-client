@@ -28,4 +28,20 @@ class FileTest extends TestCase
         $this->assertEquals($data['filename'], $file->getFilename());
         $this->assertEquals($data['content'], $file->getContent());
     }
+
+    /**
+     * @covers \OpenEuropa\CdtClient\Model\Request\File
+     */
+    public function testSerialize(): void
+    {
+        $data = [
+            'filename' => 'file.txt',
+            'content' => 'abcde',
+        ];
+        $file = $this->createRequestFile($data);
+        $this->assertEquals([
+            'fileName' => $data['filename'],
+            'base64Data' => 'YWJjZGU=',
+        ], $file->jsonSerialize());
+    }
 }
