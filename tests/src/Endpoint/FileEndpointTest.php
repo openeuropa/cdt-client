@@ -42,7 +42,7 @@ class FileEndpointTest extends TestCase
      * @param Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\FileEndpoint
-     * @covers \OpenEuropa\CdtClient\Endpoint\BaseEndpoint
+     * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
      */
     public function testStatus(string $permanentId, array $clientConfig, array $responses, mixed $expectedResult): void
     {
