@@ -21,10 +21,10 @@ class ValidationErrorsTest extends TestCase
     {
         $data = [
             'errors' => [
-                'field1' => ['Error 1', 'Error 2'],
-                'field2' => ['Error 3'],
+                'field1' => ['TEST_ERROR_1', 'TEST_ERROR_2'],
+                'field2' => ['TEST_ERROR_3'],
             ],
-            'message' => 'Test message',
+            'message' => 'TEST_MESSAGE',
         ];
         $validationErrors = $this->createResponseValidationErrors($data);
 

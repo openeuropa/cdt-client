@@ -21,18 +21,18 @@ class TranslationTest extends TestCase
     {
         $data = [
             'departmentCode' => '123',
-            'contactUserNames' => ['TESTUSER'],
-            'deliveryContactUsernames' => ['TESTUSER'],
-            'phoneNumber' => '123456789',
-            'title' => 'Test Title',
-            'clientReference' => '1',
-            'purposeCode' => 'PC',
-            'deliveryModeCode' => 'DMC',
-            'priorityCode' => 'SL',
-            'comments' => 'Test Comments',
-            'sendOptions' => 'Send',
-            'service' => 'Translation',
-            'isQuotationOnly' => false
+            'contactUserNames' => ['TEST_USER'],
+            'deliveryContactUsernames' => ['TEST_USER'],
+            'phoneNumber' => '111111111',
+            'title' => 'TEST_TITLE',
+            'clientReference' => '2',
+            'purposeCode' => 'TEST_PC',
+            'deliveryModeCode' => 'TEST_DMC',
+            'priorityCode' => 'TEST_SL',
+            'comments' => 'TEST_COMMENTS',
+            'sendOptions' => 'TEST_SO',
+            'service' => 'TEST_SERVICE',
+            'isQuotationOnly' => true
         ];
         $translation = $this->createRequestTranslation($data);
 

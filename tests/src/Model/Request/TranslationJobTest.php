@@ -20,9 +20,9 @@ class TranslationJobTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'sourceLanguage' => 'fr',
-            'targetLanguage' => 'es',
-            'volume' => 0.5,
+            'sourceLanguage' => 'FR',
+            'targetLanguage' => 'ES',
+            'volume' => 0.9,
         ];
         $translationJob = $this->createRequestTranslationJob($data);
 

@@ -20,14 +20,14 @@ class ReferenceContactTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'email' => 'someone@example.com',
-            'phoneNumber' => '1234567890',
+            'email' => 'test@example.com',
+            'phoneNumber' => '111111111',
             'phoneCountryCode' => 'ES',
             'countryCode' => 'ES',
             'countryName' => 'Spain',
-            'firstName' => 'John',
-            'lastName' => 'Doe',
-            'userName' => 'JDoe',
+            'firstName' => 'TEST_FN',
+            'lastName' => 'TEST_LN',
+            'userName' => 'TEST_USERNAME',
         ];
         $referenceContact = $this->createResponseReferenceContact($data);
 

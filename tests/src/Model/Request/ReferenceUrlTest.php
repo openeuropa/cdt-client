@@ -20,9 +20,9 @@ class ReferenceUrlTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'referenceLanguages' => ['fr'],
-            'url' => 'https://example.com',
-            'shortName' => 'Example',
+            'referenceLanguages' => ['FR'],
+            'url' => 'https://example.com/testurl',
+            'shortName' => 'TEST_SN',
         ];
         $referenceFile = $this->createRequestReferenceUrl($data);
 
