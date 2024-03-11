@@ -20,7 +20,7 @@ class FileTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'filename' => 'file.txt',
+            'filename' => 'test_file.txt',
             'content' => 'abcde',
         ];
         $file = $this->createRequestFile($data);
@@ -35,7 +35,7 @@ class FileTest extends TestCase
     public function testSerialize(): void
     {
         $data = [
-            'filename' => 'file.txt',
+            'filename' => 'test_file.txt',
             'content' => 'abcde',
         ];
         $file = $this->createRequestFile($data);

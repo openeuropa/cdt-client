@@ -20,7 +20,7 @@ class ReferenceFileTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'fileName' => 'test2.xml',
+            'fileName' => 'test_file.xml',
             'isPrivate' => true,
             'languages' => ['PL', 'ES'],
         ];
