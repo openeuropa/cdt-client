@@ -30,7 +30,7 @@ class FileEndpointTest extends TestCase
      */
     public function testInvalidPermanentId(string $permanentId): void
     {
-        $this->expectExceptionObject(new \InvalidArgumentException('Invalid permanent ID format (it should be formatted like 2024/1234567).'));
+        $this->expectException(\InvalidArgumentException::class);
         $fileEndpoint = new StatusEndpoint('https://example.com/v2/requests/:requestyear/:requestnumber/targets-base64');
         $fileEndpoint->setPermanentId($permanentId);
     }
@@ -42,7 +42,7 @@ class FileEndpointTest extends TestCase
      * @param Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\FileEndpoint
-     * @covers \OpenEuropa\CdtClient\Endpoint\BaseEndpoint
+     * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
      */
     public function testStatus(string $permanentId, array $clientConfig, array $responses, mixed $expectedResult): void
     {

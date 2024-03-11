@@ -25,11 +25,8 @@ class MainEndpointTest extends TestCase
      * @param Response[] $responses
      * @param mixed $expectedResult
      *
-     * @covers ::__construct
-     * @covers ::execute
-     * @covers ::setToken
-     * @covers ::getToken
-     * @covers ::getRequestHeaders
+     * @covers \OpenEuropa\CdtClient\Endpoint\MainEndpoint
+     * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
      */
     public function testMain(array $clientConfig, array $responses, mixed $expectedResult): void
     {

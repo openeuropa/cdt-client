@@ -21,7 +21,7 @@ class ReferenceFileTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'referenceLanguages' => ['fr'],
+            'referenceLanguages' => ['FR'],
         ];
         $referenceFile = $this->createRequestReferenceFile($data);
 

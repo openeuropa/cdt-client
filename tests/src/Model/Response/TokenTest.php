@@ -22,7 +22,7 @@ class TokenTest extends TestCase
         $data = [
             'accessToken' => 'TEST_TOKEN',
             'expiresIn' => 3600,
-            'tokenType' => 'test_type',
+            'tokenType' => 'TEST_TYPE',
             'refreshToken' => '{\"TokenId\":\"12345678901234561234567890abcdef\",\"Issued\":\"2024-02-21T07:28:37.7644661Z\",\"Expires\":\"2024-02-22T07:28:37.7644661Z\"}',
         ];
         $token = $this->createResponseToken($data);

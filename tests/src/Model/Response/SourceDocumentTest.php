@@ -20,12 +20,13 @@ class SourceDocumentTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'fileName' => 'test.xml',
-            'isPrivate' => false,
+            'fileName' => 'test_file.xml',
+            'isPrivate' => true,
         ];
         $sourceDocument = $this->createResponseSourceDocument($data);
 
         $this->assertEquals($data['fileName'], $sourceDocument->getFileName());
         $this->assertEquals($data['isPrivate'], $sourceDocument->isPrivate());
+        $this->assertIsArray($sourceDocument->getLinks());
     }
 }

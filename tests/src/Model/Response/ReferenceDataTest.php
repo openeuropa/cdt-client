@@ -20,7 +20,7 @@ class ReferenceDataTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'languages' => ['EN'],
+            'languages' => ['ES'],
         ];
         $referenceItem = $this->createResponseReferenceData($data);
 

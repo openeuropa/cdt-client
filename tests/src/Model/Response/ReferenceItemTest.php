@@ -20,8 +20,8 @@ class ReferenceItemTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'code' => 'CODE',
-            'description' => 'Test Description',
+            'code' => 'TEST_CODE',
+            'description' => 'TEST_DESCRIPTION',
         ];
         $referenceItem = $this->createResponseReferenceItem($data);
 

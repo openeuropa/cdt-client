@@ -20,9 +20,9 @@ class CallbackTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'callbackType' => 'REQUEST_STATUS',
-            'callbackBaseUrl' => 'https://example.com/callback',
-            'clientApiKey' => '123'
+            'callbackType' => 'TEST_TYPE',
+            'callbackBaseUrl' => 'https://example.com/test-url',
+            'clientApiKey' => 'TEST_APIKEY'
         ];
         $callback = $this->createRequestCallback($data);
 
