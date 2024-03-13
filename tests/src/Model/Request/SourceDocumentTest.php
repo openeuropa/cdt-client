@@ -21,10 +21,10 @@ class SourceDocumentTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'sourceLanguages' => ['en'],
-            'outputDocumentFormatCode' => 'XM',
-            'confidentialityCode' => 'N',
-            'isPrivate' => false,
+            'sourceLanguages' => ['ES'],
+            'outputDocumentFormatCode' => 'TEST_DFC',
+            'confidentialityCode' => 'TEST_CC',
+            'isPrivate' => true,
         ];
         $sourceDocument = $this->createRequestSourceDocument($data);
 

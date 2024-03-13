@@ -1,0 +1,30 @@
+[
+    {
+        "base64": "U29tZSBUZXN0IENvbnRlbnQ=",
+        "sourceLanguage": "FR",
+        "targetLanguage": "PL",
+        "sourceDocument": "source1.txt",
+        "fileName": "target1.txt",
+        "isPrivate": false,
+        "_links": {
+            "files": {
+                "href": "https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef",
+                "method": "GET"
+            }
+        }
+    },
+    {
+        "base64": "U29tZSBPdGhlciBUZXN0IENvbnRlbnQ=",
+        "sourceLanguage": "NL",
+        "targetLanguage": "DE",
+        "sourceDocument": "source2.txt",
+        "fileName": "target2.txt",
+        "isPrivate": true,
+        "_links": {
+            "files": {
+                "href": "https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef",
+                "method": "GET"
+            }
+        }
+    }
+]

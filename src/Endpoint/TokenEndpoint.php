@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Endpoint;
 
-use OpenEuropa\CdtClient\Model\Token;
+use OpenEuropa\CdtClient\Model\Response\Token;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -39,7 +39,7 @@ class TokenEndpoint extends EndpointBase
 
     public function execute(): Token
     {
-        /** @var Token $token */
+        /** @var \OpenEuropa\CdtClient\Model\Response\Token $token */
         $token = $this->getSerializer()->deserialize(
             $this->send('POST')->getBody()->__toString(),
             Token::class,

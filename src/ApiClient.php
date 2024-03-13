@@ -8,6 +8,7 @@ use League\Container\Argument\LiteralArgument;
 use League\Container\Container;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Contract\EndpointInterface;
+use OpenEuropa\CdtClient\Endpoint\FileEndpoint;
 use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
@@ -16,9 +17,9 @@ use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
 use OpenEuropa\CdtClient\Model\Request\Translation as TranslationRequest;
+use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\Translation as TranslationResponse;
 use OpenEuropa\CdtClient\Model\Response\ReferenceData;
-use OpenEuropa\CdtClient\Model\Token;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -143,6 +144,19 @@ class ApiClient implements ApiClientInterface
         return $endpoint->execute();
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getTranslatedFiles(string $permanentId): array
+    {
+        /** @var FileEndpoint $endpoint */
+        $endpoint = $this->container->get('file');
+        $endpoint->setToken($this->getToken());
+        $endpoint->setPermanentId($permanentId);
+
+        return $endpoint->execute();
+    }
+
     private function createContainer(
         ClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
@@ -174,6 +188,8 @@ class ApiClient implements ApiClientInterface
             ->addArgument(new LiteralArgument($this->getConfigValue('identifierApiEndpoint')));
         $container->add('status', StatusEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('statusApiEndpoint')));
+        $container->add('file', FileEndpoint::class)
+            ->addArgument(new LiteralArgument($this->getConfigValue('fileApiEndpoint')));
         $container->add('auth', TokenEndpoint::class)
             ->addArguments([
                 new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),

@@ -20,8 +20,8 @@ class LinkTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'href' => 'https://example.com/address',
-            'method' => 'GET',
+            'href' => 'https://example.com/testurl',
+            'method' => 'POST',
         ];
         $link = $this->createResponseLink($data);
 

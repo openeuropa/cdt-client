@@ -6,9 +6,9 @@ namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
-use OpenEuropa\CdtClient\Model\Token;
-use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
+use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -29,9 +29,8 @@ class TokenEndpointTest extends TestCase
      * @param Response[] $responses
      * @param mixed $expectedResult
      *
-     * @covers ::__construct
-     * @covers ::execute
-     * @covers ::getRequestFormElements
+     * @covers \OpenEuropa\CdtClient\Endpoint\TokenEndpoint
+     * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
      */
     public function testToken(array $clientConfig, array $responses, mixed $expectedResult): void
     {
@@ -49,7 +48,6 @@ class TokenEndpointTest extends TestCase
     /**
      * @dataProvider providerTestInvalidConfig
      *
-     * @covers ::__construct
      * @covers ::getConfigurationResolver
      */
     public function testInvalidConfig(string|int $username, string|int $password, string|int $client, string $exceptionMessage): void
@@ -63,7 +61,6 @@ class TokenEndpointTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
      * @covers ::getConfigurationResolver
      */
     public function testMissingConfig(): void
@@ -73,7 +70,6 @@ class TokenEndpointTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
      * @covers ::getConfigurationResolver
      */
     public function testDefinedConfig(): void

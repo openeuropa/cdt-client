@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient\Model\Response;
 
 use Symfony\Component\Serializer\Annotation\SerializedPath;
+use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 /**
  * Class File.
  *
  * Represents the single file received from the CDT API.
  */
+#[Context([AbstractNormalizer::CALLBACKS => ['content' => [File::class, 'decodeContent']]])]
 class File
 {
     protected ?string $sourceLanguage = null;
@@ -28,6 +31,9 @@ class File
      */
     #[SerializedPath('[_links]')]
     protected array $links;
+
+    #[SerializedPath('[base64]')]
+    protected ?string $content = null;
 
     public function getSourceLanguage(): ?string
     {
@@ -99,5 +105,21 @@ class File
     {
         $this->links = $links;
         return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(?string $content): self
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    public static function decodeContent(string $content): string
+    {
+        return base64_decode($content);
     }
 }

@@ -14,7 +14,9 @@ use OpenEuropa\CdtClient\Model\Response\ReferenceData;
 use OpenEuropa\CdtClient\Model\Response\ReferenceFile;
 use OpenEuropa\CdtClient\Model\Response\ReferenceItem;
 use OpenEuropa\CdtClient\Model\Response\SourceDocument;
+use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\Translation;
+use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
 
 /**
  * Trait ResponseModelTestTrait
@@ -23,6 +25,18 @@ use OpenEuropa\CdtClient\Model\Response\Translation;
  */
 trait ResponseModelTestTrait
 {
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function createResponseToken(array $data = []): Token
+    {
+        return (new Token())
+            ->setAccessToken($data['accessToken'] ?? 'TOKEN')
+            ->setExpiresIn($data['expiresIn'] ?? 28799)
+            ->setTokenType($data['tokenType'] ?? 'bearer')
+            ->setRefreshToken($data['refreshToken'] ?? '{\"TokenId\":\"1234567890abcdef1234567890abcdef\",\"Issued\":\"2024-02-21T07:28:37.7644661Z\",\"Expires\":\"2024-02-22T07:28:37.7644661Z\"}');
+    }
+
     /**
      * @param array<string, mixed> $data
      */
@@ -96,6 +110,16 @@ trait ResponseModelTestTrait
     /**
      * @param array<string, mixed> $data
      */
+    public function createResponseValidationErrors(array $data = []): ValidationErrors
+    {
+        return (new ValidationErrors())
+            ->setErrors($data['errors'] ?? ['field' => ['error']])
+            ->setMessage($data['message'] ?? 'Validation errors');
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     */
     public function createResponseFile(array $data = []): File
     {
         return (new File())
@@ -104,6 +128,7 @@ trait ResponseModelTestTrait
             ->setTargetLanguage($data['targetLanguage'] ?? 'FR')
             ->setSourceDocument($data['sourceDocument'] ?? 'test.xml')
             ->setIsPrivate($data['isPrivate'] ?? false)
+            ->setContent($data['content'] ?? 'The Content')
             ->setLinks($this->createResponseObjectList(
                 $data['links'] ?? null,
                 [$this, 'createResponseLink'],
@@ -259,6 +284,19 @@ trait ResponseModelTestTrait
                 [$this, 'createResponseLink'],
                 'first'
             ));
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     *
+     * @return array<int, File>
+     */
+    public function createResponseFileList(array $data): array
+    {
+        return $this->createResponseObjectList(
+            $data,
+            [$this, 'createResponseFile'],
+        );
     }
 
     /**

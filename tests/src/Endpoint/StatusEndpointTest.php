@@ -7,8 +7,8 @@ namespace OpenEuropa\Tests\CdtClient\Endpoint;
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
+use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
-use OpenEuropa\CdtClient\Model\Token;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
@@ -42,7 +42,7 @@ class StatusEndpointTest extends TestCase
      * @param Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\StatusEndpoint
-     * @covers \OpenEuropa\CdtClient\Endpoint\BaseEndpoint
+     * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
      */
     public function testStatus(string $permanentId, array $clientConfig, array $responses, mixed $expectedResult): void
     {
@@ -123,6 +123,7 @@ class StatusEndpointTest extends TestCase
                     ],
                     'bilingualFiles' => [
                         [
+                            'content' => '',
                             'sourceLanguage' => '',
                             'targetLanguage' => '',
                             'sourceDocument' => '',
