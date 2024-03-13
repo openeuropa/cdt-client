@@ -13,6 +13,8 @@ jobs:
       - name: clone
         uses: actions/checkout@v2
       - run: docker-compose up -d
+      - name: fix
+        run: docker-compose exec -T web composer self-update
       - name: build
         run: docker-compose exec -T web ${{ matrix.composer_command }}
       - name: test
@@ -28,6 +30,8 @@ jobs:
       - name: clone
         uses: actions/checkout@v2
       - run: docker-compose up -d
+      - name: fix
+        run: docker-compose exec -T web composer self-update
       - name: build
         run: docker-compose exec -T web composer install
       - name: test
