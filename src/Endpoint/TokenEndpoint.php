@@ -4,8 +4,15 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Endpoint;
 
-use OpenEuropa\CdtClient\Model\Token;
+use OpenEuropa\CdtClient\Model\Response\Token;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class TokenEndpoint
@@ -16,9 +23,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class TokenEndpoint extends EndpointBase
 {
-    /**
-     * @inheritDoc
-     */
     protected function getConfigurationResolver(): OptionsResolver
     {
         $resolver = parent::getConfigurationResolver();
@@ -33,12 +37,9 @@ class TokenEndpoint extends EndpointBase
         return $resolver;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function execute(): Token
     {
-        /** @var Token $token */
+        /** @var \OpenEuropa\CdtClient\Model\Response\Token $token */
         $token = $this->getSerializer()->deserialize(
             $this->send('POST')->getBody()->__toString(),
             Token::class,
@@ -58,5 +59,19 @@ class TokenEndpoint extends EndpointBase
             'password' => $this->getConfigValue('password'),
             'client' => $this->getConfigValue('client'),
         ];
+    }
+
+    protected function getSerializer(): SerializerInterface
+    {
+        return new Serializer([
+            new GetSetMethodNormalizer(
+                null,
+                new CamelCaseToSnakeCaseNameConverter(),
+                new PhpDocExtractor()
+            ),
+            new ArrayDenormalizer(),
+        ], [
+            new JsonEncoder(),
+        ]);
     }
 }

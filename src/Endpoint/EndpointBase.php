@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Endpoint;
 
-use Http\Message\MultipartStream\MultipartStreamBuilder;
 use OpenEuropa\CdtClient\Contract\EndpointInterface;
 use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -20,9 +19,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -51,8 +53,6 @@ abstract class EndpointBase implements EndpointInterface
 
     protected UriFactoryInterface $uriFactory;
 
-    protected MultipartStreamBuilder $multipartStreamBuilder;
-
     protected EncoderInterface $jsonEncoder;
 
     /**
@@ -61,10 +61,7 @@ abstract class EndpointBase implements EndpointInterface
     protected array $headers = [];
 
     /**
-     * @param string $endpointUrl
-     *   The endpoint URL.
      * @param array<string, mixed> $configuration
-     *   The endpoint configuration.
      */
     public function __construct(string $endpointUrl, array $configuration = [])
     {
@@ -72,65 +69,36 @@ abstract class EndpointBase implements EndpointInterface
         $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setHttpClient(ClientInterface $httpClient): EndpointInterface
     {
         $this->httpClient = $httpClient;
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setRequestFactory(RequestFactoryInterface $requestFactory): EndpointInterface
     {
         $this->requestFactory = $requestFactory;
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setStreamFactory(StreamFactoryInterface $streamFactory): EndpointInterface
     {
         $this->streamFactory = $streamFactory;
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setUriFactory(UriFactoryInterface $uriFactory): EndpointInterface
     {
         $this->uriFactory = $uriFactory;
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): EndpointInterface
-    {
-        $this->multipartStreamBuilder = $multipartStreamBuilder;
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function setJsonEncoder(EncoderInterface $jsonEncoder): EndpointInterface
     {
         $this->jsonEncoder = $jsonEncoder;
         return $this;
     }
 
-    /**
-     * Returns an option resolver configured to validate the configuration.
-     *
-     * @return OptionsResolver
-     */
     protected function getConfigurationResolver(): OptionsResolver
     {
         $resolver = new OptionsResolver();
@@ -144,10 +112,6 @@ abstract class EndpointBase implements EndpointInterface
         return $resolver;
     }
 
-    /**
-     * @param string $configKey
-     * @return mixed
-     */
     protected function getConfigValue(string $configKey): mixed
     {
         if (!array_key_exists($configKey, $this->configuration)) {
@@ -157,23 +121,18 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
-     * Sends a request and return its response.
-     *
-     * @param string $method
-     *   The request method.
-     *
-     * @return ResponseInterface
-     *   The response.
+     * @param array<string, string> $replacements
+     *   An associative array of replacements to be made in the request URI.
      *
      * @throws ClientExceptionInterface
      *   Thrown if a network error happened while processing the request.
      * @throws InvalidStatusCodeException
-     *   Thrown when the API endpoint returns code other than 200.
+     *   Thrown when the API endpoint returns code other than 200 or 201.
      */
-    protected function send(string $method): ResponseInterface
+    protected function send(string $method, array $replacements = []): ResponseInterface
     {
         $method = strtoupper($method);
-        $uri = $this->getRequestUri();
+        $uri = $this->getRequestUri($replacements);
         $request = $this->requestFactory->createRequest($method, $uri);
 
         $methodsWithBody = ['POST', 'PUT', 'PATCH'];
@@ -191,25 +150,38 @@ abstract class EndpointBase implements EndpointInterface
         $response = $this->httpClient->sendRequest($request);
 
         if (!in_array($response->getStatusCode(), [200, 201], true)) {
-            throw new InvalidStatusCodeException("{$method} {$uri} returns {$response->getStatusCode()}");
+            $this->handleResponseException($response);
         }
 
         return $response;
     }
 
     /**
-     * @return string
+     * @throws InvalidStatusCodeException
+     *   Thrown when the API endpoint returns code other than 200 or 201.
      */
-    protected function getRequestUri(): string
+    protected function handleResponseException(ResponseInterface $response): void
     {
-        $uri = $this->uriFactory->createUri($this->getConfigValue('endpointUrl'));
+        throw new InvalidStatusCodeException(
+            "The API endpoint returns {$response->getStatusCode()}"
+        );
+    }
+
+    /**
+     * @param array<string, string> $replacements
+     */
+    protected function getRequestUri(array $replacements = []): string
+    {
+        $endpointUrl = $this->getConfigValue('endpointUrl');
+        if ($replacements) {
+            $endpointUrl = str_replace(array_keys($replacements), array_values($replacements), $endpointUrl);
+        }
+        $uri = $this->uriFactory->createUri($endpointUrl);
         $query = $this->getRequestUriQuery($uri);
         return $uri->withQuery(http_build_query($query))->__toString();
     }
 
     /**
-     * @param UriInterface $uri
-     *
      * @return array<string|array<mixed>>
      */
     protected function getRequestUriQuery(UriInterface $uri): array
@@ -232,30 +204,8 @@ abstract class EndpointBase implements EndpointInterface
         return $this->headers;
     }
 
-    /**
-     * @return StreamInterface|null
-     */
     protected function getRequestBody(): ?StreamInterface
     {
-        // Multipart stream has precedence, if it has been defined.
-        if ($parts = $this->getRequestMultipartStreamElements()) {
-            foreach ($parts as $name => $part) {
-                $contentType = $part['contentType'] ?? 'application/json';
-                $this->multipartStreamBuilder->addResource($name, $part['content'], [
-                    'headers' => [
-                        'Content-Type' => $contentType,
-                    ],
-                    'filename' => $name,
-                ]);
-            }
-
-            // The multipart stream needs to inform the server about the
-            // Content-Type and  multipart parts boundary ID.
-            $this->headers['Content-Type'] = 'multipart/form-data; boundary="' . $this->multipartStreamBuilder->getBoundary() . '"';
-
-            return $this->multipartStreamBuilder->build();
-        }
-
         // Simple form elements.
         if ($parts = $this->getRequestFormElements()) {
             // Give server guidance on how to decode the stream.
@@ -263,21 +213,14 @@ abstract class EndpointBase implements EndpointInterface
             return $this->streamFactory->createStream(http_build_query($parts));
         }
 
+        // Simple JSON body.
+        if ($json = $this->getRequestJsonBody()) {
+            $this->headers['Content-Type'] = 'application/json';
+            return $this->streamFactory->createStream($json);
+        }
+
         // This endpoint didn't define a request body.
         return null;
-    }
-
-    /**
-     * @return array<array<string>>
-     *   Associative array of multipart parts keyed by the part name. The values
-     *   are associative arrays with two keys:
-     *   - content (string): The multipart part contents.
-     *   - contentType (string, optional): The multipart part content type. If
-     *     omitted, 'application/json' is assumed.
-     */
-    protected function getRequestMultipartStreamElements(): array
-    {
-        return [];
     }
 
     /**
@@ -288,19 +231,26 @@ abstract class EndpointBase implements EndpointInterface
         return [];
     }
 
+    protected function getRequestJsonBody(): string
+    {
+        return '';
+    }
+
     /**
      * Returns a serializer configured to decode the endpoint response.
-     *
-     * @return SerializerInterface
      */
     protected function getSerializer(): SerializerInterface
     {
         return new Serializer([
+            new JsonSerializableNormalizer(),
             new GetSetMethodNormalizer(
+                new ClassMetadataFactory(
+                    new AttributeLoader()
+                ),
                 null,
-                new CamelCaseToSnakeCaseNameConverter(),
                 new PhpDocExtractor()
             ),
+            new DateTimeNormalizer(),
             new ArrayDenormalizer(),
         ], [
             new JsonEncoder(),

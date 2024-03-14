@@ -29,7 +29,13 @@ $client = new \OpenEuropa\CdtClient\ApiClient(
     [
         // For a full list of options see "Configuration".
         'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
-        'tokenApiEndpoint' => 'https://example.com//token',
+        'tokenApiEndpoint' => 'https://example.com/token',
+        'referenceDataApiEndpoint' => 'https://example.com/v2/requests/businessReferenceData',' => 'https://example.com/v2/requests/businessReferenceData',
+        'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
+        'requestsApiEndpoint' => 'https://example.com/v2/requests',
+        'identifierApiEndpoint' => 'https://example.com/v2/requests/requestIdentifierByCorrelationId/:correlationId',
+        'statusApiEndpoint' => 'https://example.com/v2/requests/:requestyear/:requestnumber',
+        'fileApiEndpoint' => 'https://example.com/v2/requests/:requestyear/:requestnumber/targets-base64',
         'username' => 'your-user-name',
         'password' => 'your-password',
         'client' => 'client-name',
@@ -48,6 +54,12 @@ Possible configurations:
 - `client` (string): Used for authentication.
 - `tokenApiEndpoint` (string, valid URI): The Token API endpoint.
 - `mainApiEndpoint` (string, valid URI): The Main API endpoint.
+- `referenceDataApiEndpoint` (string, valid URI): The Reference Data API endpoint.
+- `validateApiEndpoint` (string, valid URI): The Validate API endpoint.
+- `requestsApiEndpoint` (string, valid URI): The Requests API endpoint.
+- `identifierApiEndpoint` (string, valid URI): The Identifier API endpoint.
+- `statusApiEndpoint` (string, valid URI): The Status API endpoint.
+- `fileApiEndpoint` (string, valid URI): The File API endpoint.
 
 ### Check connection
 
@@ -56,6 +68,57 @@ $response = $client->checkConnection();
 ```
 
 Will return true or false depending on the availability of the CDT service.
+
+
+### Get reference data
+
+```php
+$response = $client->getReferenceData();
+```
+Will return an array of business reference data, serialized into  `OpenEuropa\CdtClient\Model\Response\ReferenceData`.
+
+### Translation requests
+
+To validate and send a translation request, run the following code:
+```php
+use OpenEuropa\CdtClient\Model\Request\Translation;
+use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
+
+$translationRequest = new Translation()
+try {
+    if ($client->validateTranslationRequest($translationRequest)) {
+        $correlationId = $client->sendTranslationRequest($translationRequest);
+    }
+} catch (ValidationErrorsException $e) {
+    $errors = $e->getValidationErrors();
+    // Handle the errors.
+}
+```
+
+On success, the `sendTranslationRequest()` method will return the temporary Correlation ID.
+
+### Get permanent request identifier
+
+```php
+$permanentId = $client->getPermanentIdentifier($correlationId);
+```
+
+Will return a permanent string identifier for the translation request, based on correlation ID. Throws the `ValidationErrorsException` if the correlation ID is not found.
+
+### Get the status of a translation request
+
+```php
+$translationStatus = $client->getRequestStatus($permanentId);
+```
+Will return information on the status of translation request, based on permanent ID. Throws the `ValidationErrorsException` if the permanent ID is invalid.
+
+### Get the translated files
+
+```php
+$translatedFiles = $client->getTranslatedFiles($permanentId);
+```
+Will return the list of translated files (including contents), if available, based on permanent ID. Throws the `ValidationErrorsException` if the permanent ID is invalid.
+
 
 ## Contributing
 
