@@ -128,7 +128,6 @@ trait ResponseModelTestTrait
             ->setTargetLanguage($data['targetLanguage'] ?? 'FR')
             ->setSourceDocument($data['sourceDocument'] ?? 'test.xml')
             ->setIsPrivate($data['isPrivate'] ?? false)
-            ->setContent($data['content'] ?? 'The Content')
             ->setLinks($this->createResponseObjectList(
                 $data['links'] ?? null,
                 [$this, 'createResponseLink'],
@@ -284,19 +283,6 @@ trait ResponseModelTestTrait
                 [$this, 'createResponseLink'],
                 'first'
             ));
-    }
-
-    /**
-     * @param array<string, mixed> $data
-     *
-     * @return array<int, File>
-     */
-    public function createResponseFileList(array $data): array
-    {
-        return $this->createResponseObjectList(
-            $data,
-            [$this, 'createResponseFile'],
-        );
     }
 
     /**

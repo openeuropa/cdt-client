@@ -43,11 +43,6 @@ trait AssertTestRequestTrait
         $this->assertEquals('https://example.com/v2/requests/' . $permanentId, $request->getUri());
     }
 
-    protected function assertFileRequest(RequestInterface $request, string $permanentId): void
-    {
-        $this->assertEquals('https://example.com/v2/requests/' . $permanentId . '/targets-base64', $request->getUri());
-    }
-
     /**
      * @param RequestInterface $request
      */
