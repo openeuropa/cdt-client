@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient\Endpoint;
 
 use OpenEuropa\CdtClient\Contract\TokenAwareInterface;
-use OpenEuropa\CdtClient\Model\Response\File;
 use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
 use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
 
 /**
- * Class StatusEndpoint
+ * Class FileEndpoint
  *
- * Defines how the client should handle requests to the "requests/:requestyear/:requestnumber/targets-base64" space of the API.
+ * Defines how the client should handle requests to download files from the API.
  * Implements the TokenAwareInterface to handle authentication tokens for secure communication.
  *
  * @see EndpointBase
@@ -23,39 +22,28 @@ class FileEndpoint extends EndpointBase implements TokenAwareInterface
     use TokenAwareTrait;
     use ValidationAwareTrait;
 
-    protected string $permanentId;
-
-    public function getPermanentId(): string
+    /**
+     * @inheritDoc
+     */
+    public function __construct()
     {
-        return $this->permanentId;
+        // Disable the parent constructor. The configuration is handled by setFileUrl().
     }
 
-    public function setPermanentId(string $permanentId): self
+    public function getFileUrl(): string
     {
-        if (!preg_match('/^\d{4}\/[^\/]+$/', $permanentId)) {
-            throw new \InvalidArgumentException('Invalid permanent ID format (it should be formatted like 2024/1234567).');
-        }
+        return $this->configuration['endpointUrl'];
+    }
 
-        $this->permanentId = $permanentId;
+    public function setFileUrl(string $fileUrl): self
+    {
+        $configuration['endpointUrl'] = $fileUrl;
+        $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
         return $this;
     }
 
-    /**
-     * @return array<int, File>
-     */
-    public function execute(): array
+    public function execute(): string
     {
-        [$year, $id] = explode('/', $this->permanentId);
-
-        /** @var array<int, File> $fileList */
-        $fileList = $this->getSerializer()->deserialize(
-            $this->send('GET', [
-                ':requestyear' => $year,
-                ':requestnumber' => $id,
-            ])->getBody()->__toString(),
-            File::class . '[]',
-            'json'
-        );
-        return $fileList;
+        return $this->send('GET')->getBody()->__toString();
     }
 }
