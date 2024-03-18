@@ -35,7 +35,6 @@ $client = new \OpenEuropa\CdtClient\ApiClient(
         'requestsApiEndpoint' => 'https://example.com/v2/requests',
         'identifierApiEndpoint' => 'https://example.com/v2/requests/requestIdentifierByCorrelationId/:correlationId',
         'statusApiEndpoint' => 'https://example.com/v2/requests/:requestyear/:requestnumber',
-        'fileApiEndpoint' => 'https://example.com/v2/requests/:requestyear/:requestnumber/targets-base64',
         'username' => 'your-user-name',
         'password' => 'your-password',
         'client' => 'client-name',
@@ -59,7 +58,6 @@ Possible configurations:
 - `requestsApiEndpoint` (string, valid URI): The Requests API endpoint.
 - `identifierApiEndpoint` (string, valid URI): The Identifier API endpoint.
 - `statusApiEndpoint` (string, valid URI): The Status API endpoint.
-- `fileApiEndpoint` (string, valid URI): The File API endpoint.
 
 ### Check connection
 
@@ -110,15 +108,13 @@ Will return a permanent string identifier for the translation request, based on 
 ```php
 $translationStatus = $client->getRequestStatus($permanentId);
 ```
-Will return information on the status of translation request, based on permanent ID. Throws the `ValidationErrorsException` if the permanent ID is invalid.
+Will return information on the status of translation request, based on permanent ID. The information includes the list of files to download. Throws the `ValidationErrorsException` if the permanent ID is invalid.
 
-### Get the translated files
-
+### Get the file (source or translated)
 ```php
-$translatedFiles = $client->getTranslatedFiles($permanentId);
+$file = $client->getFile($fileUrl);
 ```
-Will return the list of translated files (including contents), if available, based on permanent ID. Throws the `ValidationErrorsException` if the permanent ID is invalid.
-
+Downloads the specified file, if available, based on the filename listed in `getRequestStatus()`. Throws a `ValidationErrorsException` if the filename is invalid.
 
 ## Contributing
 
