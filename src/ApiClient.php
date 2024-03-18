@@ -147,12 +147,12 @@ class ApiClient implements ApiClientInterface
     /**
      * @inheritDoc
      */
-    public function getTranslatedFiles(string $permanentId): array
+    public function getFile(string $fileUrl): string
     {
         /** @var FileEndpoint $endpoint */
         $endpoint = $this->container->get('file');
         $endpoint->setToken($this->getToken());
-        $endpoint->setPermanentId($permanentId);
+        $endpoint->setFileUrl($fileUrl);
 
         return $endpoint->execute();
     }
@@ -188,8 +188,7 @@ class ApiClient implements ApiClientInterface
             ->addArgument(new LiteralArgument($this->getConfigValue('identifierApiEndpoint')));
         $container->add('status', StatusEndpoint::class)
             ->addArgument(new LiteralArgument($this->getConfigValue('statusApiEndpoint')));
-        $container->add('file', FileEndpoint::class)
-            ->addArgument(new LiteralArgument($this->getConfigValue('fileApiEndpoint')));
+        $container->add('file', FileEndpoint::class);
         $container->add('auth', TokenEndpoint::class)
             ->addArguments([
                 new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),
