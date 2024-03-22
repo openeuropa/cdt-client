@@ -1,0 +1,7 @@
+{
+  "RequestIdentifier": "2024/12345",
+  "Status": "CMP",
+  "SourceDocumentName": "test.xml",
+  "SourceLanguageCode": "EN",
+  "TargetLanguageCode": "FR"
+}

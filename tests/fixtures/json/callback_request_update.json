@@ -1,0 +1,12 @@
+{
+  "RequestIdentifier": "2024/12345",
+  "RequestId": "abcdef",
+  "JobId": "ghijkl",
+  "SourceLanguage": "EN",
+  "TargetLanguage": "FR",
+  "DocumentName": "test.xml",
+  "UpdateType": "PRICE",
+  "PropertiesChanges": {
+    "Example": 0.05
+  }
+}
