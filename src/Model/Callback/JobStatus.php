@@ -8,7 +8,6 @@ namespace OpenEuropa\CdtClient\Model\Callback;
  * Class JobStatus.
  *
  * Represents the single callback sent to the defined endpoint
- * @todo All properties are Uppercase in the request.
  */
 class JobStatus
 {
