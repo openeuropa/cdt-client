@@ -8,7 +8,6 @@ namespace OpenEuropa\CdtClient\Model\Callback;
  * Class RequestStatus.
  *
  * Represents the single callback sent to the defined endpoint
- * @todo all properties are Uppercase in the request.
  */
 class RequestStatus
 {
@@ -16,6 +15,9 @@ class RequestStatus
 
     protected string $status;
 
+    /**
+     * @var \DateTimeInterface
+     */
     protected \DateTimeInterface $date;
 
     protected string $correlationId;
