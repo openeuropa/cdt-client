@@ -33,6 +33,7 @@ class RequestsEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\RequestsEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testRequests(array $clientConfig, array $requestArray, string $requestJson, array $responses, string|ValidationErrors $expectedResult): void
     {

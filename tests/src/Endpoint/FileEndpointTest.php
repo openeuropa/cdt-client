@@ -27,7 +27,7 @@ class FileEndpointTest extends TestCase
     /**
      * @dataProvider providerTestInvalidPermanentId
      *
-     * @covers ::setPermanentId
+     * @covers \OpenEuropa\CdtClient\Endpoint\FileEndpoint
      */
     public function testInvalidPermanentId(string $permanentId): void
     {

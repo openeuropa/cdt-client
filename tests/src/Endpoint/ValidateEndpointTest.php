@@ -6,6 +6,7 @@ namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
+use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
@@ -33,8 +34,11 @@ class ValidateEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\ValidateEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Http\Rest
+     * @covers \OpenEuropa\CdtClient\Exception\ValidationErrorsException
+     * @covers \OpenEuropa\CdtClient\Exception\InvalidStatusCodeException
      */
-    public function testValidate(array $clientConfig, array $requestArray, string $requestJson, array $responses, bool|ValidationErrors $expectedResult): void
+    public function testValidate(array $clientConfig, array $requestArray, string $requestJson, array $responses, bool|ValidationErrors|string $expectedResult): void
     {
         $token = (new Token())->setAccessToken('JWT_TOKEN')
             ->setTokenType('bearer')
@@ -53,6 +57,9 @@ class ValidateEndpointTest extends TestCase
             $result = $validateEndpoint->validateTranslationRequest($translationRequest);
         } catch (ValidationErrorsException $e) {
             $result = $e->getValidationErrors();
+        } catch (InvalidStatusCodeException $e) {
+            $response = $e->getResponse();
+            $result = $response->getBody()->__toString();
         }
         $this->assertEquals($expectedResult, $result);
 
@@ -82,6 +89,18 @@ class ValidateEndpointTest extends TestCase
                     new Response(200, [], 'true')
                 ],
                 true,
+            ],
+            'failed_connection' => [
+                [
+                    'validateApiEndpoint' => 'https://example.com/v2/requests/invalid-validate',
+                ],
+                [
+                ],
+                (string) file_get_contents(__DIR__ . '/../../fixtures/json/validate_valid_request.json'),
+                [
+                    new Response(404, [], 'Server Error')
+                ],
+                'Server Error',
             ],
             'failed_validation' => [
                 [

@@ -32,6 +32,7 @@ class TokenEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\TokenEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testToken(array $clientConfig, array $responses, mixed $expectedResult): void
     {
