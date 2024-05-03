@@ -40,11 +40,9 @@ class IdentifierEndpointTest extends TestCase
         $identifierEndpoint = $container->get('identifier');
         $identifierEndpoint->setToken($token);
         $this->assertEquals($token, $identifierEndpoint->getToken());
-        $identifierEndpoint->setCorrelationId($correlationId);
-        $this->assertEquals($correlationId, $identifierEndpoint->getCorrelationId());
 
         try {
-            $result = $identifierEndpoint->execute();
+            $result = $identifierEndpoint->getPermanentIdentifier($correlationId);
         } catch (ValidationErrorsException $e) {
             $result = $e->getValidationErrors();
         }

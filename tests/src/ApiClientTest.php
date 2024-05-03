@@ -28,18 +28,7 @@ class ApiClientTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->client = $this->getTestingClient([
-            'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
-            'tokenApiEndpoint' => 'https://example.com/token',
-            'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
-            'requestsApiEndpoint' => 'https://example.com/v2/requests',
-            'identifierApiEndpoint' => 'https://example.com/v2/requests/requestIdentifierByCorrelationId/:correlationId',
-            'statusApiEndpoint' => 'https://example.com/v2/requests/:requestyear/:requestnumber',
-            'fileApiEndpoint' => 'https://example.com/v2/requests/:requestyear/:requestnumber/targets-base64',
-            'username' => 'testuser',
-            'password' => 'pass',
-            'client' => 'digit',
-        ]);
+        $this->client = $this->getTestingClient();
     }
 
     /**

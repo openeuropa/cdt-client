@@ -39,7 +39,7 @@ class ReferenceDataEndpointTest extends TestCase
         $referenceDataEndpoint = $container->get('referenceData');
         $referenceDataEndpoint->setToken($token);
         $this->assertEquals($token, $referenceDataEndpoint->getToken());
-        $this->assertEquals($this->createResponseReferenceData($expectedResult), $referenceDataEndpoint->execute());
+        $this->assertEquals($this->createResponseReferenceData($expectedResult), $referenceDataEndpoint->getReferenceData());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
         $this->assertReferenceDataRequest($request);

@@ -48,11 +48,9 @@ class ValidateEndpointTest extends TestCase
         $this->assertEquals($token, $validateEndpoint->getToken());
 
         $translationRequest = $this->createRequestTranslation($requestArray);
-        $validateEndpoint->setTranslationRequest($translationRequest);
-        $this->assertEquals($translationRequest, $validateEndpoint->getTranslationRequest());
 
         try {
-            $result = $validateEndpoint->execute();
+            $result = $validateEndpoint->validateTranslationRequest($translationRequest);
         } catch (ValidationErrorsException $e) {
             $result = $e->getValidationErrors();
         }

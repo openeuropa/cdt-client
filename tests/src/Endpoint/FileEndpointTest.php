@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
-use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
+use OpenEuropa\CdtClient\Contract\RestInterface;
+use OpenEuropa\CdtClient\Endpoint\FileEndpoint;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
@@ -31,8 +32,11 @@ class FileEndpointTest extends TestCase
     public function testInvalidPermanentId(string $permanentId): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $fileEndpoint = new StatusEndpoint('https://example.com/v2/requests/:requestyear/:requestnumber/targets-base64');
-        $fileEndpoint->setPermanentId($permanentId);
+        $fileEndpoint = new FileEndpoint(
+            $this->createMock(RestInterface::class),
+            'https://example.com/v2/requests/:requestyear/:requestnumber/targets-base64'
+        );
+        $fileEndpoint->getTranslatedFiles($permanentId);
     }
 
     /**
@@ -54,11 +58,9 @@ class FileEndpointTest extends TestCase
         $fileEndpoint = $container->get('file');
         $fileEndpoint->setToken($token);
         $this->assertEquals($token, $fileEndpoint->getToken());
-        $fileEndpoint->setPermanentId($permanentId);
-        $this->assertEquals($permanentId, $fileEndpoint->getPermanentId());
 
         try {
-            $result = $fileEndpoint->execute();
+            $result = $fileEndpoint->getTranslatedFiles($permanentId);
             $this->assertEquals($this->createResponseFileList($expectedResult), $result);
         } catch (ValidationErrorsException $e) {
             $result = $e->getValidationErrors();

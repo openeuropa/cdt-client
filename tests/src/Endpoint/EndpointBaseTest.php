@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
-use GuzzleHttp\Psr7\HttpFactory;
+use OpenEuropa\CdtClient\Contract\RestInterface;
 use OpenEuropa\CdtClient\Endpoint\EndpointBase;
 use PHPUnit\Framework\MockObject\Generator\Generator;
 use PHPUnit\Framework\TestCase;
@@ -16,6 +16,15 @@ use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
  */
 class EndpointBaseTest extends TestCase
 {
+    protected RestInterface $restMock;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->restMock = $this->createMock(RestInterface::class);
+    }
+
     /**
      * Tests that the endpoint URL is required.
      *
@@ -24,7 +33,8 @@ class EndpointBaseTest extends TestCase
     public function testEndpointUrlValidation(): void
     {
         $this->expectExceptionObject(new InvalidOptionsException('The option "endpointUrl" with value "INVALID_URL" is invalid.'));
-        (new Generator())->testDouble(EndpointBase::class, true, ['execute'], [
+        (new Generator())->testDouble(EndpointBase::class, true, [], [
+            $this->restMock,
             'INVALID_URL',
         ]);
     }
@@ -37,7 +47,8 @@ class EndpointBaseTest extends TestCase
     public function testDefinedConfig(): void
     {
         $this->expectExceptionObject(new UndefinedOptionsException('The option "foo" does not exist. Defined options are: "endpointUrl".'));
-        (new Generator())->testDouble(EndpointBase::class, true, ['execute'], [
+        (new Generator())->testDouble(EndpointBase::class, true, [], [
+            $this->restMock,
             'http://example.com/v2/checkConnection',
             [
                 'foo' => 'bar',
@@ -53,7 +64,8 @@ class EndpointBaseTest extends TestCase
      */
     public function testInvalidConfigKey(): void
     {
-        $double = (new Generator())->testDouble(EndpointBase::class, true, ['execute'], [
+        $double = (new Generator())->testDouble(EndpointBase::class, true, [], [
+            $this->restMock,
             'http://example.com/v2/checkConnection',
         ]);
 
@@ -65,36 +77,32 @@ class EndpointBaseTest extends TestCase
     }
 
     /**
-     * Tests that the base endpoint handles uri correctly.
+     * Tests that the base endpoint handles url correctly.
      *
      * @param array<string, string> $replacements
      *
-     * @dataProvider providerTestGetRequestUri
+     * @dataProvider providerTestGetEndpointUrl
      *
-     * @covers ::getRequestUriQuery
-     * @covers ::getRequestUri
+     * @covers ::getEndpointUrl
      */
-    public function testGetRequestUri(string $originalUrl, array $replacements, string $expectedUri): void
+    public function testGetEndpointUrl(string $originalUrl, array $replacements, string $expectedUri): void
     {
-        $double = (new Generator())->testDouble(EndpointBase::class, true, ['execute'], [
+        $double = (new Generator())->testDouble(EndpointBase::class, true, [], [
+            $this->restMock,
             $originalUrl,
         ]);
         assert($double instanceof EndpointBase);
 
         $class = new \ReflectionClass(EndpointBase::class);
-        $getRequestUriMethod = $class->getMethod('getRequestUri');
-        $httpFactory = new HttpFactory();
-        $double->setUriFactory($httpFactory);
-
-        $httpFactory->createUri('http://example.com/v2/checkConnection');
-        $finalUri = $getRequestUriMethod->invokeArgs($double, ['replacements' => $replacements]);
+        $getEndpointUrlMethod = $class->getMethod('getEndpointUrl');
+        $finalUri = $getEndpointUrlMethod->invokeArgs($double, ['replacements' => $replacements]);
         $this->assertEquals($expectedUri, $finalUri);
     }
 
     /**
      * @return array<int, mixed>
      */
-    public static function providerTestGetRequestUri(): array
+    public static function providerTestGetEndpointUrl(): array
     {
         return [
             [
