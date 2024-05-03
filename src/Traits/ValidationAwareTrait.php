@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Traits;
 
+use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Trait ValidationAwareTrait
@@ -17,22 +17,23 @@ use Psr\Http\Message\ResponseInterface;
  */
 trait ValidationAwareTrait
 {
-    protected function handleResponseException(ResponseInterface $response): void
+    protected function dispatchValidationException(InvalidStatusCodeException $exception): InvalidStatusCodeException|ValidationErrorsException
     {
+        $response = $exception->getResponse();
         if ($response->getStatusCode() === 400) {
             $validationErrors = $this->getSerializer()->deserialize(
                 $response->getBody()->__toString(),
                 ValidationErrors::class,
                 'json'
             );
-            throw new ValidationErrorsException(
+            return new ValidationErrorsException(
                 'The API endpoint returned 400 response with validation errors.',
                 0,
                 null,
                 $validationErrors
             );
         } else {
-            parent::handleResponseException($response);
+            return $exception;
         }
     }
 }

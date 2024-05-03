@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient\Endpoint;
 
 use OpenEuropa\CdtClient\Contract\TokenAwareInterface;
+use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
 use OpenEuropa\CdtClient\Model\Response\Translation;
 use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
 use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
@@ -23,36 +24,26 @@ class StatusEndpoint extends EndpointBase implements TokenAwareInterface
     use TokenAwareTrait;
     use ValidationAwareTrait;
 
-    protected string $permanentId;
-
-    public function getPermanentId(): string
-    {
-        return $this->permanentId;
-    }
-
-    public function setPermanentId(string $permanentId): self
+    public function getTranslationRequestStatus(string $permanentId): Translation
     {
         if (!preg_match('/^\d{4}\/[^\/]+$/', $permanentId)) {
             throw new \InvalidArgumentException('Invalid permanent ID format (it should be formatted like 2024/1234567).');
         }
+        [$year, $id] = explode('/', $permanentId);
 
-        $this->permanentId = $permanentId;
-        return $this;
-    }
-
-    public function execute(): Translation
-    {
-        [$year, $id] = explode('/', $this->permanentId);
-
-        /** @var Translation $translation */
-        $translation = $this->getSerializer()->deserialize(
-            $this->send('GET', [
-                ':requestyear' => $year,
-                ':requestnumber' => $id,
-            ])->getBody()->__toString(),
+        $url = $this->getEndpointUrl([
+            ':requestyear' => $year,
+            ':requestnumber' => $id,
+        ]);
+        try {
+            $response = $this->rest->get($url, $this->getAuthorizationHeaders());
+        } catch (InvalidStatusCodeException $e) {
+            throw $this->dispatchValidationException($e);
+        }
+        return $this->getSerializer()->deserialize(
+            $response->getBody()->__toString(),
             Translation::class,
             'json'
         );
-        return $translation;
     }
 }
