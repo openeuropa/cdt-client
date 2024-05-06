@@ -19,8 +19,8 @@ interface RestInterface
     public function postJson(string $uri, string $jsonBody, array $headers = []): ResponseInterface;
 
     /**
-     * @param array<string, mixed> $headers
      * @param array<string, string> $formFields
+     * @param array<string, mixed> $headers
      */
     public function postForm(string $uri, array $formFields, array $headers = []): ResponseInterface;
 }
