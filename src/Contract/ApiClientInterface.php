@@ -46,9 +46,5 @@ interface ApiClientInterface
      */
     public function getRequestStatus(string $permanentId): TranslationResponse;
 
-    /**
-     * @throws ValidationErrorsException
-     * *   Thrown if there are validation errors.
-     */
-    public function getFile(string $fileUrl): string;
+    public function downloadFile(string $url): string;
 }
