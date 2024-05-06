@@ -34,6 +34,7 @@ trait TokenAwareTrait
      */
     public function getAuthorizationHeaders(): array
     {
+        assert(isset($this->token), 'No token has been set.');
         $tokenType = ucfirst(strtolower($this->token->getTokenType()));
 
         return [
