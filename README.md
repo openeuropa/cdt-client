@@ -109,9 +109,9 @@ $translationStatus = $client->getRequestStatus($permanentId);
 ```
 Will return information on the status of translation request, based on permanent ID. The information includes the list of files to download. Throws the `ValidationErrorsException` if the permanent ID is invalid.
 
-### Get the file (source or translated)
+### Download the file (source or translated)
 ```php
-$file = $client->getFile($fileUrl);
+$file = $client->downloadFile($fileUrl);
 ```
 Downloads the specified file, if available, based on the filename listed in `getRequestStatus()`. Throws a `ValidationErrorsException` if the filename is invalid.
 
