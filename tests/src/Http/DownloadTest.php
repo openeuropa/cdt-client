@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\Tests\CdtClient\Endpoint;
+namespace OpenEuropa\Tests\CdtClient\Http;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
+use OpenEuropa\CdtClient\Http\Download;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
@@ -14,9 +15,9 @@ use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\CdtClient\Endpoint\FileEndpoint
+ * @coversDefaultClass \OpenEuropa\CdtClient\Http\Download
  */
-class FileEndpointTest extends TestCase
+class DownloadTest extends TestCase
 {
     use ClientTestTrait;
     use AssertTestRequestTrait;
@@ -27,8 +28,7 @@ class FileEndpointTest extends TestCase
      *
      * @param Response[] $responses
      *
-     * @covers \OpenEuropa\CdtClient\Endpoint\FileEndpoint
-     * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Http\Download
      */
     public function testFile(string $fileUrl, array $responses, mixed $expectedResult): void
     {
@@ -37,14 +37,13 @@ class FileEndpointTest extends TestCase
             ->setExpiresIn(3600);
         $client = $this->getTestingClient([], $responses);
         $container = $this->getClientContainer($client);
-        $fileEndpoint = $container->get('file');
-        $fileEndpoint->setToken($token);
-        $this->assertEquals($token, $fileEndpoint->getToken());
-        $fileEndpoint->setFileUrl($fileUrl);
-        $this->assertEquals($fileUrl, $fileEndpoint->getFileUrl());
+        $download = $container->get('file');
+        assert($download instanceof Download);
+        $download->setToken($token);
+        $this->assertEquals($token, $download->getToken());
 
         try {
-            $result = $fileEndpoint->execute();
+            $result = $download->downloadFile($fileUrl);
         } catch (ValidationErrorsException $e) {
             $result = $e->getValidationErrors();
         }

@@ -6,13 +6,13 @@ namespace OpenEuropa\Tests\CdtClient;
 
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Contract\TokenAwareInterface;
-use OpenEuropa\CdtClient\Endpoint\FileEndpoint;
 use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
 use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
+use OpenEuropa\CdtClient\Http\Download;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
@@ -58,7 +58,7 @@ class ApiClientTest extends TestCase
         $this->assertInstanceOf(StatusEndpoint::class, $container->get('status'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('status'));
 
-        $this->assertInstanceOf(FileEndpoint::class, $container->get('file'));
+        $this->assertInstanceOf(Download::class, $container->get('file'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('file'));
     }
 
