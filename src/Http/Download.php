@@ -16,7 +16,7 @@ use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
  *
  * @see TokenAwareInterface
  * @see ValidationAwareTrait
- * @see
+ * @see SerializerAwareTrait
 */
 class Download implements TokenAwareInterface
 {
@@ -28,10 +28,7 @@ class Download implements TokenAwareInterface
     {
     }
 
-    /**
-     * @param array<string, string> $headers
-     */
-    public function downloadFile(string $uri, array $headers = []): string
+    public function downloadFile(string $uri): string
     {
         try {
             $response = $this->rest->get($uri, $this->getAuthorizationHeaders());
