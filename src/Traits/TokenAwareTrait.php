@@ -12,7 +12,7 @@ use OpenEuropa\CdtClient\Model\Response\Token;
  * Provides methods for handling an authentication token and defines request headers needed for endpoints that need
  * authentication.
  *
- * @see \OpenEuropa\CdtClient\Model\Response\Token
+ * @see Token
  */
 trait TokenAwareTrait
 {
@@ -29,11 +29,16 @@ trait TokenAwareTrait
         return $this->token;
     }
 
-    public function getRequestHeaders(): array
+    /**
+     * @return array<string, string>
+     */
+    public function getAuthorizationHeaders(): array
     {
+        assert(isset($this->token), 'No token has been set.');
         $tokenType = ucfirst(strtolower($this->token->getTokenType()));
+
         return [
-            'Authorization' => "$tokenType {$this->token->getAccessToken()}",
-        ] + parent::getRequestHeaders();
+            'Authorization' => sprintf('%s %s', $tokenType, $this->token->getAccessToken()),
+        ];
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient\Endpoint;
 
 use OpenEuropa\CdtClient\Contract\TokenAwareInterface;
+use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
 use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
 use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
 
@@ -16,30 +17,22 @@ use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
  *
  * @see EndpointBase
  * @see TokenAwareInterface
+ * @see ValidationAwareTrait
  */
 class IdentifierEndpoint extends EndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
     use ValidationAwareTrait;
 
-    protected string $correlationId;
-
-    public function getCorrelationId(): string
+    public function getPermanentIdentifier(string $correlationId): string
     {
-        return $this->correlationId;
-    }
+        $url = $this->getEndpointUrl([':correlationId' => $correlationId]);
+        try {
+            $response = $this->rest->get($url, $this->getAuthorizationHeaders());
+        } catch (InvalidStatusCodeException $e) {
+            throw $this->dispatchValidationException($e);
+        }
 
-    public function setCorrelationId(string $correlationId): self
-    {
-        $this->correlationId = $correlationId;
-        return $this;
-    }
-
-    public function execute(): string
-    {
-        $response = $this->send('GET', [
-            ':correlationId' => $this->getCorrelationId()
-        ]);
         return $response->getBody()->__toString();
     }
 }

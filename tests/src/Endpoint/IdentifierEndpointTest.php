@@ -29,6 +29,7 @@ class IdentifierEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testIdentifier(string $correlationId, array $clientConfig, array $responses, mixed $expectedResult): void
     {
@@ -40,11 +41,9 @@ class IdentifierEndpointTest extends TestCase
         $identifierEndpoint = $container->get('identifier');
         $identifierEndpoint->setToken($token);
         $this->assertEquals($token, $identifierEndpoint->getToken());
-        $identifierEndpoint->setCorrelationId($correlationId);
-        $this->assertEquals($correlationId, $identifierEndpoint->getCorrelationId());
 
         try {
-            $result = $identifierEndpoint->execute();
+            $result = $identifierEndpoint->getPermanentIdentifier($correlationId);
         } catch (ValidationErrorsException $e) {
             $result = $e->getValidationErrors();
         }

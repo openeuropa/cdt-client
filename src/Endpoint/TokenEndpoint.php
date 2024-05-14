@@ -37,28 +37,19 @@ class TokenEndpoint extends EndpointBase
         return $resolver;
     }
 
-    public function execute(): Token
+    public function getToken(): Token
     {
-        /** @var \OpenEuropa\CdtClient\Model\Response\Token $token */
-        $token = $this->getSerializer()->deserialize(
-            $this->send('POST')->getBody()->__toString(),
-            Token::class,
-            'json'
-        );
-        return $token;
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    protected function getRequestFormElements(): array
-    {
-        return [
+        $response = $this->rest->postForm($this->getEndpointUrl(), [
             'grant_type' => 'password',
             'username' => $this->getConfigValue('username'),
             'password' => $this->getConfigValue('password'),
             'client' => $this->getConfigValue('client'),
-        ];
+        ]);
+        return $this->getSerializer()->deserialize(
+            $response->getBody()->__toString(),
+            Token::class,
+            'json'
+        );
     }
 
     protected function getSerializer(): SerializerInterface

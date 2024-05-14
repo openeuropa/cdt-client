@@ -33,6 +33,7 @@ class RequestsEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\RequestsEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testRequests(array $clientConfig, array $requestArray, string $requestJson, array $responses, string|ValidationErrors $expectedResult): void
     {
@@ -48,11 +49,8 @@ class RequestsEndpointTest extends TestCase
         $this->assertEquals($token, $requestsEndpoint->getToken());
 
         $translationRequest = $this->createRequestTranslation($requestArray);
-        $requestsEndpoint->setTranslationRequest($translationRequest);
-        $this->assertEquals($translationRequest, $requestsEndpoint->getTranslationRequest());
-
         try {
-            $result = $requestsEndpoint->execute();
+            $result = $requestsEndpoint->sendTranslationRequest($translationRequest);
         } catch (ValidationErrorsException $e) {
             $result = $e->getValidationErrors();
         }

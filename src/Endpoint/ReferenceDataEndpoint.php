@@ -21,14 +21,13 @@ class ReferenceDataEndpoint extends EndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
 
-    public function execute(): ReferenceData
+    public function getReferenceData(): ReferenceData
     {
-        /** @var ReferenceData $referenceData */
-        $referenceData = $this->getSerializer()->deserialize(
-            $this->send('GET')->getBody()->__toString(),
+        $response = $this->rest->get($this->getEndpointUrl(), $this->getAuthorizationHeaders());
+        return $this->getSerializer()->deserialize(
+            $response->getBody()->__toString(),
             ReferenceData::class,
             'json'
         );
-        return $referenceData;
     }
 }

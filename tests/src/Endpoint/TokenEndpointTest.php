@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
+use OpenEuropa\CdtClient\Contract\RestInterface;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
@@ -31,6 +32,7 @@ class TokenEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\TokenEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testToken(array $clientConfig, array $responses, mixed $expectedResult): void
     {
@@ -39,7 +41,7 @@ class TokenEndpointTest extends TestCase
 
         $tokenEndpoint = $container->get('auth');
         assert($tokenEndpoint instanceof TokenEndpoint);
-        $this->assertEquals($expectedResult, $tokenEndpoint->execute());
+        $this->assertEquals($expectedResult, $tokenEndpoint->getToken());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
         $this->assertTokenRequest($request);
@@ -53,11 +55,15 @@ class TokenEndpointTest extends TestCase
     public function testInvalidConfig(string|int $username, string|int $password, string|int $client, string $exceptionMessage): void
     {
         $this->expectExceptionObject(new InvalidOptionsException($exceptionMessage));
-        new TokenEndpoint('https://example.com/token', [
-            'username' => $username,
-            'password' => $password,
-            'client' => $client,
-        ]);
+        new TokenEndpoint(
+            $this->createMock(RestInterface::class),
+            'https://example.com/token',
+            [
+                'username' => $username,
+                'password' => $password,
+                'client' => $client,
+            ]
+        );
     }
 
     /**
@@ -66,7 +72,7 @@ class TokenEndpointTest extends TestCase
     public function testMissingConfig(): void
     {
         $this->expectExceptionObject(new MissingOptionsException('The required options "client", "password", "username" are missing.'));
-        new TokenEndpoint('https://example.com/token');
+        new TokenEndpoint($this->createMock(RestInterface::class), 'https://example.com/token');
     }
 
     /**
@@ -75,9 +81,13 @@ class TokenEndpointTest extends TestCase
     public function testDefinedConfig(): void
     {
         $this->expectExceptionObject(new UndefinedOptionsException('The option "foo" does not exist. Defined options are: "client", "endpointUrl", "password", "username".'));
-        new TokenEndpoint('https://example.com/token', [
-            'foo' => 'bar',
-        ]);
+        new TokenEndpoint(
+            $this->createMock(RestInterface::class),
+            'https://example.com/token',
+            [
+                'foo' => 'bar',
+            ]
+        );
     }
 
     /**

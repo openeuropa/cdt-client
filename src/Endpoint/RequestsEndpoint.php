@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient\Endpoint;
 
 use OpenEuropa\CdtClient\Contract\TokenAwareInterface;
+use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
 use OpenEuropa\CdtClient\Model\Request\Translation;
 use OpenEuropa\CdtClient\Traits\TokenAwareTrait;
 use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
@@ -17,32 +18,21 @@ use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
  *
  * @see EndpointBase
  * @see TokenAwareInterface
+ * @see ValidationAwareTrait
  */
 class RequestsEndpoint extends EndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
     use ValidationAwareTrait;
 
-    protected Translation $translationRequest;
-
-    public function getTranslationRequest(): Translation
+    public function sendTranslationRequest(Translation $translationRequest): string
     {
-        return $this->translationRequest;
-    }
-
-    public function setTranslationRequest(Translation $translationRequest): self
-    {
-        $this->translationRequest = $translationRequest;
-        return $this;
-    }
-
-    protected function getRequestJsonBody(): string
-    {
-        return $this->getSerializer()->serialize($this->getTranslationRequest(), 'json');
-    }
-
-    public function execute(): string
-    {
-        return $this->send('POST')->getBody()->__toString();
+        $body = $this->getSerializer()->serialize($translationRequest, 'json');
+        try {
+            $response = $this->rest->postJson($this->getEndpointUrl(), $body, $this->getAuthorizationHeaders());
+        } catch (InvalidStatusCodeException $e) {
+            throw $this->dispatchValidationException($e);
+        }
+        return $response->getBody()->__toString();
     }
 }

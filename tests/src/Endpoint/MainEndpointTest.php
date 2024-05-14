@@ -27,6 +27,7 @@ class MainEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\MainEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testMain(array $clientConfig, array $responses, mixed $expectedResult): void
     {
@@ -36,7 +37,7 @@ class MainEndpointTest extends TestCase
         $client = $this->getTestingClient($clientConfig, $responses);
         $container = $this->getClientContainer($client);
         $mainEndpoint = $container->get('main');
-        $this->assertEquals($expectedResult, $mainEndpoint->setToken($token)->execute());
+        $this->assertEquals($expectedResult, $mainEndpoint->setToken($token)->isConnected());
         $this->assertEquals($token, $mainEndpoint->getToken());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
+use OpenEuropa\CdtClient\Contract\RestInterface;
 use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Response\Token;
@@ -26,13 +27,16 @@ class StatusEndpointTest extends TestCase
     /**
      * @dataProvider providerTestInvalidPermanentId
      *
-     * @covers ::setPermanentId
+     * @covers \OpenEuropa\CdtClient\Endpoint\StatusEndpoint
      */
     public function testInvalidPermanentId(string $permanentId): void
     {
         $this->expectExceptionObject(new \InvalidArgumentException('Invalid permanent ID format (it should be formatted like 2024/1234567).'));
-        $statusEndpoint = new StatusEndpoint('https://example.com/v2/requests/:requestyear/:requestnumber');
-        $statusEndpoint->setPermanentId($permanentId);
+        $statusEndpoint = new StatusEndpoint(
+            $this->createMock(RestInterface::class),
+            'https://example.com/v2/requests/:requestyear/:requestnumber'
+        );
+        $statusEndpoint->getTranslationRequestStatus($permanentId);
     }
 
     /**
@@ -43,6 +47,7 @@ class StatusEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\StatusEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testStatus(string $permanentId, array $clientConfig, array $responses, mixed $expectedResult): void
     {
@@ -54,11 +59,9 @@ class StatusEndpointTest extends TestCase
         $statusEndpoint = $container->get('status');
         $statusEndpoint->setToken($token);
         $this->assertEquals($token, $statusEndpoint->getToken());
-        $statusEndpoint->setPermanentId($permanentId);
-        $this->assertEquals($permanentId, $statusEndpoint->getPermanentId());
 
         try {
-            $result = $statusEndpoint->execute();
+            $result = $statusEndpoint->getTranslationRequestStatus($permanentId);
             $this->assertEquals($this->createResponseTranslation($expectedResult), $result);
         } catch (ValidationErrorsException $e) {
             $result = $e->getValidationErrors();

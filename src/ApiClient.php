@@ -7,7 +7,6 @@ namespace OpenEuropa\CdtClient;
 use League\Container\Argument\LiteralArgument;
 use League\Container\Container;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
-use OpenEuropa\CdtClient\Contract\EndpointInterface;
 use OpenEuropa\CdtClient\Endpoint\FileEndpoint;
 use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
@@ -16,16 +15,16 @@ use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
 use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
+use OpenEuropa\CdtClient\Http\Rest;
 use OpenEuropa\CdtClient\Model\Request\Translation as TranslationRequest;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\Translation as TranslationResponse;
 use OpenEuropa\CdtClient\Model\Response\ReferenceData;
+use OpenEuropa\CdtClient\Traits\ConfigurationAwareTrait;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\UriFactoryInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 /**
  * Class ApiClient
@@ -34,38 +33,30 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
  * It handles requesting and setting up what is necessary to execute calls to the endpoints.
  *
  * @see ApiClientInterface
- * @see TokenAwareTrait
+ * @see ConfigurationAwareTrait
  */
 class ApiClient implements ApiClientInterface
 {
-    /**
-     * @var array<string, mixed>
-     */
-    protected array $configuration = [];
+    use ConfigurationAwareTrait;
 
     protected ContainerInterface $container;
-
-    protected UriFactoryInterface $uriFactory;
 
     protected Token $token;
 
     /**
-     * @param array<string, mixed>    $configuration
+     * @param array<string, mixed> $configuration
      */
     public function __construct(
         ClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory,
-        UriFactoryInterface $uriFactory,
         array $configuration
     ) {
-        $this->uriFactory = $uriFactory;
         $this->configuration = $configuration;
         $this->createContainer(
             $httpClient,
             $requestFactory,
-            $streamFactory,
-            $uriFactory,
+            $streamFactory
         );
     }
 
@@ -74,7 +65,7 @@ class ApiClient implements ApiClientInterface
         /** @var TokenEndpoint $endpoint */
         $endpoint = $this->container->get('auth');
 
-        return $endpoint->execute();
+        return $endpoint->getToken();
     }
 
     public function checkConnection(): bool
@@ -83,7 +74,7 @@ class ApiClient implements ApiClientInterface
         $endpoint = $this->container->get('main');
         $endpoint->setToken($this->getToken());
 
-        return $endpoint->execute();
+        return $endpoint->isConnected();
     }
 
     public function getReferenceData(): ReferenceData
@@ -92,7 +83,7 @@ class ApiClient implements ApiClientInterface
         $endpoint = $this->container->get('referenceData');
         $endpoint->setToken($this->getToken());
 
-        return $endpoint->execute();
+        return $endpoint->getReferenceData();
     }
 
     /**
@@ -104,8 +95,7 @@ class ApiClient implements ApiClientInterface
         $endpoint = $this->container->get('validate');
         return $endpoint
             ->setToken($this->getToken())
-            ->setTranslationRequest($translationRequest)
-            ->execute();
+            ->validateTranslationRequest($translationRequest);
     }
 
     public function sendTranslationRequest(TranslationRequest $translationRequest): string
@@ -114,8 +104,7 @@ class ApiClient implements ApiClientInterface
         $endpoint = $this->container->get('requests');
         return $endpoint
             ->setToken($this->getToken())
-            ->setTranslationRequest($translationRequest)
-            ->execute();
+            ->sendTranslationRequest($translationRequest);
     }
 
     /**
@@ -126,9 +115,8 @@ class ApiClient implements ApiClientInterface
         /** @var IdentifierEndpoint $endpoint */
         $endpoint = $this->container->get('identifier');
         $endpoint->setToken($this->getToken());
-        $endpoint->setCorrelationId($correlationId);
 
-        return $endpoint->execute();
+        return $endpoint->getPermanentIdentifier($correlationId);
     }
 
     /**
@@ -139,9 +127,8 @@ class ApiClient implements ApiClientInterface
         /** @var StatusEndpoint $endpoint */
         $endpoint = $this->container->get('status');
         $endpoint->setToken($this->getToken());
-        $endpoint->setPermanentId($permanentId);
 
-        return $endpoint->execute();
+        return $endpoint->getTranslationRequestStatus($permanentId);
     }
 
     /**
@@ -152,16 +139,14 @@ class ApiClient implements ApiClientInterface
         /** @var FileEndpoint $endpoint */
         $endpoint = $this->container->get('file');
         $endpoint->setToken($this->getToken());
-        $endpoint->setPermanentId($permanentId);
 
-        return $endpoint->execute();
+        return $endpoint->getTranslatedFiles($permanentId);
     }
 
     private function createContainer(
         ClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory,
-        UriFactoryInterface $uriFactory
     ): void {
         $container = new Container();
 
@@ -171,68 +156,47 @@ class ApiClient implements ApiClientInterface
             'client',
         ])));
 
-        // All services are not shared, meaning that a new instance is
+        // Endpoint services are not shared, meaning that a new instance is
         // created every time the service is requested from the container.
         // We're doing this because such a service might be called more than
         // once during the lifetime of a request, so internals set in a previous
         // usage may leak into the later usages.
+        $container->add('rest', Rest::class)
+            ->addArguments([
+                $httpClient,
+                $requestFactory,
+                $streamFactory,
+            ]);
         $container->add('main', MainEndpoint::class)
+            ->addArgument('rest')
             ->addArgument(new LiteralArgument($this->getConfigValue('mainApiEndpoint')));
         $container->add('referenceData', ReferenceDataEndpoint::class)
+            ->addArgument('rest')
             ->addArgument(new LiteralArgument($this->getConfigValue('referenceDataApiEndpoint')));
         $container->add('validate', ValidateEndpoint::class)
+            ->addArgument('rest')
             ->addArgument(new LiteralArgument($this->getConfigValue('validateApiEndpoint')));
         $container->add('requests', RequestsEndpoint::class)
+            ->addArgument('rest')
             ->addArgument(new LiteralArgument($this->getConfigValue('requestsApiEndpoint')));
         $container->add('identifier', IdentifierEndpoint::class)
+            ->addArgument('rest')
             ->addArgument(new LiteralArgument($this->getConfigValue('identifierApiEndpoint')));
         $container->add('status', StatusEndpoint::class)
+            ->addArgument('rest')
             ->addArgument(new LiteralArgument($this->getConfigValue('statusApiEndpoint')));
         $container->add('file', FileEndpoint::class)
+            ->addArgument('rest')
             ->addArgument(new LiteralArgument($this->getConfigValue('fileApiEndpoint')));
         $container->add('auth', TokenEndpoint::class)
+            ->addArgument('rest')
             ->addArguments([
                 new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),
                 'token_config',
             ]);
 
-        // Inject the services into endpoints.
-        $container->inflector(EndpointInterface::class)
-            ->invokeMethods([
-                'setHttpClient' => [$httpClient],
-                'setRequestFactory' => [$requestFactory],
-                'setStreamFactory' => [$streamFactory],
-                'setUriFactory' => [$uriFactory],
-                'setJsonEncoder' => [new JsonEncoder()],
-            ]);
-
         // Keep a reference to the container.
         $this->container = $container;
-    }
-
-    /**
-     * Extracts a subset of values from the client configuration.
-     *
-     * Non-existing and boolean keys are not returned.
-     *
-     * @param string[] $names
-     *   A list of configuration keys to extract.
-     * @return array<string, mixed>
-     */
-    private function extractConfigValues(array $names): array
-    {
-        return array_intersect_key(
-            $this->configuration,
-            array_flip($names)
-        );
-    }
-
-    /**
-     * Retrieves a value from the client configuration.
-     */
-    private function getConfigValue(string $name): mixed
-    {
-        return array_key_exists($name, $this->configuration) ? $this->configuration[$name] : null;
     }
 
     public function setToken(Token $token): self

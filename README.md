@@ -25,7 +25,6 @@ $client = new \OpenEuropa\CdtClient\ApiClient(
     new \GuzzleHttp\Client(),
     new \Http\Factory\Guzzle\RequestFactory(),
     new \Http\Factory\Guzzle\StreamFactory(),
-    new \Http\Factory\Guzzle\UriFactory(),
     [
         // For a full list of options see "Configuration".
         'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
