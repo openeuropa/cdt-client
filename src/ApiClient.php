@@ -7,7 +7,6 @@ namespace OpenEuropa\CdtClient;
 use League\Container\Argument\LiteralArgument;
 use League\Container\Container;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
-use OpenEuropa\CdtClient\Endpoint\FileEndpoint;
 use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
@@ -15,6 +14,7 @@ use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
 use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
+use OpenEuropa\CdtClient\Http\Download;
 use OpenEuropa\CdtClient\Http\Rest;
 use OpenEuropa\CdtClient\Model\Request\Translation as TranslationRequest;
 use OpenEuropa\CdtClient\Model\Response\Token;
@@ -131,16 +131,13 @@ class ApiClient implements ApiClientInterface
         return $endpoint->getTranslationRequestStatus($permanentId);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getTranslatedFiles(string $permanentId): array
+    public function downloadFile(string $url): string
     {
-        /** @var FileEndpoint $endpoint */
-        $endpoint = $this->container->get('file');
-        $endpoint->setToken($this->getToken());
+        /** @var Download $downloader */
+        $downloader = $this->container->get('file');
+        $downloader->setToken($this->getToken());
 
-        return $endpoint->getTranslatedFiles($permanentId);
+        return $downloader->downloadFile($url);
     }
 
     private function createContainer(
@@ -185,9 +182,8 @@ class ApiClient implements ApiClientInterface
         $container->add('status', StatusEndpoint::class)
             ->addArgument('rest')
             ->addArgument(new LiteralArgument($this->getConfigValue('statusApiEndpoint')));
-        $container->add('file', FileEndpoint::class)
-            ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('fileApiEndpoint')));
+        $container->add('file', Download::class)
+            ->addArgument('rest');
         $container->add('auth', TokenEndpoint::class)
             ->addArgument('rest')
             ->addArguments([

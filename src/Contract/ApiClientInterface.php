@@ -6,7 +6,6 @@ namespace OpenEuropa\CdtClient\Contract;
 
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Request\Translation as TranslationRequest;
-use OpenEuropa\CdtClient\Model\Response\File;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\Translation as TranslationResponse;
 use OpenEuropa\CdtClient\Model\Response\ReferenceData;
@@ -47,11 +46,5 @@ interface ApiClientInterface
      */
     public function getRequestStatus(string $permanentId): TranslationResponse;
 
-    /**
-     * @return array<int, File>
-     *
-     * @throws ValidationErrorsException
-     * *   Thrown if there are validation errors.
-     */
-    public function getTranslatedFiles(string $permanentId): array;
+    public function downloadFile(string $url): string;
 }

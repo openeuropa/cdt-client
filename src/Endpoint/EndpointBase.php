@@ -6,17 +6,8 @@ namespace OpenEuropa\CdtClient\Endpoint;
 
 use OpenEuropa\CdtClient\Contract\RestInterface;
 use OpenEuropa\CdtClient\Traits\ConfigurationAwareTrait;
+use OpenEuropa\CdtClient\Traits\SerializerAwareTrait;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
-use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class EndpointBase
@@ -27,10 +18,12 @@ use Symfony\Component\Serializer\SerializerInterface;
  * It also allows you to get a default serializer for decoding the endpoint response.
  *
  * @see ConfigurationAwareTrait
+ * @see SerializerAwareTrait
  */
 abstract class EndpointBase
 {
     use ConfigurationAwareTrait;
+    use SerializerAwareTrait;
 
     /**
      * @param array<string, mixed> $configuration
@@ -65,26 +58,5 @@ abstract class EndpointBase
         }
 
         return $url;
-    }
-
-    /**
-     * Returns a serializer configured to decode the endpoint response.
-     */
-    protected function getSerializer(): SerializerInterface
-    {
-        return new Serializer([
-            new JsonSerializableNormalizer(),
-            new GetSetMethodNormalizer(
-                new ClassMetadataFactory(
-                    new AttributeLoader()
-                ),
-                null,
-                new PhpDocExtractor()
-            ),
-            new DateTimeNormalizer(),
-            new ArrayDenormalizer(),
-        ], [
-            new JsonEncoder(),
-        ]);
     }
 }
