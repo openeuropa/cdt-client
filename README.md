@@ -23,8 +23,8 @@ require_once 'vendor/autoload.php';
 
 $client = new \OpenEuropa\CdtClient\ApiClient(
     new \GuzzleHttp\Client(),
-    new \Http\Factory\Guzzle\RequestFactory(),
-    new \Http\Factory\Guzzle\StreamFactory(),
+    new \GuzzleHttp\Psr7\HttpFactory(),
+    new \GuzzleHttp\Psr7\HttpFactory(),
     [
         // For a full list of options see "Configuration".
         'apiBaseUrl' => 'https://example.com',
