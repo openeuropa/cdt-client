@@ -25,10 +25,7 @@ class RequestsEndpoint extends EndpointBase implements TokenAwareInterface
     use TokenAwareTrait;
     use ValidationAwareTrait;
 
-    protected function getEndpointUrlPath(): string
-    {
-        return '/v2/requests';
-    }
+    const ENDPOINT_URL_PATH = '/v2/requests';
 
     public function sendTranslationRequest(Translation $translationRequest): string
     {

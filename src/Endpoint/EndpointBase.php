@@ -25,12 +25,14 @@ abstract class EndpointBase
     use ConfigurationAwareTrait;
     use SerializerAwareTrait;
 
+    const ENDPOINT_URL_PATH = '';
+
     /**
      * @param array<string, mixed> $configuration
      */
     public function __construct(protected RestInterface $rest, string $baseUrl, array $configuration = [])
     {
-        $configuration['endpointUrl'] = rtrim($baseUrl, '/') . $this->getEndpointUrlPath();
+        $configuration['endpointUrl'] = rtrim($baseUrl, '/') . static::ENDPOINT_URL_PATH;
         $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
     }
 
@@ -59,6 +61,4 @@ abstract class EndpointBase
 
         return $url;
     }
-
-    abstract protected function getEndpointUrlPath(): string;
 }

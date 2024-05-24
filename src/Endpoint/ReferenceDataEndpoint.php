@@ -21,10 +21,7 @@ class ReferenceDataEndpoint extends EndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
 
-    protected function getEndpointUrlPath(): string
-    {
-        return '/v2/requests/businessReferenceData';
-    }
+    const ENDPOINT_URL_PATH = '/v2/requests/businessReferenceData';
 
     public function getReferenceData(): ReferenceData
     {

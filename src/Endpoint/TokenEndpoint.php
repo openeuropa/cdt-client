@@ -23,10 +23,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class TokenEndpoint extends EndpointBase
 {
-    protected function getEndpointUrlPath(): string
-    {
-        return '/token';
-    }
+    const ENDPOINT_URL_PATH = '/token';
 
     protected function getConfigurationResolver(): OptionsResolver
     {

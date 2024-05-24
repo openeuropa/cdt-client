@@ -20,10 +20,7 @@ class MainEndpoint extends EndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
 
-    protected function getEndpointUrlPath(): string
-    {
-        return '/v2/CheckConnection';
-    }
+    const ENDPOINT_URL_PATH = '/v2/CheckConnection';
 
     public function isConnected(): bool
     {
