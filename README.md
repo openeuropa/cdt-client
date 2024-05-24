@@ -27,7 +27,7 @@ $client = new \OpenEuropa\CdtClient\ApiClient(
     new \Http\Factory\Guzzle\StreamFactory(),
     [
         // For a full list of options see "Configuration".
-        'apiEndpoint' => 'https://example.com',
+        'apiBaseUrl' => 'https://example.com',
         'username' => 'your-user-name',
         'password' => 'your-password',
         'client' => 'client-name',
@@ -44,7 +44,7 @@ Possible configurations:
 - `username` (string): Used for authentication.
 - `password` (string): Used for authentication.
 - `client` (string): Used for authentication.
-- `apiEndpoint` (string, valid URI): The Main API endpoint.
+- `apiBaseUrl` (string, valid URI): The base API url.
 
 ### Check connection
 

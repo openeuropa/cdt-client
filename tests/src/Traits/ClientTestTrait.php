@@ -35,7 +35,7 @@ trait ClientTestTrait
         $handlerStack->push(Middleware::history($this->clientHistory));
 
         $defaultConfiguration = [
-            'apiEndpoint' => 'https://example.com',
+            'apiBaseUrl' => 'https://example.com',
             'username' => 'testuser',
             'password' => 'pass',
             'client' => 'digit',

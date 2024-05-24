@@ -82,7 +82,7 @@ class StatusEndpointTest extends TestCase
             'valid status call' => [
                 '2024/12345',
                 [
-                    'apiEndpoint' => 'https://example.com',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                     new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/status_valid_response.json'))
@@ -201,7 +201,7 @@ class StatusEndpointTest extends TestCase
             'failed status call' => [
                 '2024/12346',
                 [
-                    'apiEndpoint' => 'https://example.com',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                     new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/status_error_response.json'))

@@ -55,7 +55,7 @@ class ReferenceDataEndpointTest extends TestCase
         return [
             'simple reference data call' => [
                 [
-                    'apiEndpoint' => 'https://example.com',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                     new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/reference_data_response.json'))

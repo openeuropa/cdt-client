@@ -65,7 +65,7 @@ class IdentifierEndpointTest extends TestCase
             'connected' => [
                 '12345',
                 [
-                    'apiEndpoint' => 'https://example.com',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                     new Response(200, [], '2024/332233')
@@ -75,7 +75,7 @@ class IdentifierEndpointTest extends TestCase
             'failed' => [
                 'AbCdE',
                 [
-                    'apiEndpoint' => 'https://example.com',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                     new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/identifier_error_response.json'))
