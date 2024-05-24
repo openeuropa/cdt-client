@@ -55,7 +55,7 @@ class MainEndpointTest extends TestCase
         return [
             'connected' => [
                 [
-                    'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
+                    'apiEndpoint' => 'https://example.com',
                 ],
                 [
                     new Response(200, [], 'true')
@@ -64,7 +64,7 @@ class MainEndpointTest extends TestCase
             ],
             'failed' => [
                 [
-                    'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
+                    'apiEndpoint' => 'https://example.com',
                 ],
                 [
                     new Response(200, [], 'false')
