@@ -166,28 +166,28 @@ class ApiClient implements ApiClientInterface
             ]);
         $container->add('main', MainEndpoint::class)
             ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('mainApiEndpoint')));
+            ->addArgument(new LiteralArgument($this->getConfigValue('apiEndpoint')));
         $container->add('referenceData', ReferenceDataEndpoint::class)
             ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('referenceDataApiEndpoint')));
+            ->addArgument(new LiteralArgument($this->getConfigValue('apiEndpoint')));
         $container->add('validate', ValidateEndpoint::class)
             ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('validateApiEndpoint')));
+            ->addArgument(new LiteralArgument($this->getConfigValue('apiEndpoint')));
         $container->add('requests', RequestsEndpoint::class)
             ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('requestsApiEndpoint')));
+            ->addArgument(new LiteralArgument($this->getConfigValue('apiEndpoint')));
         $container->add('identifier', IdentifierEndpoint::class)
             ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('identifierApiEndpoint')));
+            ->addArgument(new LiteralArgument($this->getConfigValue('apiEndpoint')));
         $container->add('status', StatusEndpoint::class)
             ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('statusApiEndpoint')));
+            ->addArgument(new LiteralArgument($this->getConfigValue('apiEndpoint')));
         $container->add('file', Download::class)
             ->addArgument('rest');
         $container->add('auth', TokenEndpoint::class)
             ->addArgument('rest')
             ->addArguments([
-                new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),
+                new LiteralArgument($this->getConfigValue('apiEndpoint')),
                 'token_config',
             ]);
 
