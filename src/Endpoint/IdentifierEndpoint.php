@@ -24,6 +24,11 @@ class IdentifierEndpoint extends EndpointBase implements TokenAwareInterface
     use TokenAwareTrait;
     use ValidationAwareTrait;
 
+    protected function getEndpointUrlPath(): string
+    {
+        return '/v2/requests/requestIdentifierByCorrelationId/:correlationId';
+    }
+
     public function getPermanentIdentifier(string $correlationId): string
     {
         $url = $this->getEndpointUrl([':correlationId' => $correlationId]);

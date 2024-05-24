@@ -24,6 +24,11 @@ class StatusEndpoint extends EndpointBase implements TokenAwareInterface
     use TokenAwareTrait;
     use ValidationAwareTrait;
 
+    protected function getEndpointUrlPath(): string
+    {
+        return '/v2/requests/:requestyear/:requestnumber';
+    }
+
     public function getTranslationRequestStatus(string $permanentId): Translation
     {
         if (!preg_match('/^\d{4}\/[^\/]+$/', $permanentId)) {

@@ -25,6 +25,11 @@ class RequestsEndpoint extends EndpointBase implements TokenAwareInterface
     use TokenAwareTrait;
     use ValidationAwareTrait;
 
+    protected function getEndpointUrlPath(): string
+    {
+        return '/v2/requests';
+    }
+
     public function sendTranslationRequest(Translation $translationRequest): string
     {
         $body = $this->getSerializer()->serialize($translationRequest, 'json');

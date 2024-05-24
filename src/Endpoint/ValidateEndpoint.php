@@ -25,6 +25,11 @@ class ValidateEndpoint extends EndpointBase implements TokenAwareInterface
     use TokenAwareTrait;
     use ValidationAwareTrait;
 
+    protected function getEndpointUrlPath(): string
+    {
+        return '/v2/requests/validate';
+    }
+
     public function validateTranslationRequest(Translation $translationRequest): bool
     {
         $body = $this->getSerializer()->serialize($translationRequest, 'json');

@@ -23,6 +23,11 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class TokenEndpoint extends EndpointBase
 {
+    protected function getEndpointUrlPath(): string
+    {
+        return '/token';
+    }
+
     protected function getConfigurationResolver(): OptionsResolver
     {
         $resolver = parent::getConfigurationResolver();
