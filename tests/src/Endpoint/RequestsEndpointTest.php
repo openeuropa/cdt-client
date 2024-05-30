@@ -41,8 +41,8 @@ class RequestsEndpointTest extends TestCase
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
         $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainer($client);
-        $requestsEndpoint = $container->get('requests');
+        $apiFactory = $this->getClientApiFactory($client);
+        $requestsEndpoint = $apiFactory->createEndpoint(RequestsEndpoint::class);
         assert($requestsEndpoint instanceof RequestsEndpoint);
 
         $requestsEndpoint->setToken($token);

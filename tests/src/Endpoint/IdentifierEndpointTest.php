@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
+use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
@@ -37,8 +38,9 @@ class IdentifierEndpointTest extends TestCase
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
         $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainer($client);
-        $identifierEndpoint = $container->get('identifier');
+        $apiFactory = $this->getClientApiFactory($client);
+        $identifierEndpoint = $apiFactory->createEndpoint(IdentifierEndpoint::class);
+        assert($identifierEndpoint instanceof IdentifierEndpoint);
         $identifierEndpoint->setToken($token);
         $this->assertEquals($token, $identifierEndpoint->getToken());
 

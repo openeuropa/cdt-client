@@ -36,8 +36,8 @@ class DownloadTest extends TestCase
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
         $client = $this->getTestingClient([], $responses);
-        $container = $this->getClientContainer($client);
-        $download = $container->get('file');
+        $apiFactory = $this->getClientApiFactory($client);
+        $download = $apiFactory->createDownload();
         assert($download instanceof Download);
         $download->setToken($token);
         $this->assertEquals($token, $download->getToken());

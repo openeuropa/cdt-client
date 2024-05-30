@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
+use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
@@ -12,7 +13,7 @@ use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint
+ * @coversDefaultClass ReferenceDataEndpoint
  */
 class ReferenceDataEndpointTest extends TestCase
 {
@@ -36,8 +37,9 @@ class ReferenceDataEndpointTest extends TestCase
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
         $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainer($client);
-        $referenceDataEndpoint = $container->get('referenceData');
+        $apiFactory = $this->getClientApiFactory($client);
+        $referenceDataEndpoint = $apiFactory->createEndpoint(ReferenceDataEndpoint::class);
+        assert($referenceDataEndpoint instanceof ReferenceDataEndpoint);
         $referenceDataEndpoint->setToken($token);
         $this->assertEquals($token, $referenceDataEndpoint->getToken());
         $this->assertEquals($this->createResponseReferenceData($expectedResult), $referenceDataEndpoint->getReferenceData());

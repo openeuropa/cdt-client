@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
+use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
@@ -35,8 +36,9 @@ class MainEndpointTest extends TestCase
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
         $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainer($client);
-        $mainEndpoint = $container->get('main');
+        $apiFactory = $this->getClientApiFactory($client);
+        $mainEndpoint = $apiFactory->createEndpoint(MainEndpoint::class);
+        assert($mainEndpoint instanceof MainEndpoint);
         $this->assertEquals($expectedResult, $mainEndpoint->setToken($token)->isConnected());
         $this->assertEquals($token, $mainEndpoint->getToken());
         $this->assertCount(1, $this->clientHistory);

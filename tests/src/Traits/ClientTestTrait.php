@@ -10,8 +10,8 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\HttpFactory;
 use OpenEuropa\CdtClient\ApiClient;
+use OpenEuropa\CdtClient\ApiFactory;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
-use Psr\Container\ContainerInterface;
 
 /**
  * Trait ClientTestTrait
@@ -50,12 +50,12 @@ trait ClientTestTrait
         );
     }
 
-    protected function getClientContainer(ApiClientInterface $client): ContainerInterface
+    protected function getClientApiFactory(ApiClientInterface $client): ApiFactory
     {
         $reflection = new \ReflectionClass($client);
-        $property = $reflection->getProperty('container');
-        $container = $property->getValue($client);
-        assert($container instanceof ContainerInterface);
-        return $container;
+        $property = $reflection->getProperty('apiFactory');
+        $apiFactory = $property->getValue($client);
+        assert($apiFactory instanceof ApiFactory);
+        return $apiFactory;
     }
 }

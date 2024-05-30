@@ -37,9 +37,9 @@ class TokenEndpointTest extends TestCase
     public function testToken(array $clientConfig, array $responses, mixed $expectedResult): void
     {
         $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainer($client);
+        $apiFactory = $this->getClientApiFactory($client);
 
-        $tokenEndpoint = $container->get('auth');
+        $tokenEndpoint = $apiFactory->createEndpoint(TokenEndpoint::class);
         assert($tokenEndpoint instanceof TokenEndpoint);
         $this->assertEquals($expectedResult, $tokenEndpoint->getToken());
         $this->assertCount(1, $this->clientHistory);

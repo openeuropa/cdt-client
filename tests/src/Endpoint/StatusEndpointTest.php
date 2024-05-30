@@ -55,8 +55,9 @@ class StatusEndpointTest extends TestCase
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
         $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainer($client);
-        $statusEndpoint = $container->get('status');
+        $apiFactory = $this->getClientApiFactory($client);
+        $statusEndpoint = $apiFactory->createEndpoint(StatusEndpoint::class);
+        assert($statusEndpoint instanceof StatusEndpoint);
         $statusEndpoint->setToken($token);
         $this->assertEquals($token, $statusEndpoint->getToken());
 

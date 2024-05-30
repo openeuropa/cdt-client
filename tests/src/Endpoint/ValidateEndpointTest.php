@@ -44,8 +44,8 @@ class ValidateEndpointTest extends TestCase
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
         $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainer($client);
-        $validateEndpoint = $container->get('validate');
+        $apiFactory = $this->getClientApiFactory($client);
+        $validateEndpoint = $apiFactory->createEndpoint(ValidateEndpoint::class);
         assert($validateEndpoint instanceof ValidateEndpoint);
 
         $validateEndpoint->setToken($token);
