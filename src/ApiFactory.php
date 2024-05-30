@@ -1,0 +1,55 @@
+<?php
+
+declare(strict_types=1);
+
+namespace OpenEuropa\CdtClient;
+
+use OpenEuropa\CdtClient\Endpoint\EndpointBase;
+use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
+use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
+use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
+use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
+use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
+use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
+use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
+use OpenEuropa\CdtClient\Http\Download;
+use OpenEuropa\CdtClient\Http\Rest;
+use OpenEuropa\CdtClient\Traits\ConfigurationAwareTrait;
+
+class ApiFactory
+{
+    use ConfigurationAwareTrait;
+
+    /**
+     * @param array<string, mixed> $configuration
+     */
+    public function __construct(protected Rest $rest, protected array $configuration)
+    {
+    }
+
+    public function createEndpoint(string $class): EndpointBase
+    {
+        switch ($class) {
+            case TokenEndpoint::class:
+                return new TokenEndpoint($this->rest, $this->getConfigValue('apiBaseUrl'), $this->extractConfigValues([
+                    'username',
+                    'password',
+                    'client',
+                ]));
+            case MainEndpoint::class:
+            case ReferenceDataEndpoint::class:
+            case ValidateEndpoint::class:
+            case RequestsEndpoint::class:
+            case IdentifierEndpoint::class:
+            case StatusEndpoint::class:
+                return new $class($this->rest, $this->getConfigValue('apiBaseUrl'));
+            default:
+                throw new \InvalidArgumentException("Invalid endpoint class: '{$class}'.");
+        }
+    }
+
+    public function createDownload(): Download
+    {
+        return new Download($this->rest);
+    }
+}
