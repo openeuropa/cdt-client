@@ -57,11 +57,11 @@ class TokenEndpointTest extends TestCase
         $this->expectExceptionObject(new InvalidOptionsException($exceptionMessage));
         new TokenEndpoint(
             $this->createMock(RestInterface::class),
-            'https://example.com/token',
             [
                 'username' => $username,
                 'password' => $password,
                 'client' => $client,
+                'apiBaseUrl' => 'https://example.com',
             ]
         );
     }
@@ -72,7 +72,10 @@ class TokenEndpointTest extends TestCase
     public function testMissingConfig(): void
     {
         $this->expectExceptionObject(new MissingOptionsException('The required options "client", "password", "username" are missing.'));
-        new TokenEndpoint($this->createMock(RestInterface::class), 'https://example.com/token');
+        new TokenEndpoint(
+            $this->createMock(RestInterface::class),
+            ['apiBaseUrl' => 'https://example.com'],
+        );
     }
 
     /**
@@ -80,13 +83,13 @@ class TokenEndpointTest extends TestCase
      */
     public function testDefinedConfig(): void
     {
-        $this->expectExceptionObject(new UndefinedOptionsException('The option "foo" does not exist. Defined options are: "client", "endpointUrl", "password", "username".'));
+        $this->expectExceptionObject(new UndefinedOptionsException('The option "foo" does not exist. Defined options are: "apiBaseUrl", "client", "password", "username".'));
         new TokenEndpoint(
             $this->createMock(RestInterface::class),
-            'https://example.com/token',
             [
+                'apiBaseUrl' => 'https://example.com',
                 'foo' => 'bar',
-            ]
+            ],
         );
     }
 

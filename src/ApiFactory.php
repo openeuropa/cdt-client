@@ -31,10 +31,11 @@ class ApiFactory
     {
         switch ($class) {
             case TokenEndpoint::class:
-                return new TokenEndpoint($this->rest, $this->getConfigValue('apiBaseUrl'), $this->extractConfigValues([
+                return new TokenEndpoint($this->rest, $this->extractConfigValues([
                     'username',
                     'password',
                     'client',
+                    'apiBaseUrl',
                 ]));
             case MainEndpoint::class:
             case ReferenceDataEndpoint::class:
@@ -42,7 +43,7 @@ class ApiFactory
             case RequestsEndpoint::class:
             case IdentifierEndpoint::class:
             case StatusEndpoint::class:
-                return new $class($this->rest, $this->getConfigValue('apiBaseUrl'));
+                return new $class($this->rest, $this->extractConfigValues(['apiBaseUrl']));
             default:
                 throw new \InvalidArgumentException("Invalid endpoint class: '{$class}'.");
         }

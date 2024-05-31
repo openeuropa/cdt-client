@@ -26,16 +26,16 @@ class EndpointBaseTest extends TestCase
     }
 
     /**
-     * Tests that the endpoint URL is required.
+     * Tests that the base URL is required.
      *
      * @covers ::getConfigurationResolver
      */
     public function testEndpointUrlValidation(): void
     {
-        $this->expectExceptionObject(new InvalidOptionsException('The option "endpointUrl" with value "INVALID_URL" is invalid.'));
+        $this->expectExceptionObject(new InvalidOptionsException('The option "apiBaseUrl" with value "INVALID_URL" is invalid.'));
         (new Generator())->testDouble(EndpointBase::class, true, [], [
             $this->restMock,
-            'INVALID_URL',
+            ['apiBaseUrl' => 'INVALID_URL'],
         ]);
     }
 
@@ -46,11 +46,11 @@ class EndpointBaseTest extends TestCase
      */
     public function testDefinedConfig(): void
     {
-        $this->expectExceptionObject(new UndefinedOptionsException('The option "foo" does not exist. Defined options are: "endpointUrl".'));
+        $this->expectExceptionObject(new UndefinedOptionsException('The option "foo" does not exist. Defined options are: "apiBaseUrl".'));
         (new Generator())->testDouble(EndpointBase::class, true, [], [
             $this->restMock,
-            'http://example.com/v2/checkConnection',
             [
+                'apiBaseUrl' => 'http://example.com',
                 'foo' => 'bar',
             ]
         ]);
@@ -66,13 +66,15 @@ class EndpointBaseTest extends TestCase
     {
         $double = (new Generator())->testDouble(EndpointBase::class, true, [], [
             $this->restMock,
-            'http://example.com/v2/checkConnection',
+            [
+                'apiBaseUrl' => 'http://example.com',
+            ],
         ]);
 
         $class = new \ReflectionClass(EndpointBase::class);
         $getConfigValueMethod = $class->getMethod('getConfigValue');
 
-        $this->expectExceptionObject(new \InvalidArgumentException("Invalid config key: 'baz'. Valid keys: 'endpointUrl'."));
+        $this->expectExceptionObject(new \InvalidArgumentException("Invalid config key: 'baz'. Valid keys: 'apiBaseUrl', 'endpointUrl'."));
         $getConfigValueMethod->invokeArgs($double, ['baz']);
     }
 
@@ -89,7 +91,9 @@ class EndpointBaseTest extends TestCase
     {
         $double = (new Generator())->testDouble(EndpointBase::class, true, [], [
             $this->restMock,
-            $originalUrl,
+            [
+                'apiBaseUrl' => $originalUrl,
+            ]
         ]);
         assert($double instanceof EndpointBase);
 

@@ -34,7 +34,7 @@ class StatusEndpointTest extends TestCase
         $this->expectExceptionObject(new \InvalidArgumentException('Invalid permanent ID format (it should be formatted like 2024/1234567).'));
         $statusEndpoint = new StatusEndpoint(
             $this->createMock(RestInterface::class),
-            'https://example.com/v2/requests/:requestyear/:requestnumber'
+            ['apiBaseUrl' => 'http://example.com'],
         );
         $statusEndpoint->getTranslationRequestStatus($permanentId);
     }

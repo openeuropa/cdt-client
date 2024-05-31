@@ -30,19 +30,19 @@ abstract class EndpointBase
     /**
      * @param array<string, mixed> $configuration
      */
-    public function __construct(protected RestInterface $rest, string $baseUrl, array $configuration = [])
+    public function __construct(protected RestInterface $rest, array $configuration = [])
     {
-        $configuration['endpointUrl'] = rtrim($baseUrl, '/') . static::ENDPOINT_URL_PATH;
         $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
+        $this->configuration['endpointUrl'] = rtrim($configuration['apiBaseUrl'], '/') . static::ENDPOINT_URL_PATH;
     }
 
     protected function getConfigurationResolver(): OptionsResolver
     {
         $resolver = new OptionsResolver();
 
-        $resolver->setRequired('endpointUrl')
-            ->setAllowedTypes('endpointUrl', 'string')
-            ->setAllowedValues('endpointUrl', function (string $value) {
+        $resolver->setRequired('apiBaseUrl')
+            ->setAllowedTypes('apiBaseUrl', 'string')
+            ->setAllowedValues('apiBaseUrl', function (string $value) {
                 return filter_var($value, FILTER_VALIDATE_URL);
             });
 
