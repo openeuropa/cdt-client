@@ -46,12 +46,11 @@ class ApiClient implements ApiClientInterface
         StreamFactoryInterface $streamFactory,
         array $configuration
     ) {
-        $rest = new Rest(
+        $this->apiFactory = new ApiFactory(new Rest(
             $httpClient,
             $requestFactory,
             $streamFactory
-        );
-        $this->apiFactory = new ApiFactory($rest, $configuration);
+        ), $configuration);
     }
 
     public function requestToken(): Token
