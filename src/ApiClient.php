@@ -17,7 +17,6 @@ use OpenEuropa\CdtClient\Model\Request\Translation as TranslationRequest;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\Translation as TranslationResponse;
 use OpenEuropa\CdtClient\Model\Response\ReferenceData;
-use OpenEuropa\CdtClient\Traits\ConfigurationAwareTrait;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -29,12 +28,9 @@ use Psr\Http\Message\StreamFactoryInterface;
  * It handles requesting and setting up what is necessary to execute calls to the endpoints.
  *
  * @see ApiClientInterface
- * @see ConfigurationAwareTrait
  */
 class ApiClient implements ApiClientInterface
 {
-    protected Token $token;
-
     protected ApiFactory $apiFactory;
 
     /**
@@ -66,9 +62,7 @@ class ApiClient implements ApiClientInterface
         /** @var MainEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(MainEndpoint::class);
 
-        return $endpoint
-            ->setToken($this->getToken())
-            ->isConnected();
+        return $endpoint->isConnected();
     }
 
     public function getReferenceData(): ReferenceData
@@ -76,9 +70,7 @@ class ApiClient implements ApiClientInterface
         /** @var ReferenceDataEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(ReferenceDataEndpoint::class);
 
-        return $endpoint
-            ->setToken($this->getToken())
-            ->getReferenceData();
+        return $endpoint->getReferenceData();
     }
 
     /**
@@ -89,19 +81,18 @@ class ApiClient implements ApiClientInterface
         /** @var ValidateEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(ValidateEndpoint::class);
 
-        return $endpoint
-            ->setToken($this->getToken())
-            ->validateTranslationRequest($translationRequest);
+        return $endpoint->validateTranslationRequest($translationRequest);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function sendTranslationRequest(TranslationRequest $translationRequest): string
     {
         /** @var RequestsEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(RequestsEndpoint::class);
 
-        return $endpoint
-            ->setToken($this->getToken())
-            ->sendTranslationRequest($translationRequest);
+        return $endpoint->sendTranslationRequest($translationRequest);
     }
 
     /**
@@ -112,9 +103,7 @@ class ApiClient implements ApiClientInterface
         /** @var IdentifierEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(IdentifierEndpoint::class);
 
-        return $endpoint
-            ->setToken($this->getToken())
-            ->getPermanentIdentifier($correlationId);
+        return $endpoint->getPermanentIdentifier($correlationId);
     }
 
     /**
@@ -125,28 +114,22 @@ class ApiClient implements ApiClientInterface
         /** @var StatusEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(StatusEndpoint::class);
 
-        return $endpoint
-            ->setToken($this->getToken())
-            ->getTranslationRequestStatus($permanentId);
+        return $endpoint->getTranslationRequestStatus($permanentId);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function downloadFile(string $url): string
     {
         $downloader = $this->apiFactory->createDownload();
 
-        return $downloader
-            ->setToken($this->getToken())
-            ->downloadFile($url);
+        return $downloader->downloadFile($url);
     }
 
-    public function setToken(Token $token): self
+    public function setToken(Token $token): ApiClient
     {
-        $this->token = $token;
+        $this->apiFactory->setToken($token);
         return $this;
-    }
-
-    public function getToken(): Token
-    {
-        return $this->token;
     }
 }

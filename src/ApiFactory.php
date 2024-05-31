@@ -14,17 +14,34 @@ use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
 use OpenEuropa\CdtClient\Http\Download;
 use OpenEuropa\CdtClient\Http\Rest;
+use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Traits\ConfigurationAwareTrait;
 
+/**
+ * Class ApiFactory
+ *
+ * Creates the endpoints and "Download" objects.
+ *
+ * @see ApiClientInterface
+ * @see ConfigurationAwareTrait
+ */
 class ApiFactory
 {
     use ConfigurationAwareTrait;
+
+    protected Token $token;
 
     /**
      * @param array<string, mixed> $configuration
      */
     public function __construct(protected Rest $rest, protected array $configuration)
     {
+    }
+
+    public function setToken(Token $token): ApiFactory
+    {
+        $this->token = $token;
+        return $this;
     }
 
     public function createEndpoint(string $class): EndpointBase
@@ -43,7 +60,7 @@ class ApiFactory
             case RequestsEndpoint::class:
             case IdentifierEndpoint::class:
             case StatusEndpoint::class:
-                return new $class($this->rest, $this->extractConfigValues(['apiBaseUrl']));
+                return new $class($this->rest, $this->extractConfigValues(['apiBaseUrl']), $this->token);
             default:
                 throw new \InvalidArgumentException("Invalid endpoint class: '{$class}'.");
         }
@@ -51,6 +68,6 @@ class ApiFactory
 
     public function createDownload(): Download
     {
-        return new Download($this->rest);
+        return new Download($this->rest, $this->token);
     }
 }

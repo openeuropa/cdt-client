@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\CdtClient;
 
+use OpenEuropa\CdtClient\ApiFactory;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
@@ -20,18 +21,27 @@ class ApiClientTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->client = $this->getTestingClient();
+        $this->client = $this->getTestingApiClient();
     }
 
     /**
      * @covers ::setToken
-     * @covers ::getToken
      */
     public function testToken(): void
     {
         $token = new Token();
         $token->setAccessToken('testtoken');
         $this->client->setToken($token);
-        $this->assertEquals($token, $this->client->getToken());
+
+        // Use reflection to access the protected property.
+        $apiClientReflection = new \ReflectionClass($this->client);
+        $apiFactoryProperty = $apiClientReflection->getProperty('apiFactory');
+        $apiFactory = $apiFactoryProperty->getValue($this->client);
+        assert($apiFactory instanceof ApiFactory);
+
+        $apiFactoryReflection = new \ReflectionClass($apiFactory);
+        $tokenProperty = $apiFactoryReflection->getProperty('token');
+        $actualToken = $tokenProperty->getValue($apiFactory);
+        self::assertEquals($token, $actualToken);
     }
 }

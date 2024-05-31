@@ -26,14 +26,13 @@ class ApiFactoryTest extends TestCase
             '99',
         ];
 
-        $client = $this->getTestingClient([
+        $factory = $this->getTestingApiFactory([
             'existing_key' => 'Existing Key',
             'other_key' => 'Other Key',
             'boolean_value_key' => false,
             0 => 'Zero',
             '99' => 'Bottles',
         ]);
-        $factory = $this->getClientApiFactory($client);
 
         $reflection = new \ReflectionClass($factory);
         $method = $reflection->getMethod('extractConfigValues');

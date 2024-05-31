@@ -64,4 +64,14 @@ class Token
         $this->refreshToken = $refreshToken;
         return $this;
     }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getAuthorizationHeaders(): array
+    {
+        return [
+            'Authorization' => sprintf('%s %s', ucfirst(strtolower($this->tokenType)), $this->accessToken),
+        ];
+    }
 }

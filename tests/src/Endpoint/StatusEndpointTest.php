@@ -35,6 +35,7 @@ class StatusEndpointTest extends TestCase
         $statusEndpoint = new StatusEndpoint(
             $this->createMock(RestInterface::class),
             ['apiBaseUrl' => 'http://example.com'],
+            new Token()
         );
         $statusEndpoint->getTranslationRequestStatus($permanentId);
     }
@@ -54,12 +55,10 @@ class StatusEndpointTest extends TestCase
         $token = (new Token())->setAccessToken('JWT_TOKEN')
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
-        $client = $this->getTestingClient($clientConfig, $responses);
-        $apiFactory = $this->getClientApiFactory($client);
+        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses);
+        $apiFactory->setToken($token);
         $statusEndpoint = $apiFactory->createEndpoint(StatusEndpoint::class);
         assert($statusEndpoint instanceof StatusEndpoint);
-        $statusEndpoint->setToken($token);
-        $this->assertEquals($token, $statusEndpoint->getToken());
 
         try {
             $result = $statusEndpoint->getTranslationRequestStatus($permanentId);

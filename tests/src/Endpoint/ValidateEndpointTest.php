@@ -43,16 +43,12 @@ class ValidateEndpointTest extends TestCase
         $token = (new Token())->setAccessToken('JWT_TOKEN')
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
-        $client = $this->getTestingClient($clientConfig, $responses);
-        $apiFactory = $this->getClientApiFactory($client);
+        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses);
+        $apiFactory->setToken($token);
         $validateEndpoint = $apiFactory->createEndpoint(ValidateEndpoint::class);
         assert($validateEndpoint instanceof ValidateEndpoint);
 
-        $validateEndpoint->setToken($token);
-        $this->assertEquals($token, $validateEndpoint->getToken());
-
         $translationRequest = $this->createRequestTranslation($requestArray);
-
         try {
             $result = $validateEndpoint->validateTranslationRequest($translationRequest);
         } catch (ValidationErrorsException $e) {

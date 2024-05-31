@@ -35,12 +35,11 @@ class MainEndpointTest extends TestCase
         $token = (new Token())->setAccessToken('JWT_TOKEN')
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
-        $client = $this->getTestingClient($clientConfig, $responses);
-        $apiFactory = $this->getClientApiFactory($client);
+        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses);
+        $apiFactory->setToken($token);
         $mainEndpoint = $apiFactory->createEndpoint(MainEndpoint::class);
         assert($mainEndpoint instanceof MainEndpoint);
-        $this->assertEquals($expectedResult, $mainEndpoint->setToken($token)->isConnected());
-        $this->assertEquals($token, $mainEndpoint->getToken());
+        $this->assertEquals($expectedResult, $mainEndpoint->isConnected());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
         $this->assertMainRequest($request);

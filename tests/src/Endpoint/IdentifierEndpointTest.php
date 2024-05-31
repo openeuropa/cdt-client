@@ -37,12 +37,10 @@ class IdentifierEndpointTest extends TestCase
         $token = (new Token())->setAccessToken('JWT_TOKEN')
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
-        $client = $this->getTestingClient($clientConfig, $responses);
-        $apiFactory = $this->getClientApiFactory($client);
+        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses);
+        $apiFactory->setToken($token);
         $identifierEndpoint = $apiFactory->createEndpoint(IdentifierEndpoint::class);
         assert($identifierEndpoint instanceof IdentifierEndpoint);
-        $identifierEndpoint->setToken($token);
-        $this->assertEquals($token, $identifierEndpoint->getToken());
 
         try {
             $result = $identifierEndpoint->getPermanentIdentifier($correlationId);

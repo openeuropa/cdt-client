@@ -12,6 +12,7 @@ use GuzzleHttp\Psr7\HttpFactory;
 use OpenEuropa\CdtClient\ApiClient;
 use OpenEuropa\CdtClient\ApiFactory;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
+use OpenEuropa\CdtClient\Http\Rest;
 
 /**
  * Trait ClientTestTrait
@@ -29,33 +30,50 @@ trait ClientTestTrait
      * @param array<mixed> $configuration
      * @param array<int, mixed> $responseQueue
      */
-    protected function getTestingClient(array $configuration = [], array $responseQueue = []): ApiClientInterface
+    protected function getTestingApiClient(array $configuration = [], array $responseQueue = []): ApiClientInterface
     {
-        $handlerStack = HandlerStack::create(new MockHandler($responseQueue));
-        $handlerStack->push(Middleware::history($this->clientHistory));
+        return new ApiClient(
+            new HttpClient(['handler' => $this->getHandlerStack($responseQueue)]),
+            new HttpFactory(),
+            new HttpFactory(),
+            $configuration + $this->getDefaultConfiguration()
+        );
+    }
 
-        $defaultConfiguration = [
+    /**
+     * @param array<mixed> $configuration
+     * @param array<int, mixed> $responseQueue
+     */
+    protected function getTestingApiFactory(array $configuration = [], array $responseQueue = []): ApiFactory
+    {
+        $rest = new Rest(
+            new HttpClient(['handler' => $this->getHandlerStack($responseQueue)]),
+            new HttpFactory(),
+            new HttpFactory(),
+        );
+        return new ApiFactory($rest, $configuration + $this->getDefaultConfiguration());
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getDefaultConfiguration(): array
+    {
+        return [
             'apiBaseUrl' => 'https://example.com',
             'username' => 'testuser',
             'password' => 'pass',
             'client' => 'digit',
         ];
-
-        $httpFactory = new HttpFactory();
-        return new ApiClient(
-            new HttpClient(['handler' => $handlerStack]),
-            $httpFactory,
-            $httpFactory,
-            $configuration + $defaultConfiguration
-        );
     }
 
-    protected function getClientApiFactory(ApiClientInterface $client): ApiFactory
+    /**
+     * @param array<int, mixed> $responseQueue
+     */
+    protected function getHandlerStack(array $responseQueue): HandlerStack
     {
-        $reflection = new \ReflectionClass($client);
-        $property = $reflection->getProperty('apiFactory');
-        $apiFactory = $property->getValue($client);
-        assert($apiFactory instanceof ApiFactory);
-        return $apiFactory;
+        $handlerStack = HandlerStack::create(new MockHandler($responseQueue));
+        $handlerStack->push(Middleware::history($this->clientHistory));
+        return $handlerStack;
     }
 }

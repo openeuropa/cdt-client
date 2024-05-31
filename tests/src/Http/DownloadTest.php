@@ -35,12 +35,10 @@ class DownloadTest extends TestCase
         $token = (new Token())->setAccessToken('JWT_TOKEN')
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
-        $client = $this->getTestingClient([], $responses);
-        $apiFactory = $this->getClientApiFactory($client);
+        $apiFactory = $this->getTestingApiFactory([], $responses);
+        $apiFactory->setToken($token);
         $download = $apiFactory->createDownload();
         assert($download instanceof Download);
-        $download->setToken($token);
-        $this->assertEquals($token, $download->getToken());
 
         try {
             $result = $download->downloadFile($fileUrl);

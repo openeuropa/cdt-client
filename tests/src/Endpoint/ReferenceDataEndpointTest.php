@@ -36,12 +36,10 @@ class ReferenceDataEndpointTest extends TestCase
         $token = (new Token())->setAccessToken('JWT_TOKEN')
             ->setTokenType('bearer')
             ->setExpiresIn(3600);
-        $client = $this->getTestingClient($clientConfig, $responses);
-        $apiFactory = $this->getClientApiFactory($client);
+        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses);
+        $apiFactory->setToken($token);
         $referenceDataEndpoint = $apiFactory->createEndpoint(ReferenceDataEndpoint::class);
         assert($referenceDataEndpoint instanceof ReferenceDataEndpoint);
-        $referenceDataEndpoint->setToken($token);
-        $this->assertEquals($token, $referenceDataEndpoint->getToken());
         $this->assertEquals($this->createResponseReferenceData($expectedResult), $referenceDataEndpoint->getReferenceData());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
