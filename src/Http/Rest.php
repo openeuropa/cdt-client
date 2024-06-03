@@ -6,6 +6,7 @@ namespace OpenEuropa\CdtClient\Http;
 
 use OpenEuropa\CdtClient\Contract\RestInterface;
 use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
+use OpenEuropa\CdtClient\Model\Response\Token;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -48,6 +49,16 @@ class Rest implements RestInterface
     {
         $headers['Content-Type'] = 'application/x-www-form-urlencoded';
         return $this->doRequest('POST', $uri, $headers, http_build_query($formFields));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAuthorizationHeadersFromToken(Token $token): array
+    {
+        return [
+            'Authorization' => sprintf('%s %s', ucfirst(strtolower($token->getTokenType())), $token->getAccessToken()),
+        ];
     }
 
     /**

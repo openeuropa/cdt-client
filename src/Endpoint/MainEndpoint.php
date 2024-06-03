@@ -17,7 +17,7 @@ class MainEndpoint extends AuthorizedEndpointBase
 
     public function isConnected(): bool
     {
-        $response = $this->rest->get($this->getEndpointUrl(), $this->token->getAuthorizationHeaders());
+        $response = $this->rest->get($this->getEndpointUrl(), $this->rest->getAuthorizationHeadersFromToken($this->token));
         return $response->getBody()->__toString() === 'true';
     }
 }

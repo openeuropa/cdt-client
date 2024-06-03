@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Contract;
 
+use OpenEuropa\CdtClient\Model\Response\Token;
 use Psr\Http\Message\ResponseInterface;
 
 interface RestInterface
@@ -23,4 +24,9 @@ interface RestInterface
      * @param array<string, mixed> $headers
      */
     public function postForm(string $uri, array $formFields, array $headers = []): ResponseInterface;
+
+    /**
+     * @return array<string, string>
+     */
+    public function getAuthorizationHeadersFromToken(Token $token): array;
 }

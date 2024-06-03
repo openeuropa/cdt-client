@@ -28,7 +28,7 @@ class Download
     public function downloadFile(string $uri): string
     {
         try {
-            $response = $this->rest->get($uri, $this->token->getAuthorizationHeaders());
+            $response = $this->rest->get($uri, $this->rest->getAuthorizationHeadersFromToken($this->token));
             return $response->getBody()->__toString();
         } catch (InvalidStatusCodeException $e) {
             throw $this->dispatchValidationException($e);

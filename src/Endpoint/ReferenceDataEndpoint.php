@@ -19,7 +19,7 @@ class ReferenceDataEndpoint extends AuthorizedEndpointBase
 
     public function getReferenceData(): ReferenceData
     {
-        $response = $this->rest->get($this->getEndpointUrl(), $this->token->getAuthorizationHeaders());
+        $response = $this->rest->get($this->getEndpointUrl(), $this->rest->getAuthorizationHeadersFromToken($this->token));
         return $this->getSerializer()->deserialize(
             $response->getBody()->__toString(),
             ReferenceData::class,

@@ -33,7 +33,7 @@ class StatusEndpoint extends AuthorizedEndpointBase
             ':requestnumber' => $id,
         ]);
         try {
-            $response = $this->rest->get($url, $this->token->getAuthorizationHeaders());
+            $response = $this->rest->get($url, $this->rest->getAuthorizationHeadersFromToken($this->token));
         } catch (InvalidStatusCodeException $e) {
             throw $this->dispatchValidationException($e);
         }

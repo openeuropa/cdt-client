@@ -27,7 +27,7 @@ class RequestsEndpoint extends AuthorizedEndpointBase
     {
         $body = $this->getSerializer()->serialize($translationRequest, 'json');
         try {
-            $response = $this->rest->postJson($this->getEndpointUrl(), $body, $this->token->getAuthorizationHeaders());
+            $response = $this->rest->postJson($this->getEndpointUrl(), $body, $this->rest->getAuthorizationHeadersFromToken($this->token));
         } catch (InvalidStatusCodeException $e) {
             throw $this->dispatchValidationException($e);
         }

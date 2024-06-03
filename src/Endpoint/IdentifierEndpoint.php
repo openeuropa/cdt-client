@@ -26,7 +26,7 @@ class IdentifierEndpoint extends AuthorizedEndpointBase
     {
         $url = $this->getEndpointUrl([':correlationId' => $correlationId]);
         try {
-            $response = $this->rest->get($url, $this->token->getAuthorizationHeaders());
+            $response = $this->rest->get($url, $this->rest->getAuthorizationHeadersFromToken($this->token));
         } catch (InvalidStatusCodeException $e) {
             throw $this->dispatchValidationException($e);
         }
