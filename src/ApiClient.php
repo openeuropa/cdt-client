@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient;
 
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
+use OpenEuropa\CdtClient\Contract\ApiFactoryInterface;
 use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
@@ -31,7 +32,7 @@ use Psr\Http\Message\StreamFactoryInterface;
  */
 class ApiClient implements ApiClientInterface
 {
-    protected ApiFactory $apiFactory;
+    protected ApiFactoryInterface $apiFactory;
 
     /**
      * @param array<string, mixed> $configuration

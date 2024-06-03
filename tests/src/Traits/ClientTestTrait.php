@@ -12,6 +12,7 @@ use GuzzleHttp\Psr7\HttpFactory;
 use OpenEuropa\CdtClient\ApiClient;
 use OpenEuropa\CdtClient\ApiFactory;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
+use OpenEuropa\CdtClient\Contract\ApiFactoryInterface;
 use OpenEuropa\CdtClient\Http\Rest;
 
 /**
@@ -44,7 +45,7 @@ trait ClientTestTrait
      * @param array<mixed> $configuration
      * @param array<int, mixed> $responseQueue
      */
-    protected function getTestingApiFactory(array $configuration = [], array $responseQueue = []): ApiFactory
+    protected function getTestingApiFactory(array $configuration = [], array $responseQueue = []): ApiFactoryInterface
     {
         $rest = new Rest(
             new HttpClient(['handler' => $this->getHandlerStack($responseQueue)]),

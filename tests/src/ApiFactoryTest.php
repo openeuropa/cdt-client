@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\CdtClient;
 
+use OpenEuropa\CdtClient\ApiFactory;
 use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\CdtClient\ApiFactory
+ * @coversDefaultClass ApiFactory
  */
 class ApiFactoryTest extends TestCase
 {

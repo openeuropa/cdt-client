@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\CdtClient;
 
-use OpenEuropa\CdtClient\ApiFactory;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
+use OpenEuropa\CdtClient\Contract\ApiFactoryInterface;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
@@ -37,7 +37,7 @@ class ApiClientTest extends TestCase
         $apiClientReflection = new \ReflectionClass($this->client);
         $apiFactoryProperty = $apiClientReflection->getProperty('apiFactory');
         $apiFactory = $apiFactoryProperty->getValue($this->client);
-        assert($apiFactory instanceof ApiFactory);
+        assert($apiFactory instanceof ApiFactoryInterface);
 
         $apiFactoryReflection = new \ReflectionClass($apiFactory);
         $tokenProperty = $apiFactoryReflection->getProperty('token');

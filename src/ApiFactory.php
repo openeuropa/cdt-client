@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient;
 
+use OpenEuropa\CdtClient\Contract\ApiFactoryInterface;
 use OpenEuropa\CdtClient\Endpoint\EndpointBase;
 use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
@@ -17,15 +18,7 @@ use OpenEuropa\CdtClient\Http\Rest;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Traits\ConfigurationAwareTrait;
 
-/**
- * Class ApiFactory
- *
- * Creates the endpoints and "Download" objects.
- *
- * @see ApiClientInterface
- * @see ConfigurationAwareTrait
- */
-class ApiFactory
+class ApiFactory implements ApiFactoryInterface
 {
     use ConfigurationAwareTrait;
 
@@ -38,7 +31,7 @@ class ApiFactory
     {
     }
 
-    public function setToken(Token $token): ApiFactory
+    public function setToken(Token $token): ApiFactoryInterface
     {
         $this->token = $token;
         return $this;
