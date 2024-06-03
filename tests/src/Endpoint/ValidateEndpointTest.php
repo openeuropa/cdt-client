@@ -80,7 +80,7 @@ class ValidateEndpointTest extends TestCase
         return [
             'valid' => [
                 [
-                    'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                 ],
@@ -92,7 +92,7 @@ class ValidateEndpointTest extends TestCase
             ],
             'failed_connection' => [
                 [
-                    'validateApiEndpoint' => 'https://example.com/v2/requests/invalid-validate',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                 ],
@@ -104,7 +104,7 @@ class ValidateEndpointTest extends TestCase
             ],
             'failed_validation' => [
                 [
-                    'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                     'deliveryModeCode' => 'FOOBAR'

@@ -23,17 +23,11 @@ require_once 'vendor/autoload.php';
 
 $client = new \OpenEuropa\CdtClient\ApiClient(
     new \GuzzleHttp\Client(),
-    new \Http\Factory\Guzzle\RequestFactory(),
-    new \Http\Factory\Guzzle\StreamFactory(),
+    new \GuzzleHttp\Psr7\HttpFactory(),
+    new \GuzzleHttp\Psr7\HttpFactory(),
     [
         // For a full list of options see "Configuration".
-        'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
-        'tokenApiEndpoint' => 'https://example.com/token',
-        'referenceDataApiEndpoint' => 'https://example.com/v2/requests/businessReferenceData',' => 'https://example.com/v2/requests/businessReferenceData',
-        'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
-        'requestsApiEndpoint' => 'https://example.com/v2/requests',
-        'identifierApiEndpoint' => 'https://example.com/v2/requests/requestIdentifierByCorrelationId/:correlationId',
-        'statusApiEndpoint' => 'https://example.com/v2/requests/:requestyear/:requestnumber',
+        'apiBaseUrl' => 'https://example.com',
         'username' => 'your-user-name',
         'password' => 'your-password',
         'client' => 'client-name',
@@ -50,13 +44,7 @@ Possible configurations:
 - `username` (string): Used for authentication.
 - `password` (string): Used for authentication.
 - `client` (string): Used for authentication.
-- `tokenApiEndpoint` (string, valid URI): The Token API endpoint.
-- `mainApiEndpoint` (string, valid URI): The Main API endpoint.
-- `referenceDataApiEndpoint` (string, valid URI): The Reference Data API endpoint.
-- `validateApiEndpoint` (string, valid URI): The Validate API endpoint.
-- `requestsApiEndpoint` (string, valid URI): The Requests API endpoint.
-- `identifierApiEndpoint` (string, valid URI): The Identifier API endpoint.
-- `statusApiEndpoint` (string, valid URI): The Status API endpoint.
+- `apiBaseUrl` (string, valid URI): The base API url.
 
 ### Check connection
 

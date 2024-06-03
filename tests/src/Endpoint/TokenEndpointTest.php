@@ -98,7 +98,7 @@ class TokenEndpointTest extends TestCase
         return [
             'simple token call' => [
                 [
-                    'tokenApiEndpoint' => 'https://example.com/token',
+                    'apiBaseUrl' => 'https://example.com',
                     'username' => 'baz',
                     'password' => 'qux',
                     'client' => 'foo',

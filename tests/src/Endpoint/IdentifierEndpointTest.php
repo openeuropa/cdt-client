@@ -65,7 +65,7 @@ class IdentifierEndpointTest extends TestCase
             'connected' => [
                 '12345',
                 [
-                    'identifierApiEndpoint' => 'https://example.com/v2/requests/requestIdentifierByCorrelationId/:correlationId',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                     new Response(200, [], '2024/332233')
@@ -75,7 +75,7 @@ class IdentifierEndpointTest extends TestCase
             'failed' => [
                 'AbCdE',
                 [
-                    'identifierApiEndpoint' => 'https://example.com/v2/requests/requestIdentifierByCorrelationId/:correlationId',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                     new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/identifier_error_response.json'))

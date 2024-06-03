@@ -73,7 +73,7 @@ class RequestsEndpointTest extends TestCase
         return [
             'valid' => [
                 [
-                    'requestsApiEndpoint' => 'https://example.com/v2/requests',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                 ],
@@ -85,7 +85,7 @@ class RequestsEndpointTest extends TestCase
             ],
             'failed_validation' => [
                 [
-                    'requestsApiEndpoint' => 'https://example.com/v2/requests',
+                    'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                     'deliveryModeCode' => 'FOOBAR'

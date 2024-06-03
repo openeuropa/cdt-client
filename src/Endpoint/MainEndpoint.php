@@ -20,6 +20,8 @@ class MainEndpoint extends EndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
 
+    const ENDPOINT_URL_PATH = '/v2/CheckConnection';
+
     public function isConnected(): bool
     {
         $response = $this->rest->get($this->getEndpointUrl(), $this->getAuthorizationHeaders());

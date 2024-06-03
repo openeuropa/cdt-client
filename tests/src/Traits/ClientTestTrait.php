@@ -35,14 +35,7 @@ trait ClientTestTrait
         $handlerStack->push(Middleware::history($this->clientHistory));
 
         $defaultConfiguration = [
-            'mainApiEndpoint' => 'https://example.com/v2/CheckConnection',
-            'tokenApiEndpoint' => 'https://example.com/token',
-            'validateApiEndpoint' => 'https://example.com/v2/requests/validate',
-            'requestsApiEndpoint' => 'https://example.com/v2/requests',
-            'identifierApiEndpoint' => 'https://example.com/v2/requests/requestIdentifierByCorrelationId/:correlationId',
-            'statusApiEndpoint' => 'https://example.com/v2/requests/:requestyear/:requestnumber',
-            'fileApiEndpoint' => 'https://example.com/v2/requests/:requestyear/:requestnumber/targets-base64',
-            'referenceDataApiEndpoint' => 'https://example.com/v2/referenceData',
+            'apiBaseUrl' => 'https://example.com',
             'username' => 'testuser',
             'password' => 'pass',
             'client' => 'digit',

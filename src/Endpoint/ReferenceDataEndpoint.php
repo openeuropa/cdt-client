@@ -21,6 +21,8 @@ class ReferenceDataEndpoint extends EndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
 
+    const ENDPOINT_URL_PATH = '/v2/requests/businessReferenceData';
+
     public function getReferenceData(): ReferenceData
     {
         $response = $this->rest->get($this->getEndpointUrl(), $this->getAuthorizationHeaders());

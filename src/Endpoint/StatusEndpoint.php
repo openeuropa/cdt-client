@@ -24,6 +24,8 @@ class StatusEndpoint extends EndpointBase implements TokenAwareInterface
     use TokenAwareTrait;
     use ValidationAwareTrait;
 
+    const ENDPOINT_URL_PATH = '/v2/requests/:requestyear/:requestnumber';
+
     public function getTranslationRequestStatus(string $permanentId): Translation
     {
         if (!preg_match('/^\d{4}\/[^\/]+$/', $permanentId)) {

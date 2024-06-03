@@ -147,47 +147,49 @@ class ApiClient implements ApiClientInterface
     ): void {
         $container = new Container();
 
-        $container->add('token_config', new LiteralArgument($this->extractConfigValues([
-            'username',
-            'password',
-            'client',
-        ])));
-
         // Endpoint services are not shared, meaning that a new instance is
         // created every time the service is requested from the container.
         // We're doing this because such a service might be called more than
         // once during the lifetime of a request, so internals set in a previous
         // usage may leak into the later usages.
+
+        // Add a common REST service to be used by all endpoints.
         $container->add('rest', Rest::class)
             ->addArguments([
                 $httpClient,
                 $requestFactory,
                 $streamFactory,
             ]);
-        $container->add('main', MainEndpoint::class)
-            ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('mainApiEndpoint')));
-        $container->add('referenceData', ReferenceDataEndpoint::class)
-            ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('referenceDataApiEndpoint')));
-        $container->add('validate', ValidateEndpoint::class)
-            ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('validateApiEndpoint')));
-        $container->add('requests', RequestsEndpoint::class)
-            ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('requestsApiEndpoint')));
-        $container->add('identifier', IdentifierEndpoint::class)
-            ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('identifierApiEndpoint')));
-        $container->add('status', StatusEndpoint::class)
-            ->addArgument('rest')
-            ->addArgument(new LiteralArgument($this->getConfigValue('statusApiEndpoint')));
+
+        // Add endpoint services.
+        $endpoints = [
+            'main' => MainEndpoint::class,
+            'referenceData' => ReferenceDataEndpoint::class,
+            'validate' => ValidateEndpoint::class,
+            'requests' => RequestsEndpoint::class,
+            'identifier' => IdentifierEndpoint::class,
+            'status' => StatusEndpoint::class,
+        ];
+        foreach ($endpoints as $name => $class) {
+            $container->add($name, $class)
+                ->addArgument('rest')
+                ->addArgument(new LiteralArgument($this->getConfigValue('apiBaseUrl')));
+        }
+
+        // Add file download service, without a base class.
         $container->add('file', Download::class)
             ->addArgument('rest');
+
+        // Add token endpoint with configuration.
+        $container->add('token_config', new LiteralArgument($this->extractConfigValues([
+            'username',
+            'password',
+            'client',
+        ])));
         $container->add('auth', TokenEndpoint::class)
             ->addArgument('rest')
             ->addArguments([
-                new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),
+                new LiteralArgument($this->getConfigValue('apiBaseUrl')),
                 'token_config',
             ]);
 
