@@ -7,10 +7,9 @@ namespace OpenEuropa\Tests\CdtClient\Endpoint;
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
-use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
-use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\RequestModelTestTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
@@ -20,7 +19,7 @@ use Psr\Http\Message\RequestInterface;
  */
 class RequestsEndpointTest extends TestCase
 {
-    use ClientTestTrait;
+    use ApiTestTrait;
     use AssertTestRequestTrait;
     use RequestModelTestTrait;
 
@@ -37,11 +36,7 @@ class RequestsEndpointTest extends TestCase
      */
     public function testRequests(array $clientConfig, array $requestArray, string $requestJson, array $responses, string|ValidationErrors $expectedResult): void
     {
-        $token = (new Token())->setAccessToken('JWT_TOKEN')
-            ->setTokenType('bearer')
-            ->setExpiresIn(3600);
-        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses);
-        $apiFactory->setToken($token);
+        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses, true);
         $requestsEndpoint = $apiFactory->createEndpoint(RequestsEndpoint::class);
         assert($requestsEndpoint instanceof RequestsEndpoint);
 

@@ -7,7 +7,7 @@ namespace OpenEuropa\Tests\CdtClient;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Contract\ApiFactoryInterface;
 use OpenEuropa\CdtClient\Model\Response\Token;
-use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ApiClientTest extends TestCase
 {
-    use ClientTestTrait;
+    use ApiTestTrait;
 
     protected ApiClientInterface $client;
 

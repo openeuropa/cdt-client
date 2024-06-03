@@ -14,13 +14,14 @@ use OpenEuropa\CdtClient\ApiFactory;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
 use OpenEuropa\CdtClient\Contract\ApiFactoryInterface;
 use OpenEuropa\CdtClient\Http\Rest;
+use OpenEuropa\CdtClient\Model\Response\Token;
 
 /**
- * Trait ClientTestTrait
+ * Trait ApiTestTrait
  *
- * Provides helper methods for testing classes that utilize the ApiClient.
+ * Provides helper methods for testing classes that utilize ApiClient and ApiFactory.
  */
-trait ClientTestTrait
+trait ApiTestTrait
 {
     /**
      * @var array<int, array<string, mixed>>
@@ -45,14 +46,22 @@ trait ClientTestTrait
      * @param array<mixed> $configuration
      * @param array<int, mixed> $responseQueue
      */
-    protected function getTestingApiFactory(array $configuration = [], array $responseQueue = []): ApiFactoryInterface
+    protected function getTestingApiFactory(array $configuration = [], array $responseQueue = [], bool $withToken = true): ApiFactoryInterface
     {
         $rest = new Rest(
             new HttpClient(['handler' => $this->getHandlerStack($responseQueue)]),
             new HttpFactory(),
             new HttpFactory(),
         );
-        return new ApiFactory($rest, $configuration + $this->getDefaultConfiguration());
+        $apiFactory = new ApiFactory($rest, $configuration + $this->getDefaultConfiguration());
+        if ($withToken) {
+            $token = (new Token())->setAccessToken('JWT_TOKEN')
+                ->setTokenType('bearer')
+                ->setExpiresIn(3600);
+            $apiFactory->setToken($token);
+        }
+
+        return $apiFactory;
     }
 
     /**

@@ -6,9 +6,8 @@ namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
-use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
-use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -17,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ReferenceDataEndpointTest extends TestCase
 {
-    use ClientTestTrait;
+    use ApiTestTrait;
     use AssertTestRequestTrait;
     use ResponseModelTestTrait;
 
@@ -33,11 +32,7 @@ class ReferenceDataEndpointTest extends TestCase
      */
     public function testReferenceData(array $clientConfig, array $responses, mixed $expectedResult): void
     {
-        $token = (new Token())->setAccessToken('JWT_TOKEN')
-            ->setTokenType('bearer')
-            ->setExpiresIn(3600);
-        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses);
-        $apiFactory->setToken($token);
+        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses, true);
         $referenceDataEndpoint = $apiFactory->createEndpoint(ReferenceDataEndpoint::class);
         assert($referenceDataEndpoint instanceof ReferenceDataEndpoint);
         $this->assertEquals($this->createResponseReferenceData($expectedResult), $referenceDataEndpoint->getReferenceData());

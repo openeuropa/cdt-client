@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient;
 
 use OpenEuropa\CdtClient\ApiFactory;
-use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ApiFactoryTest extends TestCase
 {
-    use ClientTestTrait;
+    use ApiTestTrait;
 
     /**
      * @covers ::extractConfigValues
