@@ -33,7 +33,6 @@ abstract class EndpointBase
     public function __construct(protected RestInterface $rest, array $configuration = [])
     {
         $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
-        $this->configuration['endpointUrl'] = rtrim($configuration['apiBaseUrl'], '/') . static::ENDPOINT_URL_PATH;
     }
 
     protected function getConfigurationResolver(): OptionsResolver
@@ -54,7 +53,7 @@ abstract class EndpointBase
      */
     protected function getEndpointUrl(array $replacements = []): string
     {
-        $url = $this->getConfigValue('endpointUrl');
+        $url = rtrim($this->getConfigValue('apiBaseUrl'), '/') . static::ENDPOINT_URL_PATH;
         if (!empty($replacements)) {
             $url = str_replace(array_keys($replacements), array_values($replacements), $url);
         }

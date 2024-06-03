@@ -74,7 +74,7 @@ class EndpointBaseTest extends TestCase
         $class = new \ReflectionClass(EndpointBase::class);
         $getConfigValueMethod = $class->getMethod('getConfigValue');
 
-        $this->expectExceptionObject(new \InvalidArgumentException("Invalid config key: 'baz'. Valid keys: 'apiBaseUrl', 'endpointUrl'."));
+        $this->expectExceptionObject(new \InvalidArgumentException("Invalid config key: 'baz'. Valid keys: 'apiBaseUrl'."));
         $getConfigValueMethod->invokeArgs($double, ['baz']);
     }
 
