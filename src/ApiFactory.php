@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient;
 
 use OpenEuropa\CdtClient\Contract\ApiFactoryInterface;
+use OpenEuropa\CdtClient\Contract\RestInterface;
 use OpenEuropa\CdtClient\Endpoint\EndpointBase;
 use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
@@ -14,10 +15,16 @@ use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
 use OpenEuropa\CdtClient\Http\Download;
-use OpenEuropa\CdtClient\Http\Rest;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Traits\ConfigurationAwareTrait;
 
+/**
+ * Class ApiFactory
+ *
+ * Provides a factory for creating API endpoints.
+ *
+ * @see ApiClientInterface
+ */
 class ApiFactory implements ApiFactoryInterface
 {
     use ConfigurationAwareTrait;
@@ -25,9 +32,9 @@ class ApiFactory implements ApiFactoryInterface
     protected Token $token;
 
     /**
-     * @param array<string, mixed> $configuration
+     * @param array<int|string, mixed> $configuration
      */
-    public function __construct(protected Rest $rest, protected array $configuration)
+    public function __construct(protected RestInterface $rest, protected array $configuration)
     {
     }
 
@@ -55,7 +62,7 @@ class ApiFactory implements ApiFactoryInterface
             case StatusEndpoint::class:
                 return new $class($this->rest, $this->extractConfigValues(['apiBaseUrl']), $this->token);
             default:
-                throw new \InvalidArgumentException("Invalid endpoint class: '{$class}'.");
+                throw new \InvalidArgumentException("Invalid endpoint class: '$class'.");
         }
     }
 
