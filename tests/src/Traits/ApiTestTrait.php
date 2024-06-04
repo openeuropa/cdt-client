@@ -10,16 +10,15 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\HttpFactory;
 use OpenEuropa\CdtClient\ApiClient;
-use OpenEuropa\CdtClient\ApiFactory;
 use OpenEuropa\CdtClient\Contract\ApiClientInterface;
-use OpenEuropa\CdtClient\Contract\ApiFactoryInterface;
+use OpenEuropa\CdtClient\Contract\RestInterface;
 use OpenEuropa\CdtClient\Http\Rest;
 use OpenEuropa\CdtClient\Model\Response\Token;
 
 /**
  * Trait ApiTestTrait
  *
- * Provides helper methods for testing classes that utilize ApiClient and ApiFactory.
+ * Provides helper methods for testing classes that utilize ApiClient and Rest.
  */
 trait ApiTestTrait
 {
@@ -29,39 +28,47 @@ trait ApiTestTrait
     protected array $clientHistory = [];
 
     /**
+     * @covers \OpenEuropa\CdtClient\ApiClient
+     *
      * @param array<mixed> $configuration
      * @param array<int, mixed> $responseQueue
      */
-    protected function getTestingApiClient(array $configuration = [], array $responseQueue = []): ApiClientInterface
+    protected function getTestingApiClient(array $configuration = [], array $responseQueue = [], bool $withToken = true): ApiClientInterface
     {
-        return new ApiClient(
+        $apiClient = new ApiClient(
             new HttpClient(['handler' => $this->getHandlerStack($responseQueue)]),
             new HttpFactory(),
             new HttpFactory(),
             $configuration + $this->getDefaultConfiguration()
         );
-    }
-
-    /**
-     * @param array<mixed> $configuration
-     * @param array<int, mixed> $responseQueue
-     */
-    protected function getTestingApiFactory(array $configuration = [], array $responseQueue = [], bool $withToken = true): ApiFactoryInterface
-    {
-        $rest = new Rest(
-            new HttpClient(['handler' => $this->getHandlerStack($responseQueue)]),
-            new HttpFactory(),
-            new HttpFactory(),
-        );
-        $apiFactory = new ApiFactory($rest, $configuration + $this->getDefaultConfiguration());
         if ($withToken) {
             $token = (new Token())->setAccessToken('JWT_TOKEN')
                 ->setTokenType('bearer')
                 ->setExpiresIn(3600);
-            $apiFactory->setToken($token);
+            $apiClient->setToken($token);
         }
 
-        return $apiFactory;
+        return $apiClient;
+    }
+
+    /**
+     * @param array<int, mixed> $responseQueue
+     */
+    protected function getTestingRest(array $responseQueue = []): RestInterface
+    {
+        return new Rest(
+            new HttpClient(['handler' => $this->getHandlerStack($responseQueue)]),
+            new HttpFactory(),
+            new HttpFactory(),
+        );
+    }
+
+    protected function getTestingToken(): Token
+    {
+        return (new Token())
+            ->setAccessToken('JWT_TOKEN')
+            ->setTokenType('bearer')
+            ->setExpiresIn(3600);
     }
 
     /**
