@@ -7,7 +7,6 @@ namespace OpenEuropa\Tests\CdtClient\Http;
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Http\Download;
-use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
@@ -32,13 +31,7 @@ class DownloadTest extends TestCase
      */
     public function testFile(string $fileUrl, array $responses, mixed $expectedResult): void
     {
-        $token = (new Token())->setAccessToken('JWT_TOKEN')
-            ->setTokenType('bearer')
-            ->setExpiresIn(3600);
-        $apiFactory = $this->getTestingApiFactory([], $responses);
-        $apiFactory->setToken($token);
-        $download = $apiFactory->createDownload();
-        assert($download instanceof Download);
+        $download = new Download($this->getTestingRest($responses), $this->getTestingToken());
 
         try {
             $result = $download->downloadFile($fileUrl);
@@ -53,6 +46,8 @@ class DownloadTest extends TestCase
     }
 
     /**
+     * @see self::testFile()
+     *
      * @return array<string, array<int, mixed>>
      */
     public static function providerTestFile(): array

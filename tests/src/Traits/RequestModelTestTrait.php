@@ -85,7 +85,7 @@ trait RequestModelTestTrait
     {
         return (new Callback())
             ->setCallbackType($data['callbackType'] ?? 'REQUEST_STATUS')
-            ->setCallbackBaseUrl($data['callbackBaseUrl'] ?? 'http://example.com/callback')
+            ->setCallbackBaseUrl($data['callbackBaseUrl'] ?? 'https://example.com/callback')
             ->setClientApiKey($data['clientApiKey'] ?? '123');
     }
 

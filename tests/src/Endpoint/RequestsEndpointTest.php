@@ -32,14 +32,12 @@ class RequestsEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\RequestsEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Endpoint\AuthorizedEndpointBase
      * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testRequests(array $clientConfig, array $requestArray, string $requestJson, array $responses, string|ValidationErrors $expectedResult): void
     {
-        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses, true);
-        $requestsEndpoint = $apiFactory->createEndpoint(RequestsEndpoint::class);
-        assert($requestsEndpoint instanceof RequestsEndpoint);
-
+        $requestsEndpoint = new RequestsEndpoint($this->getTestingRest($responses), $clientConfig, $this->getTestingToken());
         $translationRequest = $this->createRequestTranslation($requestArray);
         try {
             $result = $requestsEndpoint->sendTranslationRequest($translationRequest);

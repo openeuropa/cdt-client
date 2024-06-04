@@ -141,7 +141,7 @@ trait ResponseModelTestTrait
     public function createResponseLink(array $data = []): Link
     {
         return (new Link())
-            ->setHref($data['href'] ?? 'http://example.com')
+            ->setHref($data['href'] ?? 'https://example.com')
             ->setMethod($data['method'] ?? 'GET');
     }
 

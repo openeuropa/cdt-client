@@ -27,13 +27,12 @@ class MainEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\MainEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Endpoint\AuthorizedEndpointBase
      * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testMain(array $clientConfig, array $responses, mixed $expectedResult): void
     {
-        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses, true);
-        $mainEndpoint = $apiFactory->createEndpoint(MainEndpoint::class);
-        assert($mainEndpoint instanceof MainEndpoint);
+        $mainEndpoint = new MainEndpoint($this->getTestingRest($responses), $clientConfig, $this->getTestingToken());
         $this->assertEquals($expectedResult, $mainEndpoint->isConnected());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
@@ -42,7 +41,7 @@ class MainEndpointTest extends TestCase
     }
 
     /**
-     * @see self::testCheckConnection()
+     * @see self::testMain()
      *
      * @return array<string, array<int, mixed>>
      */

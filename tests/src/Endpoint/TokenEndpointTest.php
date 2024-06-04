@@ -36,10 +36,7 @@ class TokenEndpointTest extends TestCase
      */
     public function testToken(array $clientConfig, array $responses, mixed $expectedResult): void
     {
-        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses);
-
-        $tokenEndpoint = $apiFactory->createEndpoint(TokenEndpoint::class);
-        assert($tokenEndpoint instanceof TokenEndpoint);
+        $tokenEndpoint = new TokenEndpoint($this->getTestingRest($responses), $clientConfig);
         $this->assertEquals($expectedResult, $tokenEndpoint->getToken());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
@@ -93,6 +90,8 @@ class TokenEndpointTest extends TestCase
     }
 
     /**
+     * @see self::testToken()
+     *
      * @return array<string, array<int, mixed>>
      */
     public static function providerTestToken(): array
@@ -118,6 +117,8 @@ class TokenEndpointTest extends TestCase
     }
 
     /**
+     * @see self::testInvalidConfig()
+     *
      * @return array<string, array<int, mixed>>
      */
     public static function providerTestInvalidConfig(): array

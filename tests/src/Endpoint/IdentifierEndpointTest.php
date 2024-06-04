@@ -25,17 +25,15 @@ class IdentifierEndpointTest extends TestCase
      *
      * @param array<string, mixed> $clientConfig
      * @param Response[] $responses
-     * @param mixed $expectedResult
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Endpoint\AuthorizedEndpointBase
      * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testIdentifier(string $correlationId, array $clientConfig, array $responses, mixed $expectedResult): void
     {
-        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses, true);
-        $identifierEndpoint = $apiFactory->createEndpoint(IdentifierEndpoint::class);
-        assert($identifierEndpoint instanceof IdentifierEndpoint);
+        $identifierEndpoint = new IdentifierEndpoint($this->getTestingRest($responses), $clientConfig, $this->getTestingToken());
 
         try {
             $result = $identifierEndpoint->getPermanentIdentifier($correlationId);

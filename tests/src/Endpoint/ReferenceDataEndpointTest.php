@@ -28,13 +28,12 @@ class ReferenceDataEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Endpoint\AuthorizedEndpointBase
      * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testReferenceData(array $clientConfig, array $responses, mixed $expectedResult): void
     {
-        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses, true);
-        $referenceDataEndpoint = $apiFactory->createEndpoint(ReferenceDataEndpoint::class);
-        assert($referenceDataEndpoint instanceof ReferenceDataEndpoint);
+        $referenceDataEndpoint = new ReferenceDataEndpoint($this->getTestingRest($responses), $clientConfig, $this->getTestingToken());
         $this->assertEquals($this->createResponseReferenceData($expectedResult), $referenceDataEndpoint->getReferenceData());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
@@ -43,6 +42,8 @@ class ReferenceDataEndpointTest extends TestCase
     }
 
     /**
+     * @see self::testReferenceData()
+     *
      * @return array<string, array<int, mixed>>
      */
     public static function providerTestReferenceData(): array

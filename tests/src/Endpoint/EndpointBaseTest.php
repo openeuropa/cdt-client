@@ -50,7 +50,7 @@ class EndpointBaseTest extends TestCase
         (new Generator())->testDouble(EndpointBase::class, true, [], [
             $this->restMock,
             [
-                'apiBaseUrl' => 'http://example.com',
+                'apiBaseUrl' => 'https://example.com',
                 'foo' => 'bar',
             ]
         ]);
@@ -67,7 +67,7 @@ class EndpointBaseTest extends TestCase
         $double = (new Generator())->testDouble(EndpointBase::class, true, [], [
             $this->restMock,
             [
-                'apiBaseUrl' => 'http://example.com',
+                'apiBaseUrl' => 'https://example.com',
             ],
         ]);
 
@@ -104,6 +104,8 @@ class EndpointBaseTest extends TestCase
     }
 
     /**
+     * @see self::testGetEndpointUrl()
+     *
      * @return array<int, mixed>
      */
     public static function providerTestGetEndpointUrl(): array

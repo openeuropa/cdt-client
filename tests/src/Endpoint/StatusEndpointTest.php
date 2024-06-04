@@ -34,7 +34,7 @@ class StatusEndpointTest extends TestCase
         $this->expectExceptionObject(new \InvalidArgumentException('Invalid permanent ID format (it should be formatted like 2024/1234567).'));
         $statusEndpoint = new StatusEndpoint(
             $this->createMock(RestInterface::class),
-            ['apiBaseUrl' => 'http://example.com'],
+            ['apiBaseUrl' => 'https://example.com'],
             new Token()
         );
         $statusEndpoint->getTranslationRequestStatus($permanentId);
@@ -48,14 +48,12 @@ class StatusEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\StatusEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Endpoint\AuthorizedEndpointBase
      * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testStatus(string $permanentId, array $clientConfig, array $responses, mixed $expectedResult): void
     {
-        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses, true);
-        $statusEndpoint = $apiFactory->createEndpoint(StatusEndpoint::class);
-        assert($statusEndpoint instanceof StatusEndpoint);
-
+        $statusEndpoint = new StatusEndpoint($this->getTestingRest($responses), $clientConfig, $this->getTestingToken());
         try {
             $result = $statusEndpoint->getTranslationRequestStatus($permanentId);
             $this->assertEquals($this->createResponseTranslation($expectedResult), $result);
@@ -70,6 +68,8 @@ class StatusEndpointTest extends TestCase
     }
 
     /**
+     * @see self::testStatus()
+     *
      * @return array<string, array<int, mixed>>
      */
     public static function providerTestStatus(): array

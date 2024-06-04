@@ -33,16 +33,14 @@ class ValidateEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\ValidateEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
+     * @covers \OpenEuropa\CdtClient\Endpoint\AuthorizedEndpointBase
      * @covers \OpenEuropa\CdtClient\Http\Rest
      * @covers \OpenEuropa\CdtClient\Exception\ValidationErrorsException
      * @covers \OpenEuropa\CdtClient\Exception\InvalidStatusCodeException
      */
     public function testValidate(array $clientConfig, array $requestArray, string $requestJson, array $responses, bool|ValidationErrors|string $expectedResult): void
     {
-        $apiFactory = $this->getTestingApiFactory($clientConfig, $responses, true);
-        $validateEndpoint = $apiFactory->createEndpoint(ValidateEndpoint::class);
-        assert($validateEndpoint instanceof ValidateEndpoint);
-
+        $validateEndpoint = new ValidateEndpoint($this->getTestingRest($responses), $clientConfig, $this->getTestingToken());
         $translationRequest = $this->createRequestTranslation($requestArray);
         try {
             $result = $validateEndpoint->validateTranslationRequest($translationRequest);
