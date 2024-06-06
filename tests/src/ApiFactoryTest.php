@@ -24,7 +24,7 @@ class ApiFactoryTest extends TestCase
     use ApiTestTrait;
 
     /**
-     * @covers ::extractConfigValues
+     * @covers \OpenEuropa\CdtClient\ApiFactory
      */
     public function testExtractConfigValues(): void
     {

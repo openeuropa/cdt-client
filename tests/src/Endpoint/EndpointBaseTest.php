@@ -26,6 +26,27 @@ class EndpointBaseTest extends TestCase
     }
 
     /**
+     * Tests that the token is required while getting authorization headers.
+     *
+      @covers ::getAuthorizationHeaders
+     */
+    public function testIsTokenRequired(): void
+    {
+        $double = (new Generator())->testDouble(EndpointBase::class, true, [], [
+            $this->restMock,
+            [
+                'apiBaseUrl' => 'https://example.com',
+            ]
+        ]);
+        assert($double instanceof EndpointBase);
+
+        $class = new \ReflectionClass(EndpointBase::class);
+        $getEndpointUrlMethod = $class->getMethod('getAuthorizationHeaders');
+        $this->expectExceptionObject(new \RuntimeException('No token provided for authorization headers.'));
+        $getEndpointUrlMethod->invokeArgs($double, ['token' => null]);
+    }
+
+    /**
      * Tests that the base URL is required.
      *
      * @covers ::getConfigurationResolver
