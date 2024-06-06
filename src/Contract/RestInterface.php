@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Contract;
 
-use OpenEuropa\CdtClient\Model\Response\Token;
 use Psr\Http\Message\ResponseInterface;
 
 interface RestInterface
