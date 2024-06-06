@@ -14,10 +14,10 @@ use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
  * Defines how the client should handle requests to the "Requests" space of the API.
  * Implements the ValidationAwareInterface to handle validation errors.
  *
- * @see AuthorizedEndpointBase
+ * @see EndpointBase
  * @see ValidationAwareTrait
  */
-class RequestsEndpoint extends AuthorizedEndpointBase
+class RequestsEndpoint extends EndpointBase
 {
     use ValidationAwareTrait;
 
@@ -27,7 +27,7 @@ class RequestsEndpoint extends AuthorizedEndpointBase
     {
         $body = $this->getSerializer()->serialize($translationRequest, 'json');
         try {
-            $response = $this->rest->postJson($this->getEndpointUrl(), $body, $this->rest->getAuthorizationHeadersFromToken($this->token));
+            $response = $this->rest->postJson($this->getEndpointUrl(), $body, $this->getAuthorizationHeaders($this->token));
         } catch (InvalidStatusCodeException $e) {
             throw $this->dispatchValidationException($e);
         }

@@ -52,16 +52,6 @@ class Rest implements RestInterface
     }
 
     /**
-     * @inheritDoc
-     */
-    public function getAuthorizationHeadersFromToken(Token $token): array
-    {
-        return [
-            'Authorization' => sprintf('%s %s', ucfirst(strtolower($token->getTokenType())), $token->getAccessToken()),
-        ];
-    }
-
-    /**
      * @param array<string, mixed> $headers
      *
      * @throws ClientExceptionInterface If an error happens during the client request.

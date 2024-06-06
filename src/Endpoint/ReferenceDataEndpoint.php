@@ -11,15 +11,15 @@ use OpenEuropa\CdtClient\Model\Response\ReferenceData;
  *
  * Defines how the client should handle requests to the "Requests/ReferenceData" space of the API.
  *
- * @see AuthorizedEndpointBase
+ * @see EndpointBase
  */
-class ReferenceDataEndpoint extends AuthorizedEndpointBase
+class ReferenceDataEndpoint extends EndpointBase
 {
     const ENDPOINT_URL_PATH = '/v2/requests/businessReferenceData';
 
     public function getReferenceData(): ReferenceData
     {
-        $response = $this->rest->get($this->getEndpointUrl(), $this->rest->getAuthorizationHeadersFromToken($this->token));
+        $response = $this->rest->get($this->getEndpointUrl(), $this->getAuthorizationHeaders($this->token));
         return $this->getSerializer()->deserialize(
             $response->getBody()->__toString(),
             ReferenceData::class,

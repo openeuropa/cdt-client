@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient\Endpoint;
 
 use OpenEuropa\CdtClient\Contract\RestInterface;
+use OpenEuropa\CdtClient\Model\Response\Token;
+use OpenEuropa\CdtClient\Traits\AuthorizationHeadersAwareTrait;
 use OpenEuropa\CdtClient\Traits\ConfigurationAwareTrait;
 use OpenEuropa\CdtClient\Traits\SerializerAwareTrait;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,11 +19,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * The class provides methods for setting, verifying, and retrieving the endpoint URL.
  * It also allows you to get a default serializer for decoding the endpoint response.
  *
+ * @see AuthorizationHeadersAwareTrait
  * @see ConfigurationAwareTrait
  * @see SerializerAwareTrait
  */
 abstract class EndpointBase
 {
+    use AuthorizationHeadersAwareTrait;
     use ConfigurationAwareTrait;
     use SerializerAwareTrait;
 
@@ -30,7 +34,7 @@ abstract class EndpointBase
     /**
      * @param array<string, mixed> $configuration
      */
-    public function __construct(protected RestInterface $rest, array $configuration = [])
+    public function __construct(protected RestInterface $rest, array $configuration = [], protected ?Token $token = null)
     {
         $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
     }

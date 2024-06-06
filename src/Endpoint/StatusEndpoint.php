@@ -13,9 +13,9 @@ use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
  *
  * Defines how the client should handle requests to the "requests/:requestyear/:requestnumber" space of the API.
  *
- * @see AuthorizedEndpointBase
+ * @see EndpointBase
  */
-class StatusEndpoint extends AuthorizedEndpointBase
+class StatusEndpoint extends EndpointBase
 {
     use ValidationAwareTrait;
 
@@ -33,7 +33,7 @@ class StatusEndpoint extends AuthorizedEndpointBase
             ':requestnumber' => $id,
         ]);
         try {
-            $response = $this->rest->get($url, $this->rest->getAuthorizationHeadersFromToken($this->token));
+            $response = $this->rest->get($url, $this->getAuthorizationHeaders($this->token));
         } catch (InvalidStatusCodeException $e) {
             throw $this->dispatchValidationException($e);
         }

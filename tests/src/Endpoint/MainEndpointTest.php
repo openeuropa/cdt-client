@@ -27,7 +27,6 @@ class MainEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\MainEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
-     * @covers \OpenEuropa\CdtClient\Endpoint\AuthorizedEndpointBase
      * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testMain(array $clientConfig, array $responses, mixed $expectedResult): void

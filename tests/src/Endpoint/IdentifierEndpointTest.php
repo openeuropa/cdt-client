@@ -28,7 +28,6 @@ class IdentifierEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
-     * @covers \OpenEuropa\CdtClient\Endpoint\AuthorizedEndpointBase
      * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testIdentifier(string $correlationId, array $clientConfig, array $responses, mixed $expectedResult): void

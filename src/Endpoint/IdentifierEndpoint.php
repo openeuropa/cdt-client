@@ -13,10 +13,10 @@ use OpenEuropa\CdtClient\Traits\ValidationAwareTrait;
  * Defines how the client should handle requests to the "requestIdentifierByCorrelationId" space of the API.
  * Implements the ValidationAwareTrait to handle validation errors.
  *
- * @see AuthorizedEndpointBase
+ * @see EndpointBase
  * @see ValidationAwareTrait
  */
-class IdentifierEndpoint extends AuthorizedEndpointBase
+class IdentifierEndpoint extends EndpointBase
 {
     use ValidationAwareTrait;
 
@@ -26,7 +26,7 @@ class IdentifierEndpoint extends AuthorizedEndpointBase
     {
         $url = $this->getEndpointUrl([':correlationId' => $correlationId]);
         try {
-            $response = $this->rest->get($url, $this->rest->getAuthorizationHeadersFromToken($this->token));
+            $response = $this->rest->get($url, $this->getAuthorizationHeaders($this->token));
         } catch (InvalidStatusCodeException $e) {
             throw $this->dispatchValidationException($e);
         }

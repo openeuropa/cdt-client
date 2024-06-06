@@ -9,15 +9,15 @@ namespace OpenEuropa\CdtClient\Endpoint;
  *
  * Defines how the client should handle requests to the "Main" space of the API.
  *
- * @see AuthorizedEndpointBase
+ * @see EndpointBase
  */
-class MainEndpoint extends AuthorizedEndpointBase
+class MainEndpoint extends EndpointBase
 {
     const ENDPOINT_URL_PATH = '/v2/CheckConnection';
 
     public function isConnected(): bool
     {
-        $response = $this->rest->get($this->getEndpointUrl(), $this->rest->getAuthorizationHeadersFromToken($this->token));
+        $response = $this->rest->get($this->getEndpointUrl(), $this->getAuthorizationHeaders($this->token));
         return $response->getBody()->__toString() === 'true';
     }
 }

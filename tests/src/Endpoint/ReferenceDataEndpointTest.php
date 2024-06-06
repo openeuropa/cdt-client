@@ -28,7 +28,6 @@ class ReferenceDataEndpointTest extends TestCase
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
-     * @covers \OpenEuropa\CdtClient\Endpoint\AuthorizedEndpointBase
      * @covers \OpenEuropa\CdtClient\Http\Rest
      */
     public function testReferenceData(array $clientConfig, array $responses, mixed $expectedResult): void
