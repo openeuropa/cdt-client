@@ -24,7 +24,7 @@ class Download
     use ValidationAwareTrait;
     use SerializerAwareTrait;
 
-    public function __construct(protected RestInterface $rest, protected Token $token)
+    public function __construct(protected RestInterface $rest, protected ?Token $token)
     {
     }
 

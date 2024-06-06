@@ -55,15 +55,34 @@ class ApiFactoryTest extends TestCase
     }
 
     /**
+     * @covers ::createTokenEndpoint
+     */
+    public function testSuccessTokenEndpointCreation(): void
+    {
+        $apiFactory = new ApiFactory($this->getTestingRest(), $this->getDefaultConfiguration());
+        $this->assertInstanceOf(TokenEndpoint::class, $apiFactory->createTokenEndpoint());
+    }
+
+    /**
+     * @covers ::createEndpoint
+     */
+    public function testFailedTokenEndpointCreation(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Token endpoints should be created using 'createTokenEndpoint' method.");
+        $apiFactory = new ApiFactory($this->getTestingRest(), $this->getDefaultConfiguration());
+        $this->assertInstanceOf(TokenEndpoint::class, $apiFactory->createEndpoint(TokenEndpoint::class));
+    }
+
+    /**
      * @covers ::createEndpoint
      * @covers ::createDownload
      */
-    public function testSuccessfulObjectCreation(): void
+    public function testSuccessfulEndpointCreation(): void
     {
         $apiFactory = new ApiFactory($this->getTestingRest(), $this->getDefaultConfiguration());
         $apiFactory->setToken($this->getTestingToken());
 
-        $this->assertInstanceOf(TokenEndpoint::class, $apiFactory->createEndpoint(TokenEndpoint::class));
         $this->assertInstanceOf(ReferenceDataEndpoint::class, $apiFactory->createEndpoint(ReferenceDataEndpoint::class));
         $this->assertInstanceOf(MainEndpoint::class, $apiFactory->createEndpoint(MainEndpoint::class));
         $this->assertInstanceOf(ValidateEndpoint::class, $apiFactory->createEndpoint(ValidateEndpoint::class));
@@ -76,7 +95,7 @@ class ApiFactoryTest extends TestCase
     /**
      * @covers ::createEndpoint
      */
-    public function testFailedObjectCreation(): void
+    public function testFailedEndpointCreation(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage("Invalid endpoint class: 'InvalidEndpoint'.");

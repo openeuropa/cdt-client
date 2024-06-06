@@ -52,8 +52,7 @@ class ApiClient implements ApiClientInterface
 
     public function requestToken(): Token
     {
-        /** @var TokenEndpoint $endpoint */
-        $endpoint = $this->apiFactory->createEndpoint(TokenEndpoint::class);
+        $endpoint = $this->apiFactory->createTokenEndpoint();
 
         return $endpoint->getToken();
     }

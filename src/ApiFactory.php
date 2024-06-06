@@ -29,7 +29,7 @@ class ApiFactory implements ApiFactoryInterface
 {
     use ConfigurationAwareTrait;
 
-    protected Token $token;
+    protected ?Token $token = null;
 
     /**
      * @param array<int|string, mixed> $configuration
@@ -44,26 +44,27 @@ class ApiFactory implements ApiFactoryInterface
         return $this;
     }
 
+    public function createTokenEndpoint(): TokenEndpoint
+    {
+        return new TokenEndpoint($this->rest, $this->extractConfigValues([
+            'username',
+            'password',
+            'client',
+            'apiBaseUrl',
+        ]));
+    }
+
     public function createEndpoint(string $class): EndpointBase
     {
-        switch ($class) {
-            case TokenEndpoint::class:
-                return new TokenEndpoint($this->rest, $this->extractConfigValues([
-                    'username',
-                    'password',
-                    'client',
-                    'apiBaseUrl',
-                ]));
-            case MainEndpoint::class:
-            case ReferenceDataEndpoint::class:
-            case ValidateEndpoint::class:
-            case RequestsEndpoint::class:
-            case IdentifierEndpoint::class:
-            case StatusEndpoint::class:
-                return new $class($this->rest, $this->extractConfigValues(['apiBaseUrl']), $this->token);
-            default:
-                throw new \InvalidArgumentException("Invalid endpoint class: '$class'.");
+        if ($class === TokenEndpoint::class) {
+            throw new \InvalidArgumentException("Token endpoints should be created using 'createTokenEndpoint' method.");
         }
+
+        if (!is_subclass_of($class, EndpointBase::class)) {
+            throw new \InvalidArgumentException("Invalid endpoint class: '$class'.");
+        }
+
+        return new $class($this->rest, $this->extractConfigValues(['apiBaseUrl']), $this->token);
     }
 
     public function createDownload(): Download
