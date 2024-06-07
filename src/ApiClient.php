@@ -11,7 +11,6 @@ use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
 use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
 use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
-use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
 use OpenEuropa\CdtClient\Http\Rest;
 use OpenEuropa\CdtClient\Model\Request\Translation as TranslationRequest;
