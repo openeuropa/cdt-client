@@ -6,7 +6,6 @@ namespace OpenEuropa\CdtClient\Http;
 
 use OpenEuropa\CdtClient\Contract\RestInterface;
 use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
-use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
