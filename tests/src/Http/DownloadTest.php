@@ -8,8 +8,8 @@ use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Http\Download;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
-use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 

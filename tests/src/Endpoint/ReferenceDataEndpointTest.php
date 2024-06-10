@@ -6,8 +6,8 @@ namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
-use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 

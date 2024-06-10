@@ -10,8 +10,8 @@ use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
-use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 

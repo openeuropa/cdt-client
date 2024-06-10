@@ -38,6 +38,10 @@
   <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration"/>
   <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall"/>
 
+  <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
+
+
+
 
 
 
