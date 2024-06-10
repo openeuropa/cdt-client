@@ -75,6 +75,7 @@ class ReferenceData
     public function setDepartments(array $departments): self
     {
         $this->departments = $departments;
+
         return $this;
     }
 
@@ -92,6 +93,7 @@ class ReferenceData
     public function setPriorities(array $priorities): self
     {
         $this->priorities = $priorities;
+
         return $this;
     }
 
@@ -109,6 +111,7 @@ class ReferenceData
     public function setPurposes(array $purposes): self
     {
         $this->purposes = $purposes;
+
         return $this;
     }
 
@@ -126,6 +129,7 @@ class ReferenceData
     public function setDeliveryModes(array $deliveryModes): self
     {
         $this->deliveryModes = $deliveryModes;
+
         return $this;
     }
 
@@ -143,6 +147,7 @@ class ReferenceData
     public function setConfidentialities(array $confidentialities): self
     {
         $this->confidentialities = $confidentialities;
+
         return $this;
     }
 
@@ -160,6 +165,7 @@ class ReferenceData
     public function setLanguages(array $languages): self
     {
         $this->languages = $languages;
+
         return $this;
     }
 
@@ -177,6 +183,7 @@ class ReferenceData
     public function setStatuses(array $statuses): self
     {
         $this->statuses = $statuses;
+
         return $this;
     }
 
@@ -194,6 +201,7 @@ class ReferenceData
     public function setServices(array $services): self
     {
         $this->services = $services;
+
         return $this;
     }
 
@@ -211,6 +219,7 @@ class ReferenceData
     public function setSendOptions(array $sendOptions): self
     {
         $this->sendOptions = $sendOptions;
+
         return $this;
     }
 
@@ -228,6 +237,7 @@ class ReferenceData
     public function setContacts(array $contacts): self
     {
         $this->contacts = $contacts;
+
         return $this;
     }
 }

@@ -21,6 +21,7 @@ trait ConfigurationAwareTrait
         if (!array_key_exists($configKey, $this->configuration)) {
             throw new \InvalidArgumentException("Invalid config key: '$configKey'. Valid keys: '" . implode("', '", array_keys($this->configuration)) . "'.");
         }
+
         return $this->configuration[$configKey];
     }
 

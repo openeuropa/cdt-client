@@ -26,6 +26,7 @@ class ReferenceFile
     public function setFile(File $file): ReferenceFile
     {
         $this->file = $file;
+
         return $this;
     }
 
@@ -43,6 +44,7 @@ class ReferenceFile
     public function setReferenceLanguages(array $referenceLanguages): ReferenceFile
     {
         $this->referenceLanguages = $referenceLanguages;
+
         return $this;
     }
 }

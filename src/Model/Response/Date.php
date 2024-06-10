@@ -30,6 +30,7 @@ class Date
     public function setLabel(string $label): self
     {
         $this->label = $label;
+
         return $this;
     }
 
@@ -41,6 +42,7 @@ class Date
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
         return $this;
     }
 
@@ -52,6 +54,7 @@ class Date
     public function setEcdtDateType(string $ecdtDateType): self
     {
         $this->ecdtDateType = $ecdtDateType;
+
         return $this;
     }
 
@@ -63,6 +66,7 @@ class Date
     public function setTooltip(?string $tooltip): self
     {
         $this->tooltip = $tooltip;
+
         return $this;
     }
 }

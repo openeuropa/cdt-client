@@ -35,6 +35,7 @@ class ApiFactory implements ApiFactoryInterface
     public function setToken(Token $token): ApiFactoryInterface
     {
         $this->token = $token;
+
         return $this;
     }
 

@@ -27,6 +27,7 @@ class Link
     public function setHref(string $href): self
     {
         $this->href = $href;
+
         return $this;
     }
 
@@ -38,6 +39,7 @@ class Link
     public function setMethod(string $method): self
     {
         $this->method = $method;
+
         return $this;
     }
 }

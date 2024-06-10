@@ -75,6 +75,7 @@ trait ResponseModelTestTrait
         foreach ($data as $item) {
             $result[] = $this->createResponseReferenceItem($item);
         }
+
         return $result;
     }
 
@@ -104,6 +105,7 @@ trait ResponseModelTestTrait
         foreach ($data as $contact) {
             $result[] = $this->createResponseReferenceContact($contact);
         }
+
         return $result;
     }
 
@@ -299,6 +301,7 @@ trait ResponseModelTestTrait
         } else {
             $objects = [$defaultKey => $callback([])];
         }
+
         return $objects;
     }
 }

@@ -38,6 +38,7 @@ class RequestUpdate
     public function setRequestIdentifier(string $requestIdentifier): self
     {
         $this->requestIdentifier = $requestIdentifier;
+
         return $this;
     }
 
@@ -49,6 +50,7 @@ class RequestUpdate
     public function setRequestId(string $requestId): self
     {
         $this->requestId = $requestId;
+
         return $this;
     }
 
@@ -60,6 +62,7 @@ class RequestUpdate
     public function setJobId(string $jobId): self
     {
         $this->jobId = $jobId;
+
         return $this;
     }
 
@@ -71,6 +74,7 @@ class RequestUpdate
     public function setSourceLanguage(string $sourceLanguage): self
     {
         $this->sourceLanguage = $sourceLanguage;
+
         return $this;
     }
 
@@ -82,6 +86,7 @@ class RequestUpdate
     public function setTargetLanguage(string $targetLanguage): self
     {
         $this->targetLanguage = $targetLanguage;
+
         return $this;
     }
 
@@ -93,6 +98,7 @@ class RequestUpdate
     public function setDocumentName(string $documentName): self
     {
         $this->documentName = $documentName;
+
         return $this;
     }
 
@@ -104,6 +110,7 @@ class RequestUpdate
     public function setUpdateType(string $updateType): self
     {
         $this->updateType = $updateType;
+
         return $this;
     }
 
@@ -121,6 +128,7 @@ class RequestUpdate
     public function setPropertiesChanges(array $propertiesChanges): self
     {
         $this->propertiesChanges = $propertiesChanges;
+
         return $this;
     }
 }

@@ -37,6 +37,7 @@ class File
     public function setSourceLanguage(?string $sourceLanguage): self
     {
         $this->sourceLanguage = $sourceLanguage;
+
         return $this;
     }
 
@@ -48,6 +49,7 @@ class File
     public function setTargetLanguage(?string $targetLanguage): self
     {
         $this->targetLanguage = $targetLanguage;
+
         return $this;
     }
 
@@ -59,6 +61,7 @@ class File
     public function setSourceDocument(?string $sourceDocument): self
     {
         $this->sourceDocument = $sourceDocument;
+
         return $this;
     }
 
@@ -70,6 +73,7 @@ class File
     public function setFileName(string $fileName): self
     {
         $this->fileName = $fileName;
+
         return $this;
     }
 
@@ -81,6 +85,7 @@ class File
     public function setIsPrivate(bool $isPrivate): self
     {
         $this->isPrivate = $isPrivate;
+
         return $this;
     }
 
@@ -98,6 +103,7 @@ class File
     public function setLinks(array $links): self
     {
         $this->links = $links;
+
         return $this;
     }
 }

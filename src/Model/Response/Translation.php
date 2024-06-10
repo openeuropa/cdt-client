@@ -120,6 +120,7 @@ class Translation
     public function setRequestIdentifier(string $requestIdentifier): self
     {
         $this->requestIdentifier = $requestIdentifier;
+
         return $this;
     }
 
@@ -131,6 +132,7 @@ class Translation
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -148,6 +150,7 @@ class Translation
     public function setSourceLanguages(array $sourceLanguages): self
     {
         $this->sourceLanguages = $sourceLanguages;
+
         return $this;
     }
 
@@ -165,6 +168,7 @@ class Translation
     public function setTargetLanguages(array $targetLanguages): self
     {
         $this->targetLanguages = $targetLanguages;
+
         return $this;
     }
 
@@ -176,6 +180,7 @@ class Translation
     public function setCreationDate(\DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
+
         return $this;
     }
 
@@ -187,6 +192,7 @@ class Translation
     public function setDeliveryDate(?\DateTimeInterface $deliveryDate): self
     {
         $this->deliveryDate = $deliveryDate;
+
         return $this;
     }
 
@@ -198,6 +204,7 @@ class Translation
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -209,6 +216,7 @@ class Translation
     public function setService(string $service): self
     {
         $this->service = $service;
+
         return $this;
     }
 
@@ -220,6 +228,7 @@ class Translation
     public function setDepartment(string $department): self
     {
         $this->department = $department;
+
         return $this;
     }
 
@@ -237,6 +246,7 @@ class Translation
     public function setContacts(array $contacts): self
     {
         $this->contacts = $contacts;
+
         return $this;
     }
 
@@ -254,6 +264,7 @@ class Translation
     public function setDeliverToContacts(array $deliverToContacts): self
     {
         $this->deliverToContacts = $deliverToContacts;
+
         return $this;
     }
 
@@ -271,6 +282,7 @@ class Translation
     public function setSourceDocuments(array $sourceDocuments): self
     {
         $this->sourceDocuments = $sourceDocuments;
+
         return $this;
     }
 
@@ -288,6 +300,7 @@ class Translation
     public function setReferenceFiles(array $referenceFiles): self
     {
         $this->referenceFiles = $referenceFiles;
+
         return $this;
     }
 
@@ -305,6 +318,7 @@ class Translation
     public function setBilingualFiles(array $bilingualFiles): self
     {
         $this->bilingualFiles = $bilingualFiles;
+
         return $this;
     }
 
@@ -322,6 +336,7 @@ class Translation
     public function setTargetFiles(array $targetFiles): self
     {
         $this->targetFiles = $targetFiles;
+
         return $this;
     }
 
@@ -339,6 +354,7 @@ class Translation
     public function setDates(array $dates): self
     {
         $this->dates = $dates;
+
         return $this;
     }
 
@@ -356,6 +372,7 @@ class Translation
     public function setComments(array $comments): self
     {
         $this->comments = $comments;
+
         return $this;
     }
 
@@ -367,6 +384,7 @@ class Translation
     public function setTotalPrice(float $totalPrice): self
     {
         $this->totalPrice = $totalPrice;
+
         return $this;
     }
 
@@ -384,6 +402,7 @@ class Translation
     public function setJobSummary(array $jobSummary): self
     {
         $this->jobSummary = $jobSummary;
+
         return $this;
     }
 
@@ -395,6 +414,7 @@ class Translation
     public function setIsInProgress(bool $isInProgress): self
     {
         $this->isInProgress = $isInProgress;
+
         return $this;
     }
 
@@ -406,6 +426,7 @@ class Translation
     public function setClientReference(string $clientReference): self
     {
         $this->clientReference = $clientReference;
+
         return $this;
     }
 
@@ -417,6 +438,7 @@ class Translation
     public function setDeliveryModeCode(string $deliveryModeCode): self
     {
         $this->deliveryModeCode = $deliveryModeCode;
+
         return $this;
     }
 
@@ -428,6 +450,7 @@ class Translation
     public function setDepartmentCode(string $departmentCode): self
     {
         $this->departmentCode = $departmentCode;
+
         return $this;
     }
 
@@ -439,6 +462,7 @@ class Translation
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
         return $this;
     }
 
@@ -450,6 +474,7 @@ class Translation
     public function setPurposeCode(string $purposeCode): self
     {
         $this->purposeCode = $purposeCode;
+
         return $this;
     }
 
@@ -461,6 +486,7 @@ class Translation
     public function setIsQuotationOnly(bool $isQuotationOnly): self
     {
         $this->isQuotationOnly = $isQuotationOnly;
+
         return $this;
     }
 
@@ -478,6 +504,7 @@ class Translation
     public function setLinks(array $links): self
     {
         $this->links = $links;
+
         return $this;
     }
 }

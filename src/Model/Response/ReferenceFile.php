@@ -42,6 +42,7 @@ class ReferenceFile
     public function setLanguages(array $languages): self
     {
         $this->languages = $languages;
+
         return $this;
     }
 
@@ -53,6 +54,7 @@ class ReferenceFile
     public function setFileName(string $fileName): self
     {
         $this->fileName = $fileName;
+
         return $this;
     }
 
@@ -64,6 +66,7 @@ class ReferenceFile
     public function setIsPrivate(bool $isPrivate): self
     {
         $this->isPrivate = $isPrivate;
+
         return $this;
     }
 
@@ -81,6 +84,7 @@ class ReferenceFile
     public function setLinks(array $links): self
     {
         $this->links = $links;
+
         return $this;
     }
 }

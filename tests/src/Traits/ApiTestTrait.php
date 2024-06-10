@@ -91,6 +91,7 @@ trait ApiTestTrait
     {
         $handlerStack = HandlerStack::create(new MockHandler($responseQueue));
         $handlerStack->push(Middleware::history($this->clientHistory));
+
         return $handlerStack;
     }
 }

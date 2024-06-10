@@ -29,6 +29,7 @@ class JobStatus
     public function setRequestIdentifier(string $requestIdentifier): self
     {
         $this->requestIdentifier = $requestIdentifier;
+
         return $this;
     }
 
@@ -40,6 +41,7 @@ class JobStatus
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -51,6 +53,7 @@ class JobStatus
     public function setSourceDocumentName(string $sourceDocumentName): self
     {
         $this->sourceDocumentName = $sourceDocumentName;
+
         return $this;
     }
 
@@ -62,6 +65,7 @@ class JobStatus
     public function setSourceLanguageCode(string $sourceLanguageCode): self
     {
         $this->sourceLanguageCode = $sourceLanguageCode;
+
         return $this;
     }
 
@@ -73,6 +77,7 @@ class JobStatus
     public function setTargetLanguageCode(string $targetLanguageCode): self
     {
         $this->targetLanguageCode = $targetLanguageCode;
+
         return $this;
     }
 }

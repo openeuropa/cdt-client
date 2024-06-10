@@ -31,6 +31,7 @@ class SourceDocument
     public function setFileName(string $fileName): self
     {
         $this->fileName = $fileName;
+
         return $this;
     }
 
@@ -42,6 +43,7 @@ class SourceDocument
     public function setIsPrivate(bool $isPrivate): self
     {
         $this->isPrivate = $isPrivate;
+
         return $this;
     }
 
@@ -59,6 +61,7 @@ class SourceDocument
     public function setLinks(array $links): self
     {
         $this->links = $links;
+
         return $this;
     }
 }

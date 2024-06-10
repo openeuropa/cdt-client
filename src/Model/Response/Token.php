@@ -24,6 +24,7 @@ class Token
     public function setAccessToken(string $accessToken): self
     {
         $this->accessToken = $accessToken;
+
         return $this;
     }
 
@@ -35,6 +36,7 @@ class Token
     public function setTokenType(string $tokenType): self
     {
         $this->tokenType = $tokenType;
+
         return $this;
     }
 
@@ -46,6 +48,7 @@ class Token
     public function setExpiresIn(int $expiresIn): self
     {
         $this->expiresIn = $expiresIn;
+
         return $this;
     }
 
@@ -62,6 +65,7 @@ class Token
     public function setRefreshToken(string $refreshToken): self
     {
         $this->refreshToken = $refreshToken;
+
         return $this;
     }
 }

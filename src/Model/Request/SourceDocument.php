@@ -37,6 +37,7 @@ class SourceDocument
     public function setFile(File $file): self
     {
         $this->file = $file;
+
         return $this;
     }
 
@@ -54,6 +55,7 @@ class SourceDocument
     public function setSourceLanguages(array $sourceLanguages): self
     {
         $this->sourceLanguages = $sourceLanguages;
+
         return $this;
     }
 
@@ -65,6 +67,7 @@ class SourceDocument
     public function setOutputDocumentFormatCode(string $outputDocumentFormatCode): self
     {
         $this->outputDocumentFormatCode = $outputDocumentFormatCode;
+
         return $this;
     }
 
@@ -82,6 +85,7 @@ class SourceDocument
     public function setTranslationJobs(array $translationJobs): self
     {
         $this->translationJobs = $translationJobs;
+
         return $this;
     }
 
@@ -93,6 +97,7 @@ class SourceDocument
     public function setConfidentialityCode(string $confidentialityCode): self
     {
         $this->confidentialityCode = $confidentialityCode;
+
         return $this;
     }
 
@@ -104,6 +109,7 @@ class SourceDocument
     public function setIsPrivate(bool $isPrivate): self
     {
         $this->isPrivate = $isPrivate;
+
         return $this;
     }
 }

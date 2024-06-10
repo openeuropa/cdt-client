@@ -129,6 +129,7 @@ class ApiClient implements ApiClientInterface
     public function setToken(Token $token): ApiClient
     {
         $this->apiFactory->setToken($token);
+
         return $this;
     }
 }

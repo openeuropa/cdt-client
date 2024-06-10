@@ -140,6 +140,7 @@ trait RequestModelTestTrait
         } else {
             $objects = [$callback([])];
         }
+
         return $objects;
     }
 }

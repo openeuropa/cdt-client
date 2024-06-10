@@ -37,6 +37,7 @@ class StatusEndpoint extends EndpointBase
         } catch (InvalidStatusCodeException $e) {
             throw $this->dispatchValidationException($e);
         }
+
         return $this->getSerializer()->deserialize(
             $response->getBody()->__toString(),
             Translation::class,

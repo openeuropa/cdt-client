@@ -12,6 +12,27 @@
 
   <rule ref="SlevomatCodingStandard.Classes.BackedEnumTypeSpacing"/>
   <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility"/>
+  <rule ref="SlevomatCodingStandard.Classes.ClassMemberSpacing"/>
+  <rule ref="SlevomatCodingStandard.Classes.ConstantSpacing"/>
+  <rule ref="SlevomatCodingStandard.Classes.MethodSpacing"/>
+  <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
+  <rule ref="SlevomatCodingStandard.Classes.ParentCallSpacing"/>
+  <rule ref="SlevomatCodingStandard.Classes.PropertySpacing"/>
+  <rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing">
+      <properties>
+         <property name="linesCountBeforeFirstUseWhenFirstInClass" value="0"/>
+      </properties>
+  </rule>
+
+  <rule ref="SlevomatCodingStandard.Commenting.AnnotationName"/>
+  <rule ref="SlevomatCodingStandard.Commenting.DeprecatedAnnotationDeclaration"/>
+  <rule ref="SlevomatCodingStandard.Commenting.DisallowCommentAfterCode"/>
+  <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
+  <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
+
+  <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing"/>
+
+
 
   <!-- Add all code directories here. -->
   <file>src</file>

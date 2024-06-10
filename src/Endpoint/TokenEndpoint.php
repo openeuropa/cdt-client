@@ -47,6 +47,7 @@ class TokenEndpoint extends EndpointBase
             'password' => $this->getConfigValue('password'),
             'client' => $this->getConfigValue('client'),
         ]);
+
         return $this->getSerializer()->deserialize(
             $response->getBody()->__toString(),
             Token::class,

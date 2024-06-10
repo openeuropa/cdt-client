@@ -75,6 +75,7 @@ class Translation
     public function setDepartmentCode(string $departmentCode): self
     {
         $this->departmentCode = $departmentCode;
+
         return $this;
     }
 
@@ -92,6 +93,7 @@ class Translation
     public function setContactUserNames(array $contactUserNames): self
     {
         $this->contactUserNames = $contactUserNames;
+
         return $this;
     }
 
@@ -109,6 +111,7 @@ class Translation
     public function setDeliveryContactUsernames(array $deliveryContactUsernames): self
     {
         $this->deliveryContactUsernames = $deliveryContactUsernames;
+
         return $this;
     }
 
@@ -120,6 +123,7 @@ class Translation
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
         return $this;
     }
 
@@ -131,6 +135,7 @@ class Translation
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -142,6 +147,7 @@ class Translation
     public function setClientReference(string $clientReference): self
     {
         $this->clientReference = $clientReference;
+
         return $this;
     }
 
@@ -153,6 +159,7 @@ class Translation
     public function setPurposeCode(string $purposeCode): self
     {
         $this->purposeCode = $purposeCode;
+
         return $this;
     }
 
@@ -164,6 +171,7 @@ class Translation
     public function setPriorityCode(string $priorityCode): self
     {
         $this->priorityCode = $priorityCode;
+
         return $this;
     }
 
@@ -175,6 +183,7 @@ class Translation
     public function setDeliveryModeCode(string $deliveryModeCode): self
     {
         $this->deliveryModeCode = $deliveryModeCode;
+
         return $this;
     }
 
@@ -186,6 +195,7 @@ class Translation
     public function setComments(string $comments): self
     {
         $this->comments = $comments;
+
         return $this;
     }
 
@@ -203,6 +213,7 @@ class Translation
     public function setReferenceSetUrls(array $referenceSetUrls): self
     {
         $this->referenceSetUrls = $referenceSetUrls;
+
         return $this;
     }
 
@@ -220,6 +231,7 @@ class Translation
     public function setReferenceSetFiles(array $referenceSetFiles): self
     {
         $this->referenceSetFiles = $referenceSetFiles;
+
         return $this;
     }
 
@@ -237,6 +249,7 @@ class Translation
     public function setSourceDocuments(array $sourceDocuments): self
     {
         $this->sourceDocuments = $sourceDocuments;
+
         return $this;
     }
 
@@ -248,6 +261,7 @@ class Translation
     public function setSendOptions(string $sendOptions): self
     {
         $this->sendOptions = $sendOptions;
+
         return $this;
     }
 
@@ -259,6 +273,7 @@ class Translation
     public function setService(string $service): self
     {
         $this->service = $service;
+
         return $this;
     }
 
@@ -270,6 +285,7 @@ class Translation
     public function setIsQuotationOnly(bool $isQuotationOnly): self
     {
         $this->isQuotationOnly = $isQuotationOnly;
+
         return $this;
     }
 
@@ -287,6 +303,7 @@ class Translation
     public function setCallbacks(array $callbacks): self
     {
         $this->callbacks = $callbacks;
+
         return $this;
     }
 }

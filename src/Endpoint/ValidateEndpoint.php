@@ -31,6 +31,7 @@ class ValidateEndpoint extends EndpointBase
         } catch (InvalidStatusCodeException $e) {
             throw $this->dispatchValidationException($e);
         }
+
         return $response->getBody()->__toString() === 'true';
     }
 }

@@ -56,6 +56,7 @@ class JobSummary
     public function setTotalPrice(float $totalPrice): self
     {
         $this->totalPrice = $totalPrice;
+
         return $this;
     }
 
@@ -67,6 +68,7 @@ class JobSummary
     public function setSurchargeConfidentiality(float $surchargeConfidentiality): self
     {
         $this->surchargeConfidentiality = $surchargeConfidentiality;
+
         return $this;
     }
 
@@ -78,6 +80,7 @@ class JobSummary
     public function setSurchargeComplexity(float $surchargeComplexity): self
     {
         $this->surchargeComplexity = $surchargeComplexity;
+
         return $this;
     }
 
@@ -89,6 +92,7 @@ class JobSummary
     public function setSurchargeNonEuLanguage(float $surchargeNonEuLanguage): self
     {
         $this->surchargeNonEuLanguage = $surchargeNonEuLanguage;
+
         return $this;
     }
 
@@ -100,6 +104,7 @@ class JobSummary
     public function setSurchargeWebUpload(float $surchargeWebUpload): self
     {
         $this->surchargeWebUpload = $surchargeWebUpload;
+
         return $this;
     }
 
@@ -111,6 +116,7 @@ class JobSummary
     public function setBasePrice(float $basePrice): self
     {
         $this->basePrice = $basePrice;
+
         return $this;
     }
 
@@ -122,6 +128,7 @@ class JobSummary
     public function setVolume(float $volume): self
     {
         $this->volume = $volume;
+
         return $this;
     }
 
@@ -133,6 +140,7 @@ class JobSummary
     public function setSourceLanguage(string $sourceLanguage): self
     {
         $this->sourceLanguage = $sourceLanguage;
+
         return $this;
     }
 
@@ -144,6 +152,7 @@ class JobSummary
     public function setTargetLanguage(string $targetLanguage): self
     {
         $this->targetLanguage = $targetLanguage;
+
         return $this;
     }
 
@@ -155,6 +164,7 @@ class JobSummary
     public function setFileName(string $fileName): self
     {
         $this->fileName = $fileName;
+
         return $this;
     }
 
@@ -166,6 +176,7 @@ class JobSummary
     public function setPriorityCode(string $priorityCode): self
     {
         $this->priorityCode = $priorityCode;
+
         return $this;
     }
 
@@ -177,6 +188,7 @@ class JobSummary
     public function setServiceVolume(float $serviceVolume): self
     {
         $this->serviceVolume = $serviceVolume;
+
         return $this;
     }
 
@@ -188,6 +200,7 @@ class JobSummary
     public function setServiceVolumeUnit(string $serviceVolumeUnit): self
     {
         $this->serviceVolumeUnit = $serviceVolumeUnit;
+
         return $this;
     }
 
@@ -199,6 +212,7 @@ class JobSummary
     public function setServiceVolumeString(string $serviceVolumeString): self
     {
         $this->serviceVolumeString = $serviceVolumeString;
+
         return $this;
     }
 
@@ -210,6 +224,7 @@ class JobSummary
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -221,6 +236,7 @@ class JobSummary
     public function setIsEstimatedPrice(bool $isEstimatedPrice): self
     {
         $this->isEstimatedPrice = $isEstimatedPrice;
+
         return $this;
     }
 }

@@ -38,6 +38,7 @@ class Rest implements RestInterface
     public function postJson(string $uri, string $jsonBody, array $headers = []): ResponseInterface
     {
         $headers['Content-Type'] = 'application/json';
+
         return $this->doRequest('POST', $uri, $headers, $jsonBody);
     }
 
@@ -47,6 +48,7 @@ class Rest implements RestInterface
     public function postForm(string $uri, array $formFields, array $headers = []): ResponseInterface
     {
         $headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
         return $this->doRequest('POST', $uri, $headers, http_build_query($formFields));
     }
 
