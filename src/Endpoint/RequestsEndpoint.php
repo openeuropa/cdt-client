@@ -21,7 +21,7 @@ class RequestsEndpoint extends EndpointBase
 {
     use ValidationAwareTrait;
 
-    const ENDPOINT_URL_PATH = '/v2/requests';
+    public const ENDPOINT_URL_PATH = '/v2/requests';
 
     public function sendTranslationRequest(Translation $translationRequest): string
     {

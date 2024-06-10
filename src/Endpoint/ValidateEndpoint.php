@@ -21,7 +21,7 @@ class ValidateEndpoint extends EndpointBase
 {
     use ValidationAwareTrait;
 
-    const ENDPOINT_URL_PATH = '/v2/requests/validate';
+    public const ENDPOINT_URL_PATH = '/v2/requests/validate';
 
     public function validateTranslationRequest(Translation $translationRequest): bool
     {

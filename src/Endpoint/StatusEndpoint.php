@@ -19,7 +19,7 @@ class StatusEndpoint extends EndpointBase
 {
     use ValidationAwareTrait;
 
-    const ENDPOINT_URL_PATH = '/v2/requests/:requestyear/:requestnumber';
+    public const ENDPOINT_URL_PATH = '/v2/requests/:requestyear/:requestnumber';
 
     public function getTranslationRequestStatus(string $permanentId): Translation
     {

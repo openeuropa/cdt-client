@@ -29,7 +29,7 @@ abstract class EndpointBase
     use ConfigurationAwareTrait;
     use SerializerAwareTrait;
 
-    const ENDPOINT_URL_PATH = '';
+    public const ENDPOINT_URL_PATH = '';
 
     /**
      * @param array<string, mixed> $configuration
