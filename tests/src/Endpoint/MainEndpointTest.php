@@ -52,7 +52,7 @@ class MainEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(200, [], 'true')
+                    new Response(200, [], 'true'),
                 ],
                 true,
             ],
@@ -61,10 +61,10 @@ class MainEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(200, [], 'false')
+                    new Response(200, [], 'false'),
                 ],
                 false,
-            ]
+            ],
         ];
     }
 }

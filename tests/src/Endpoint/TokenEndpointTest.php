@@ -105,7 +105,7 @@ class TokenEndpointTest extends TestCase
                     'client' => 'foo',
                 ],
                 [
-                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/simple_token_call_response.json'))
+                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/simple_token_call_response.json')),
                 ],
                 (new Token())
                     ->setAccessToken('JWT_TOKEN')

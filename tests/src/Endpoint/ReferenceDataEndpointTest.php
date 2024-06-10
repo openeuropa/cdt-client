@@ -53,7 +53,7 @@ class ReferenceDataEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/reference_data_response.json'))
+                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/reference_data_response.json')),
                 ],
                 [
                     'departments' => [

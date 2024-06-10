@@ -2,8 +2,13 @@
 <ruleset name="CdtClient">
   <description>Custom coding rules for the CdtClient.</description>
 
-  <!-- Include the rules you want. -->
+  <!-- Include main rules you want. -->
   <rule ref="PSR12"/>
+
+  <!-- Include additional rules -->
+  <rule ref="SlevomatCodingStandard.Arrays.MultiLineArrayEndBracketPlacement"/>
+  <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
+  <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
 
   <!-- Add all code directories here. -->
   <file>src</file>

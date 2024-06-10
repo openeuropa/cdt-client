@@ -58,7 +58,7 @@ class DownloadTest extends TestCase
                 [
                     new Response(200, [], 'Test file content'),
                 ],
-                'Test file content'
+                'Test file content',
             ],
             'failed file call' => [
                 'https://example.com/v2/files/12345678-90ab-cdef-1234-567890abc123',
@@ -67,7 +67,7 @@ class DownloadTest extends TestCase
                 ],
                 (new ValidationErrors())
                     ->setMessage('The file link with id 12345678-90ab-cdef-1234-567890abc123 was not found or it has expired'),
-            ]
+            ],
         ];
     }
 }

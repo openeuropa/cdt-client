@@ -74,7 +74,7 @@ class ValidateEndpointTest extends TestCase
                 ],
                 (string) file_get_contents(__DIR__ . '/../../fixtures/json/validate_valid_request.json'),
                 [
-                    new Response(200, [], 'true')
+                    new Response(200, [], 'true'),
                 ],
                 true,
             ],
@@ -86,7 +86,7 @@ class ValidateEndpointTest extends TestCase
                 ],
                 (string) file_get_contents(__DIR__ . '/../../fixtures/json/validate_valid_request.json'),
                 [
-                    new Response(404, [], 'Server Error')
+                    new Response(404, [], 'Server Error'),
                 ],
                 'Server Error',
             ],
@@ -95,18 +95,18 @@ class ValidateEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    'deliveryModeCode' => 'FOOBAR'
+                    'deliveryModeCode' => 'FOOBAR',
                 ],
                 (string) file_get_contents(__DIR__ . '/../../fixtures/json/validate_invalid_request.json'),
                 [
-                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/validate_error_response.json'))
+                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/validate_error_response.json')),
                 ],
                 (new ValidationErrors())
                     ->setMessage('Validation error')
                     ->setErrors([
-                        'deliveryModeCode' => ['Invalid delivery mode FOOBAR']
+                        'deliveryModeCode' => ['Invalid delivery mode FOOBAR'],
                     ]),
-            ]
+            ],
         ];
     }
 }

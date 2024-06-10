@@ -36,7 +36,7 @@ class EndpointBaseTest extends TestCase
             $this->restMock,
             [
                 'apiBaseUrl' => 'https://example.com',
-            ]
+            ],
         ]);
         assert($double instanceof EndpointBase);
 
@@ -73,7 +73,7 @@ class EndpointBaseTest extends TestCase
             [
                 'apiBaseUrl' => 'https://example.com',
                 'foo' => 'bar',
-            ]
+            ],
         ]);
     }
 
@@ -114,7 +114,7 @@ class EndpointBaseTest extends TestCase
             $this->restMock,
             [
                 'apiBaseUrl' => $originalUrl,
-            ]
+            ],
         ]);
         assert($double instanceof EndpointBase);
 

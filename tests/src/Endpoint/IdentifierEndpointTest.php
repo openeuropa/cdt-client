@@ -60,7 +60,7 @@ class IdentifierEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(200, [], '2024/332233')
+                    new Response(200, [], '2024/332233'),
                 ],
                 '2024/332233',
             ],
@@ -70,12 +70,12 @@ class IdentifierEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/identifier_error_response.json'))
+                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/identifier_error_response.json')),
                 ],
                 (new ValidationErrors())
                     ->setMessage('The requestIdentifier does not exists for the correlationID -> AbCdE')
-                    ->setErrors([])
-            ]
+                    ->setErrors([]),
+            ],
         ];
     }
 }

@@ -80,7 +80,7 @@ class StatusEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/status_valid_response.json'))
+                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/status_valid_response.json')),
                 ],
                 [
                     'requestIdentifier' => '2024/000001',
@@ -101,8 +101,8 @@ class StatusEndpointTest extends TestCase
                             'links' => [
                                 'files' => [
                                     'href' => 'https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef',
-                                    'method' => 'GET'
-                                ]
+                                    'method' => 'GET',
+                                ],
                             ],
                         ],
                     ],
@@ -114,8 +114,8 @@ class StatusEndpointTest extends TestCase
                             'links' => [
                                 'files' => [
                                     'href' => 'https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef',
-                                    'method' => 'GET'
-                                ]
+                                    'method' => 'GET',
+                                ],
                             ],
                         ],
                     ],
@@ -130,8 +130,8 @@ class StatusEndpointTest extends TestCase
                             'links' => [
                                 'files' => [
                                     'href' => 'https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef',
-                                    'method' => 'GET'
-                                ]
+                                    'method' => 'GET',
+                                ],
                             ],
                         ],
                     ],
@@ -188,8 +188,8 @@ class StatusEndpointTest extends TestCase
                     'links' => [
                         'self' => [
                             'href' => 'https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef',
-                            'method' => 'GET'
-                        ]
+                            'method' => 'GET',
+                        ],
                     ],
                 ],
             ],
@@ -199,12 +199,12 @@ class StatusEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/status_error_response.json'))
+                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/status_error_response.json')),
                 ],
                 (new ValidationErrors())
                     ->setMessage('The request does not exists.')
-                    ->setErrors([])
-            ]
+                    ->setErrors([]),
+            ],
         ];
     }
 

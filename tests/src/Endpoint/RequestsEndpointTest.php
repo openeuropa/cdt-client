@@ -68,7 +68,7 @@ class RequestsEndpointTest extends TestCase
                 ],
                 (string) file_get_contents(__DIR__ . '/../../fixtures/json/requests_valid_request.json'),
                 [
-                    new Response(200, [], '1xWrUG')
+                    new Response(200, [], '1xWrUG'),
                 ],
                 '1xWrUG',
             ],
@@ -77,18 +77,18 @@ class RequestsEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    'deliveryModeCode' => 'FOOBAR'
+                    'deliveryModeCode' => 'FOOBAR',
                 ],
                 (string) file_get_contents(__DIR__ . '/../../fixtures/json/requests_invalid_request.json'),
                 [
-                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/requests_error_response.json'))
+                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/requests_error_response.json')),
                 ],
                 (new ValidationErrors())
                     ->setMessage('Validation error')
                     ->setErrors([
-                        'deliveryModeCode' => ['Invalid delivery mode FOOBAR']
+                        'deliveryModeCode' => ['Invalid delivery mode FOOBAR'],
                     ]),
-            ]
+            ],
         ];
     }
 }

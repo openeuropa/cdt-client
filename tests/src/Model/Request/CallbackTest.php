@@ -22,7 +22,7 @@ class CallbackTest extends TestCase
         $data = [
             'callbackType' => 'TEST_TYPE',
             'callbackBaseUrl' => 'https://example.com/test-url',
-            'clientApiKey' => 'TEST_APIKEY'
+            'clientApiKey' => 'TEST_APIKEY',
         ];
         $callback = $this->createRequestCallback($data);
 
