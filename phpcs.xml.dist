@@ -5,11 +5,12 @@
   <!-- Include main rules you want. -->
   <rule ref="PSR12"/>
 
-  <!-- Include additional rules -->
+  <!-- Slevomat / Arrays -->
   <rule ref="SlevomatCodingStandard.Arrays.MultiLineArrayEndBracketPlacement"/>
   <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
   <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
 
+  <!-- Slevomat / Classes -->
   <rule ref="SlevomatCodingStandard.Classes.BackedEnumTypeSpacing"/>
   <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility"/>
   <rule ref="SlevomatCodingStandard.Classes.ClassMemberSpacing"/>
@@ -24,20 +25,25 @@
       </properties>
   </rule>
 
+  <!-- Slevomat / Commenting -->
   <rule ref="SlevomatCodingStandard.Commenting.AnnotationName"/>
   <rule ref="SlevomatCodingStandard.Commenting.DeprecatedAnnotationDeclaration"/>
   <rule ref="SlevomatCodingStandard.Commenting.DisallowCommentAfterCode"/>
   <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
   <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
 
+  <!-- Slevomat / Control Structures -->
   <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineCondition"/>
 
+  <!-- Slevomat / Exceptions -->
   <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>
 
+  <!-- Slevomat / Functions -->
   <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration"/>
   <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall"/>
 
+  <!-- Slevomat / Namespaces -->
   <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
   <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
   <rule ref="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/>
@@ -48,17 +54,15 @@
   <rule ref="SlevomatCodingStandard.Namespaces.UseSpacing"/>
   <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses"/>
 
+  <!-- Slevomat / Type Hints -->
+  <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+      <properties>
+          <property name="spacesCountAroundEqualsSign" value="0"/>
+      </properties>
+  </rule>
 
-
-
-
-
-
-
-
-
-
-
+  <!-- Slevomat / Whitespaces -->
+  <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces"/>
 
   <!-- Add all code directories here. -->
   <file>src</file>

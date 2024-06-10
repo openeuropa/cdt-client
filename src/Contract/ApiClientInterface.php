@@ -33,19 +33,19 @@ interface ApiClientInterface
 
     /**
      * @throws \OpenEuropa\CdtClient\Exception\ValidationErrorsException
-     * *   Thrown if there are validation errors.
+     *   Thrown if there are validation errors.
      */
     public function getPermanentIdentifier(string $correlationId): string;
 
     /**
      * @throws \OpenEuropa\CdtClient\Exception\ValidationErrorsException
-     * *   Thrown if there are validation errors.
+     *   Thrown if there are validation errors.
      */
     public function getRequestStatus(string $permanentId): TranslationResponse;
 
     /**
      * @throws \OpenEuropa\CdtClient\Exception\ValidationErrorsException
-     * *   Thrown if there are validation errors.
+     *   Thrown if there are validation errors.
      */
     public function downloadFile(string $url): string;
 }
