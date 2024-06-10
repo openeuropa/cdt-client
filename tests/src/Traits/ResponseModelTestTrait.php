@@ -67,7 +67,7 @@ trait ResponseModelTestTrait
 
     /**
      * @param array<int, mixed> $data
-     * @return array<int, ReferenceItem>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     public function createResponseReferenceItemList(array $data = []): array
     {
@@ -97,7 +97,7 @@ trait ResponseModelTestTrait
 
     /**
      * @param array<int, mixed> $data
-     * @return array<int, ReferenceContact>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceContact>
      */
     public function createResponseReferenceContactList(array $data = []): array
     {

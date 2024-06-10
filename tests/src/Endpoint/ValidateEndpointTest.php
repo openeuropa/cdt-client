@@ -29,7 +29,7 @@ class ValidateEndpointTest extends TestCase
      *
      * @param array<string, mixed> $clientConfig
      * @param array<string, mixed> $requestArray
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\ValidateEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase

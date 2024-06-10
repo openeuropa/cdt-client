@@ -24,7 +24,7 @@ class IdentifierEndpointTest extends TestCase
      * @dataProvider providerTestIdentifier
      *
      * @param array<string, mixed> $clientConfig
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase

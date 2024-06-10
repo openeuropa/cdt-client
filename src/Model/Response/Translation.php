@@ -54,32 +54,32 @@ class Translation
     protected array $deliverToContacts;
 
     /**
-     * @var array<int, SourceDocument>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\SourceDocument>
      */
     protected array $sourceDocuments;
 
     /**
-     * @var array<int, ReferenceFile>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceFile>
      */
     protected array $referenceFiles;
 
     /**
-     * @var array<int, File>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\File>
      */
     protected array $bilingualFiles;
 
     /**
-     * @var array<int, File>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\File>
      */
     protected array $targetFiles;
 
     /**
-     * @var array<int, Date>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\Date>
      */
     protected array $dates;
 
     /**
-     * @var array<int, Comment>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\Comment>
      */
     protected array $comments;
 
@@ -87,7 +87,7 @@ class Translation
     protected float $totalPrice;
 
     /**
-     * @var array<int, JobSummary>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\JobSummary>
      */
     #[SerializedPath('[pricing][jobSummary]')]
     protected array $jobSummary;
@@ -107,7 +107,7 @@ class Translation
     protected bool $isQuotationOnly;
 
     /**
-     * @var array<string, Link>
+     * @var array<string, \OpenEuropa\CdtClient\Model\Response\Link>
      */
     #[SerializedPath('[_links]')]
     protected array $links;
@@ -269,7 +269,7 @@ class Translation
     }
 
     /**
-     * @return array<int, SourceDocument>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\SourceDocument>
      */
     public function getSourceDocuments(): array
     {
@@ -277,7 +277,7 @@ class Translation
     }
 
     /**
-     * @param array<int, SourceDocument> $sourceDocuments
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\SourceDocument> $sourceDocuments
      */
     public function setSourceDocuments(array $sourceDocuments): self
     {
@@ -287,7 +287,7 @@ class Translation
     }
 
     /**
-     * @return array<int, ReferenceFile>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceFile>
      */
     public function getReferenceFiles(): array
     {
@@ -295,7 +295,7 @@ class Translation
     }
 
     /**
-     * @param array<int, ReferenceFile> $referenceFiles
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceFile> $referenceFiles
      */
     public function setReferenceFiles(array $referenceFiles): self
     {
@@ -305,7 +305,7 @@ class Translation
     }
 
     /**
-     * @return array<int, File>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\File>
      */
     public function getBilingualFiles(): array
     {
@@ -313,7 +313,7 @@ class Translation
     }
 
     /**
-     * @param array<int, File> $bilingualFiles
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\File> $bilingualFiles
      */
     public function setBilingualFiles(array $bilingualFiles): self
     {
@@ -323,7 +323,7 @@ class Translation
     }
 
     /**
-     * @return array<int, File>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\File>
      */
     public function getTargetFiles(): array
     {
@@ -331,7 +331,7 @@ class Translation
     }
 
     /**
-     * @param array<int, File> $targetFiles
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\File> $targetFiles
      */
     public function setTargetFiles(array $targetFiles): self
     {
@@ -341,7 +341,7 @@ class Translation
     }
 
     /**
-     * @return array<int, Date>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\Date>
      */
     public function getDates(): array
     {
@@ -349,7 +349,7 @@ class Translation
     }
 
     /**
-     * @param array<int, Date> $dates
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\Date> $dates
      */
     public function setDates(array $dates): self
     {
@@ -359,7 +359,7 @@ class Translation
     }
 
     /**
-     * @return array<int, Comment>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\Comment>
      */
     public function getComments(): array
     {
@@ -367,7 +367,7 @@ class Translation
     }
 
     /**
-     * @param array<int, Comment> $comments
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\Comment> $comments
      */
     public function setComments(array $comments): self
     {
@@ -389,7 +389,7 @@ class Translation
     }
 
     /**
-     * @return array<int, JobSummary>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\JobSummary>
      */
     public function getJobSummary(): array
     {
@@ -397,7 +397,7 @@ class Translation
     }
 
     /**
-     * @param array<int, JobSummary> $jobSummary
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\JobSummary> $jobSummary
      */
     public function setJobSummary(array $jobSummary): self
     {
@@ -491,7 +491,7 @@ class Translation
     }
 
     /**
-     * @return array<string, Link>
+     * @return array<string, \OpenEuropa\CdtClient\Model\Response\Link>
      */
     public function getLinks(): array
     {
@@ -499,7 +499,7 @@ class Translation
     }
 
     /**
-     * @param array<string, Link> $links
+     * @param array<string, \OpenEuropa\CdtClient\Model\Response\Link> $links
      */
     public function setLinks(array $links): self
     {

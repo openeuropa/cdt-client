@@ -21,31 +21,31 @@ interface ApiClientInterface
     public function getReferenceData(): ReferenceData;
 
     /**
-     * @throws ValidationErrorsException
+     * @throws \OpenEuropa\CdtClient\Exception\ValidationErrorsException
      *   Thrown if there are validation errors.
      */
     public function validateTranslationRequest(TranslationRequest $translationRequest): bool;
 
     /**
-     * @throws ValidationErrorsException
+     * @throws \OpenEuropa\CdtClient\Exception\ValidationErrorsException
      *   Thrown if there are validation errors.
      */
     public function sendTranslationRequest(TranslationRequest $translationRequest): string;
 
     /**
-     * @throws ValidationErrorsException
+     * @throws \OpenEuropa\CdtClient\Exception\ValidationErrorsException
      * *   Thrown if there are validation errors.
      */
     public function getPermanentIdentifier(string $correlationId): string;
 
     /**
-     * @throws ValidationErrorsException
+     * @throws \OpenEuropa\CdtClient\Exception\ValidationErrorsException
      * *   Thrown if there are validation errors.
      */
     public function getRequestStatus(string $permanentId): TranslationResponse;
 
     /**
-     * @throws ValidationErrorsException
+     * @throws \OpenEuropa\CdtClient\Exception\ValidationErrorsException
      * *   Thrown if there are validation errors.
      */
     public function downloadFile(string $url): string;

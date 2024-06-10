@@ -44,7 +44,7 @@ class StatusEndpointTest extends TestCase
      * @dataProvider providerTestStatus
      *
      * @param array<string, mixed> $clientConfig
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\StatusEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase

@@ -25,7 +25,7 @@ class DownloadTest extends TestCase
     /**
      * @dataProvider providerTestFile
      *
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Http\Download
      */

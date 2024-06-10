@@ -24,7 +24,7 @@ class ReferenceDataEndpointTest extends TestCase
      * @dataProvider providerTestReferenceData
      *
      * @param array<string, mixed> $clientConfig
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase

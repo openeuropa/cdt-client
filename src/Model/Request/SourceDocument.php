@@ -21,7 +21,7 @@ class SourceDocument
     protected string $outputDocumentFormatCode;
 
     /**
-     * @var array<int, TranslationJob>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Request\TranslationJob>
      */
     protected array $translationJobs;
 
@@ -72,7 +72,7 @@ class SourceDocument
     }
 
     /**
-     * @return array<int, TranslationJob>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Request\TranslationJob>
      */
     public function getTranslationJobs(): array
     {
@@ -80,7 +80,7 @@ class SourceDocument
     }
 
     /**
-     * @param array<int, TranslationJob> $translationJobs
+     * @param array<int, \OpenEuropa\CdtClient\Model\Request\TranslationJob> $translationJobs
      */
     public function setTranslationJobs(array $translationJobs): self
     {

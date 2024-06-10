@@ -18,7 +18,7 @@ class SourceDocument
     protected bool $isPrivate;
 
     /**
-     * @var array<string, Link>
+     * @var array<string, \OpenEuropa\CdtClient\Model\Response\Link>
      */
     #[SerializedPath('[_links]')]
     protected array $links;
@@ -48,7 +48,7 @@ class SourceDocument
     }
 
     /**
-     * @return array<string, Link>
+     * @return array<string, \OpenEuropa\CdtClient\Model\Response\Link>
      */
     public function getLinks(): array
     {
@@ -56,7 +56,7 @@ class SourceDocument
     }
 
     /**
-     * @param array<string, Link> $links
+     * @param array<string, \OpenEuropa\CdtClient\Model\Response\Link> $links
      */
     public function setLinks(array $links): self
     {

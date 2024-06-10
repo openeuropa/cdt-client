@@ -40,19 +40,19 @@ class Translation
     protected string $comments;
 
     /**
-     * @var array<int, ReferenceUrl>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceUrl>
      */
     #[SerializedPath('[referenceSet][urls]')]
     protected array $referenceSetUrls;
 
     /**
-     * @var array<int, ReferenceFile>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceFile>
      */
     #[SerializedPath('[referenceSet][files]')]
     protected array $referenceSetFiles;
 
     /**
-     * @var array<int, SourceDocument>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Request\SourceDocument>
      */
     protected array $sourceDocuments;
 
@@ -63,7 +63,7 @@ class Translation
     protected bool $isQuotationOnly;
 
     /**
-     * @var array<int, Callback>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Request\Callback>
      */
     protected array $callbacks;
 
@@ -200,7 +200,7 @@ class Translation
     }
 
     /**
-     * @return array<int, ReferenceUrl>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceUrl>
      */
     public function getReferenceSetUrls(): array
     {
@@ -208,7 +208,7 @@ class Translation
     }
 
     /**
-     * @param array<int, ReferenceUrl> $referenceSetUrls
+     * @param array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceUrl> $referenceSetUrls
      */
     public function setReferenceSetUrls(array $referenceSetUrls): self
     {
@@ -218,7 +218,7 @@ class Translation
     }
 
     /**
-     * @return array<int, ReferenceFile>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceFile>
      */
     public function getReferenceSetFiles(): array
     {
@@ -226,7 +226,7 @@ class Translation
     }
 
     /**
-     * @param array<int, ReferenceFile> $referenceSetFiles
+     * @param array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceFile> $referenceSetFiles
      */
     public function setReferenceSetFiles(array $referenceSetFiles): self
     {
@@ -236,7 +236,7 @@ class Translation
     }
 
     /**
-     * @return array<int, SourceDocument>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Request\SourceDocument>
      */
     public function getSourceDocuments(): array
     {
@@ -244,7 +244,7 @@ class Translation
     }
 
     /**
-     * @param array<int, SourceDocument> $sourceDocuments
+     * @param array<int, \OpenEuropa\CdtClient\Model\Request\SourceDocument> $sourceDocuments
      */
     public function setSourceDocuments(array $sourceDocuments): self
     {
@@ -290,7 +290,7 @@ class Translation
     }
 
     /**
-     * @return array<int, Callback>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Request\Callback>
      */
     public function getCallbacks(): array
     {
@@ -298,7 +298,7 @@ class Translation
     }
 
     /**
-     * @param array<int, Callback> $callbacks
+     * @param array<int, \OpenEuropa\CdtClient\Model\Request\Callback> $callbacks
      */
     public function setCallbacks(array $callbacks): self
     {

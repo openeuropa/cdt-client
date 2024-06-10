@@ -58,7 +58,7 @@ class ApiClient implements ApiClientInterface
 
     public function checkConnection(): bool
     {
-        /** @var MainEndpoint $endpoint */
+        /** @var \OpenEuropa\CdtClient\Endpoint\MainEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(MainEndpoint::class);
 
         return $endpoint->isConnected();
@@ -66,7 +66,7 @@ class ApiClient implements ApiClientInterface
 
     public function getReferenceData(): ReferenceData
     {
-        /** @var ReferenceDataEndpoint $endpoint */
+        /** @var \OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(ReferenceDataEndpoint::class);
 
         return $endpoint->getReferenceData();
@@ -77,7 +77,7 @@ class ApiClient implements ApiClientInterface
      */
     public function validateTranslationRequest(TranslationRequest $translationRequest): bool
     {
-        /** @var ValidateEndpoint $endpoint */
+        /** @var \OpenEuropa\CdtClient\Endpoint\ValidateEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(ValidateEndpoint::class);
 
         return $endpoint->validateTranslationRequest($translationRequest);
@@ -88,7 +88,7 @@ class ApiClient implements ApiClientInterface
      */
     public function sendTranslationRequest(TranslationRequest $translationRequest): string
     {
-        /** @var RequestsEndpoint $endpoint */
+        /** @var \OpenEuropa\CdtClient\Endpoint\RequestsEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(RequestsEndpoint::class);
 
         return $endpoint->sendTranslationRequest($translationRequest);
@@ -99,7 +99,7 @@ class ApiClient implements ApiClientInterface
      */
     public function getPermanentIdentifier(string $correlationId): string
     {
-        /** @var IdentifierEndpoint $endpoint */
+        /** @var \OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(IdentifierEndpoint::class);
 
         return $endpoint->getPermanentIdentifier($correlationId);
@@ -110,7 +110,7 @@ class ApiClient implements ApiClientInterface
      */
     public function getRequestStatus(string $permanentId): TranslationResponse
     {
-        /** @var StatusEndpoint $endpoint */
+        /** @var \OpenEuropa\CdtClient\Endpoint\StatusEndpoint $endpoint */
         $endpoint = $this->apiFactory->createEndpoint(StatusEndpoint::class);
 
         return $endpoint->getTranslationRequestStatus($permanentId);

@@ -22,7 +22,7 @@ class MainEndpointTest extends TestCase
      * @dataProvider providerTestMain
      *
      * @param array<string, mixed> $clientConfig
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      * @param mixed $expectedResult
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\MainEndpoint

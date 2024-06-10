@@ -39,6 +39,7 @@
   <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall"/>
 
   <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
+  <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
 
 
 

@@ -27,7 +27,7 @@ class TokenEndpointTest extends TestCase
      * @dataProvider providerTestToken
      *
      * @param array<string, mixed> $clientConfig
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      * @param mixed $expectedResult
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\TokenEndpoint

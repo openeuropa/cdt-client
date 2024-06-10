@@ -19,7 +19,7 @@ class RestTest extends TestCase
     /**
      * @dataProvider providerTestRequest
      *
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      * @param array<string, string> $headers
      *
      * @covers ::doRequest

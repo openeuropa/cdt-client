@@ -55,8 +55,8 @@ class Rest implements RestInterface
     /**
      * @param array<string, mixed> $headers
      *
-     * @throws ClientExceptionInterface If an error happens during the client request.
-     * @throws InvalidStatusCodeException If the API endpoint returns a status code other than 200.
+     * @throws \Psr\Http\Client\ClientExceptionInterface If an error happens during the client request.
+     * @throws \OpenEuropa\CdtClient\Exception\InvalidStatusCodeException If the API endpoint returns a status code other than 200.
      */
     protected function doRequest(string $method, string $uri, array $headers = [], ?string $body = null): ResponseInterface
     {
