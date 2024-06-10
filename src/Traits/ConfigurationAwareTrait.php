@@ -39,7 +39,7 @@ trait ConfigurationAwareTrait
     {
         return array_intersect_key(
             $this->configuration,
-            array_flip($names)
+            array_flip($names),
         );
     }
 }

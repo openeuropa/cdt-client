@@ -51,7 +51,7 @@ class TokenEndpoint extends EndpointBase
         return $this->getSerializer()->deserialize(
             $response->getBody()->__toString(),
             Token::class,
-            'json'
+            'json',
         );
     }
 
@@ -61,7 +61,7 @@ class TokenEndpoint extends EndpointBase
             new GetSetMethodNormalizer(
                 null,
                 new CamelCaseToSnakeCaseNameConverter(),
-                new PhpDocExtractor()
+                new PhpDocExtractor(),
             ),
             new ArrayDenormalizer(),
         ], [

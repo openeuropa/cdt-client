@@ -45,7 +45,7 @@ class ApiClient implements ApiClientInterface
         $this->apiFactory = new ApiFactory(new Rest(
             $httpClient,
             $requestFactory,
-            $streamFactory
+            $streamFactory,
         ), $configuration);
     }
 

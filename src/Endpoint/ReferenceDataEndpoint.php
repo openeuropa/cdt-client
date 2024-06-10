@@ -24,7 +24,7 @@ class ReferenceDataEndpoint extends EndpointBase
         return $this->getSerializer()->deserialize(
             $response->getBody()->__toString(),
             ReferenceData::class,
-            'json'
+            'json',
         );
     }
 }

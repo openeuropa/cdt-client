@@ -25,14 +25,14 @@ trait ValidationAwareTrait
             $validationErrors = $this->getSerializer()->deserialize(
                 $response->getBody()->__toString(),
                 ValidationErrors::class,
-                'json'
+                'json',
             );
 
             return new ValidationErrorsException(
                 'The API endpoint returned 400 response with validation errors.',
                 0,
                 null,
-                $validationErrors
+                $validationErrors,
             );
         }
 

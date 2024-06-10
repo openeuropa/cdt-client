@@ -35,7 +35,7 @@ class StatusEndpointTest extends TestCase
         $statusEndpoint = new StatusEndpoint(
             $this->createMock(RestInterface::class),
             ['apiBaseUrl' => 'https://example.com'],
-            new Token()
+            new Token(),
         );
         $statusEndpoint->getTranslationRequestStatus($permanentId);
     }

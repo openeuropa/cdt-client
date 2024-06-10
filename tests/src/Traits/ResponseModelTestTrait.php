@@ -133,7 +133,7 @@ trait ResponseModelTestTrait
             ->setLinks($this->createResponseObjectList(
                 $data['links'] ?? null,
                 [$this, 'createResponseLink'],
-                'first'
+                'first',
             ));
     }
 
@@ -158,7 +158,7 @@ trait ResponseModelTestTrait
             ->setLinks($this->createResponseObjectList(
                 $data['links'] ?? null,
                 [$this, 'createResponseLink'],
-                'first'
+                'first',
             ));
     }
 
@@ -221,7 +221,7 @@ trait ResponseModelTestTrait
             ->setLinks($this->createResponseObjectList(
                 $data['links'] ?? null,
                 [$this, 'createResponseLink'],
-                'first'
+                'first',
             ));
     }
 
@@ -261,12 +261,12 @@ trait ResponseModelTestTrait
             ->setDates($this->createResponseObjectList(
                 $data['dates'] ?? null,
                 [$this, 'createResponseDate'],
-                'first'
+                'first',
             ))
             ->setComments($this->createResponseObjectList(
                 $data['comments'] ?? null,
                 [$this, 'createResponseComment'],
-                'first'
+                'first',
             ))
             ->setTotalPrice($data['totalPrice'] ?? 240.5)
             ->setJobSummary($this->createResponseObjectList(
@@ -283,7 +283,7 @@ trait ResponseModelTestTrait
             ->setLinks($this->createResponseObjectList(
                 $data['links'] ?? null,
                 [$this, 'createResponseLink'],
-                'first'
+                'first',
             ));
     }
 

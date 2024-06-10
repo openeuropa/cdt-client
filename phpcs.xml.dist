@@ -31,6 +31,16 @@
   <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
 
   <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineCondition"/>
+
+  <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>
+
+  <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration"/>
+  <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall"/>
+
+
+
+
 
 
 

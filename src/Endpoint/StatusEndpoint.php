@@ -41,7 +41,7 @@ class StatusEndpoint extends EndpointBase
         return $this->getSerializer()->deserialize(
             $response->getBody()->__toString(),
             Translation::class,
-            'json'
+            'json',
         );
     }
 }

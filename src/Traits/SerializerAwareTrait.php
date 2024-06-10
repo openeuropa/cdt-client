@@ -31,10 +31,10 @@ trait SerializerAwareTrait
             new JsonSerializableNormalizer(),
             new GetSetMethodNormalizer(
                 new ClassMetadataFactory(
-                    new AttributeLoader()
+                    new AttributeLoader(),
                 ),
                 null,
-                new PhpDocExtractor()
+                new PhpDocExtractor(),
             ),
             new DateTimeNormalizer(),
             new ArrayDenormalizer(),

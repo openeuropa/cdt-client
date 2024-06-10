@@ -75,7 +75,7 @@ class Rest implements RestInterface
                 "The API endpoint returns {$response->getStatusCode()}",
                 0,
                 null,
-                $response
+                $response,
             );
         }
 

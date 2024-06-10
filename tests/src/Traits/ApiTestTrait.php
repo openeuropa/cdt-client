@@ -39,7 +39,7 @@ trait ApiTestTrait
             new HttpClient(['handler' => $this->getHandlerStack($responseQueue)]),
             new HttpFactory(),
             new HttpFactory(),
-            $configuration + $this->getDefaultConfiguration()
+            $configuration + $this->getDefaultConfiguration(),
         );
         if ($withToken) {
             $token = (new Token())->setAccessToken('JWT_TOKEN')

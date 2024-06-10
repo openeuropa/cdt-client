@@ -58,7 +58,7 @@ class TokenEndpointTest extends TestCase
                 'password' => $password,
                 'client' => $client,
                 'apiBaseUrl' => 'https://example.com',
-            ]
+            ],
         );
     }
 
