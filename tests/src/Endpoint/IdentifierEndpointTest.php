@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
+use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
-use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
-use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
  */
 class IdentifierEndpointTest extends TestCase
 {
-    use ClientTestTrait;
+    use ApiTestTrait;
     use AssertTestRequestTrait;
 
     /**
@@ -25,7 +25,6 @@ class IdentifierEndpointTest extends TestCase
      *
      * @param array<string, mixed> $clientConfig
      * @param Response[] $responses
-     * @param mixed $expectedResult
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
@@ -33,14 +32,7 @@ class IdentifierEndpointTest extends TestCase
      */
     public function testIdentifier(string $correlationId, array $clientConfig, array $responses, mixed $expectedResult): void
     {
-        $token = (new Token())->setAccessToken('JWT_TOKEN')
-            ->setTokenType('bearer')
-            ->setExpiresIn(3600);
-        $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainer($client);
-        $identifierEndpoint = $container->get('identifier');
-        $identifierEndpoint->setToken($token);
-        $this->assertEquals($token, $identifierEndpoint->getToken());
+        $identifierEndpoint = new IdentifierEndpoint($this->getTestingRest($responses), $clientConfig, $this->getTestingToken());
 
         try {
             $result = $identifierEndpoint->getPermanentIdentifier($correlationId);

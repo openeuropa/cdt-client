@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient\Endpoint;
 
 use OpenEuropa\CdtClient\Contract\RestInterface;
+use OpenEuropa\CdtClient\Model\Response\Token;
+use OpenEuropa\CdtClient\Traits\AuthorizationHeadersAwareTrait;
 use OpenEuropa\CdtClient\Traits\ConfigurationAwareTrait;
 use OpenEuropa\CdtClient\Traits\SerializerAwareTrait;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,11 +19,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * The class provides methods for setting, verifying, and retrieving the endpoint URL.
  * It also allows you to get a default serializer for decoding the endpoint response.
  *
+ * @see AuthorizationHeadersAwareTrait
  * @see ConfigurationAwareTrait
  * @see SerializerAwareTrait
  */
 abstract class EndpointBase
 {
+    use AuthorizationHeadersAwareTrait;
     use ConfigurationAwareTrait;
     use SerializerAwareTrait;
 
@@ -30,9 +34,8 @@ abstract class EndpointBase
     /**
      * @param array<string, mixed> $configuration
      */
-    public function __construct(protected RestInterface $rest, string $baseUrl, array $configuration = [])
+    public function __construct(protected RestInterface $rest, array $configuration = [], protected ?Token $token = null)
     {
-        $configuration['endpointUrl'] = rtrim($baseUrl, '/') . static::ENDPOINT_URL_PATH;
         $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
     }
 
@@ -40,9 +43,9 @@ abstract class EndpointBase
     {
         $resolver = new OptionsResolver();
 
-        $resolver->setRequired('endpointUrl')
-            ->setAllowedTypes('endpointUrl', 'string')
-            ->setAllowedValues('endpointUrl', function (string $value) {
+        $resolver->setRequired('apiBaseUrl')
+            ->setAllowedTypes('apiBaseUrl', 'string')
+            ->setAllowedValues('apiBaseUrl', function (string $value) {
                 return filter_var($value, FILTER_VALIDATE_URL);
             });
 
@@ -54,7 +57,7 @@ abstract class EndpointBase
      */
     protected function getEndpointUrl(array $replacements = []): string
     {
-        $url = $this->getConfigValue('endpointUrl');
+        $url = rtrim($this->getConfigValue('apiBaseUrl'), '/') . static::ENDPOINT_URL_PATH;
         if (!empty($replacements)) {
             $url = str_replace(array_keys($replacements), array_values($replacements), $url);
         }

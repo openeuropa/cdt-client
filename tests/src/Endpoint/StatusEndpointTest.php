@@ -11,7 +11,7 @@ use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
-use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  */
 class StatusEndpointTest extends TestCase
 {
-    use ClientTestTrait;
+    use ApiTestTrait;
     use AssertTestRequestTrait;
     use ResponseModelTestTrait;
 
@@ -34,7 +34,8 @@ class StatusEndpointTest extends TestCase
         $this->expectExceptionObject(new \InvalidArgumentException('Invalid permanent ID format (it should be formatted like 2024/1234567).'));
         $statusEndpoint = new StatusEndpoint(
             $this->createMock(RestInterface::class),
-            'https://example.com/v2/requests/:requestyear/:requestnumber'
+            ['apiBaseUrl' => 'https://example.com'],
+            new Token()
         );
         $statusEndpoint->getTranslationRequestStatus($permanentId);
     }
@@ -51,15 +52,7 @@ class StatusEndpointTest extends TestCase
      */
     public function testStatus(string $permanentId, array $clientConfig, array $responses, mixed $expectedResult): void
     {
-        $token = (new Token())->setAccessToken('JWT_TOKEN')
-            ->setTokenType('bearer')
-            ->setExpiresIn(3600);
-        $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainer($client);
-        $statusEndpoint = $container->get('status');
-        $statusEndpoint->setToken($token);
-        $this->assertEquals($token, $statusEndpoint->getToken());
-
+        $statusEndpoint = new StatusEndpoint($this->getTestingRest($responses), $clientConfig, $this->getTestingToken());
         try {
             $result = $statusEndpoint->getTranslationRequestStatus($permanentId);
             $this->assertEquals($this->createResponseTranslation($expectedResult), $result);
@@ -74,6 +67,8 @@ class StatusEndpointTest extends TestCase
     }
 
     /**
+     * @see self::testStatus()
+     *
      * @return array<string, array<int, mixed>>
      */
     public static function providerTestStatus(): array

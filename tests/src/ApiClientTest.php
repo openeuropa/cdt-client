@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\CdtClient;
 
-use OpenEuropa\CdtClient\Contract\ApiClientInterface;
-use OpenEuropa\CdtClient\Contract\TokenAwareInterface;
-use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
-use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
-use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
-use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
-use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
-use OpenEuropa\CdtClient\Endpoint\ValidateEndpoint;
-use OpenEuropa\CdtClient\Http\Download;
+use GuzzleHttp\Psr7\Response;
+use OpenEuropa\CdtClient\Contract\ApiFactoryInterface;
+use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
+use OpenEuropa\CdtClient\Model\Response\ReferenceData;
 use OpenEuropa\CdtClient\Model\Response\Token;
-use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
+use OpenEuropa\CdtClient\Model\Response\Translation;
+use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\RequestModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,86 +19,142 @@ use PHPUnit\Framework\TestCase;
  */
 class ApiClientTest extends TestCase
 {
-    use ClientTestTrait;
-
-    protected ApiClientInterface $client;
-
-    protected function setUp(): void
-    {
-        $this->client = $this->getTestingClient();
-    }
+    use ApiTestTrait;
+    use RequestModelTestTrait;
 
     /**
-     * @covers ::createContainer
-     * @covers ::getConfigValue
-     * @covers ::extractConfigValues
+     * @covers \OpenEuropa\CdtClient\ApiClient
+     * @covers \OpenEuropa\CdtClient\ApiFactory::setToken
      */
-    public function testContainer(): void
+    public function testTokenSetter(): void
     {
-        $container = $this->getClientContainer($this->client);
+        $client = $this->getTestingApiClient();
 
-        // Check container services.
-        $this->assertInstanceOf(TokenEndpoint::class, $container->get('auth'));
-
-        $this->assertInstanceOf(MainEndpoint::class, $container->get('main'));
-        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('main'));
-
-        $this->assertInstanceOf(ValidateEndpoint::class, $container->get('validate'));
-        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('validate'));
-
-        $this->assertInstanceOf(RequestsEndpoint::class, $container->get('requests'));
-        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('requests'));
-
-        $this->assertInstanceOf(IdentifierEndpoint::class, $container->get('identifier'));
-        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('identifier'));
-
-        $this->assertInstanceOf(StatusEndpoint::class, $container->get('status'));
-        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('status'));
-
-        $this->assertInstanceOf(Download::class, $container->get('file'));
-        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('file'));
-    }
-
-    /**
-     * @covers ::setToken
-     * @covers ::getToken
-     */
-    public function testToken(): void
-    {
         $token = new Token();
         $token->setAccessToken('testtoken');
-        $this->client->setToken($token);
-        $this->assertEquals($token, $this->client->getToken());
+        $client->setToken($token);
+
+        // Use reflection to access the protected property.
+        $apiClientReflection = new \ReflectionClass($client);
+        $apiFactoryProperty = $apiClientReflection->getProperty('apiFactory');
+        $apiFactory = $apiFactoryProperty->getValue($client);
+        assert($apiFactory instanceof ApiFactoryInterface);
+
+        $apiFactoryReflection = new \ReflectionClass($apiFactory);
+        $tokenProperty = $apiFactoryReflection->getProperty('token');
+        $actualToken = $tokenProperty->getValue($apiFactory);
+        self::assertEquals($token, $actualToken);
     }
 
     /**
-     * @covers ::extractConfigValues
+     * @covers ::requestToken
      */
-    public function testExtractConfigValues(): void
+    public function testRequestToken(): void
     {
-        $keys_to_extract = [
-            'existing_key',
-            'non_existing_key',
-            0,
-            '99',
+        $responses = [
+            new Response(200, [], (string) file_get_contents(__DIR__ . '/../fixtures/json/simple_token_call_response.json')),
         ];
+        $client = $this->getTestingApiClient([], $responses, false);
+        self::assertInstanceOf(Token::class, $client->requestToken());
+    }
 
-        $client = $this->getTestingClient([
-            'existing_key' => 'Existing Key',
-            'other_key' => 'Other Key',
-            'boolean_value_key' => false,
-            0 => 'Zero',
-            '99' => 'Bottles',
-        ]);
+    /**
+     * @covers ::getReferenceData
+     */
+    public function testGetReferenceData(): void
+    {
+        $responses = [
+            new Response(200, [], (string) file_get_contents(__DIR__ . '/../fixtures/json/reference_data_response.json'))
+        ];
+        $client = $this->getTestingApiClient([], $responses);
+        $this->assertInstanceOf(ReferenceData::class, $client->getReferenceData());
+    }
 
-        $reflection = new \ReflectionClass($client);
-        $method = $reflection->getMethod('extractConfigValues');
-        $result = $method->invoke($client, $keys_to_extract);
+    /**
+     * @covers ::checkConnection
+     */
+    public function testCheckConnection(): void
+    {
+        $responses = [
+            new Response(200, [], 'true'),
+        ];
+        $client = $this->getTestingApiClient([], $responses);
+        self::assertTrue($client->checkConnection());
+    }
 
-        $this->assertEquals([
-            'existing_key' => 'Existing Key',
-            0 => 'Zero',
-            '99' => 'Bottles',
-        ], $result);
+    /**
+     * @covers ::validateTranslationRequest
+     */
+    public function testFailedValidateTranslationRequest(): void
+    {
+        $responses = [
+            new Response(400, [], (string) file_get_contents(__DIR__ . '/../fixtures/json/validate_error_response.json'))
+        ];
+        $client = $this->getTestingApiClient([], $responses);
+        $this->expectException(ValidationErrorsException::class);
+        $request = $this->createRequestTranslation();
+        $client->validateTranslationRequest($request);
+    }
+
+    /**
+     * @covers ::validateTranslationRequest
+     */
+    public function testSuccessfulValidateTranslationRequest(): void
+    {
+        $responses = [
+            new Response(200, [], 'true')
+        ];
+        $client = $this->getTestingApiClient([], $responses);
+        $request = $this->createRequestTranslation();
+        self::assertTrue($client->validateTranslationRequest($request));
+    }
+
+    /**
+     * @covers ::sendTranslationRequest
+     */
+    public function testSendTranslationRequest(): void
+    {
+        $responses = [
+            new Response(200, [], '123')
+        ];
+        $client = $this->getTestingApiClient([], $responses);
+        $request = $this->createRequestTranslation();
+        self::assertEquals('123', $client->sendTranslationRequest($request));
+    }
+
+    /**
+     * @covers ::getPermanentIdentifier
+     */
+    public function testGetPermanentIdentifier(): void
+    {
+        $responses = [
+            new Response(200, [], '2024/123')
+        ];
+        $client = $this->getTestingApiClient([], $responses);
+        self::assertEquals('2024/123', $client->getPermanentIdentifier('123'));
+    }
+
+    /**
+     * @covers ::getRequestStatus
+     */
+    public function testGetRequestStatus(): void
+    {
+        $responses = [
+            new Response(200, [], (string) file_get_contents(__DIR__ . '/../fixtures/json/status_valid_response.json'))
+        ];
+        $client = $this->getTestingApiClient([], $responses);
+        self::assertInstanceOf(Translation::class, $client->getRequestStatus('2024/123'));
+    }
+
+    /**
+     * @covers ::downloadFile
+     */
+    public function testDownloadFile(): void
+    {
+        $responses = [
+            new Response(200, [], 'TEST FILE CONTENT')
+        ];
+        $client = $this->getTestingApiClient([], $responses);
+        self::assertEquals('TEST FILE CONTENT', $client->downloadFile('https://example.com/file.txt'));
     }
 }

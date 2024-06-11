@@ -14,8 +14,6 @@ interface ApiClientInterface
 {
     public function setToken(Token $token): self;
 
-    public function getToken(): Token;
-
     public function requestToken(): Token;
 
     public function checkConnection(): bool;
@@ -46,5 +44,9 @@ interface ApiClientInterface
      */
     public function getRequestStatus(string $permanentId): TranslationResponse;
 
+    /**
+     * @throws ValidationErrorsException
+     * *   Thrown if there are validation errors.
+     */
     public function downloadFile(string $url): string;
 }

@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
-use OpenEuropa\CdtClient\Model\Response\Token;
+use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
-use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint
+ * @coversDefaultClass ReferenceDataEndpoint
  */
 class ReferenceDataEndpointTest extends TestCase
 {
-    use ClientTestTrait;
+    use ApiTestTrait;
     use AssertTestRequestTrait;
     use ResponseModelTestTrait;
 
@@ -32,14 +32,7 @@ class ReferenceDataEndpointTest extends TestCase
      */
     public function testReferenceData(array $clientConfig, array $responses, mixed $expectedResult): void
     {
-        $token = (new Token())->setAccessToken('JWT_TOKEN')
-            ->setTokenType('bearer')
-            ->setExpiresIn(3600);
-        $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainer($client);
-        $referenceDataEndpoint = $container->get('referenceData');
-        $referenceDataEndpoint->setToken($token);
-        $this->assertEquals($token, $referenceDataEndpoint->getToken());
+        $referenceDataEndpoint = new ReferenceDataEndpoint($this->getTestingRest($responses), $clientConfig, $this->getTestingToken());
         $this->assertEquals($this->createResponseReferenceData($expectedResult), $referenceDataEndpoint->getReferenceData());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
@@ -48,6 +41,8 @@ class ReferenceDataEndpointTest extends TestCase
     }
 
     /**
+     * @see self::testReferenceData()
+     *
      * @return array<string, array<int, mixed>>
      */
     public static function providerTestReferenceData(): array

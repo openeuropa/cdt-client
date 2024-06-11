@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
-use OpenEuropa\CdtClient\Model\Response\Token;
+use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
 use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
-use OpenEuropa\Tests\CdtClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 class MainEndpointTest extends TestCase
 {
-    use ClientTestTrait;
+    use ApiTestTrait;
     use AssertTestRequestTrait;
 
     /**
@@ -31,14 +31,8 @@ class MainEndpointTest extends TestCase
      */
     public function testMain(array $clientConfig, array $responses, mixed $expectedResult): void
     {
-        $token = (new Token())->setAccessToken('JWT_TOKEN')
-            ->setTokenType('bearer')
-            ->setExpiresIn(3600);
-        $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainer($client);
-        $mainEndpoint = $container->get('main');
-        $this->assertEquals($expectedResult, $mainEndpoint->setToken($token)->isConnected());
-        $this->assertEquals($token, $mainEndpoint->getToken());
+        $mainEndpoint = new MainEndpoint($this->getTestingRest($responses), $clientConfig, $this->getTestingToken());
+        $this->assertEquals($expectedResult, $mainEndpoint->isConnected());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
         $this->assertMainRequest($request);
@@ -46,7 +40,7 @@ class MainEndpointTest extends TestCase
     }
 
     /**
-     * @see self::testCheckConnection()
+     * @see self::testMain()
      *
      * @return array<string, array<int, mixed>>
      */
