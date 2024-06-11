@@ -67,7 +67,7 @@ trait ResponseModelTestTrait
 
     /**
      * @param array<int, mixed> $data
-     * @return array<int, ReferenceItem>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     public function createResponseReferenceItemList(array $data = []): array
     {
@@ -75,6 +75,7 @@ trait ResponseModelTestTrait
         foreach ($data as $item) {
             $result[] = $this->createResponseReferenceItem($item);
         }
+
         return $result;
     }
 
@@ -96,7 +97,7 @@ trait ResponseModelTestTrait
 
     /**
      * @param array<int, mixed> $data
-     * @return array<int, ReferenceContact>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceContact>
      */
     public function createResponseReferenceContactList(array $data = []): array
     {
@@ -104,6 +105,7 @@ trait ResponseModelTestTrait
         foreach ($data as $contact) {
             $result[] = $this->createResponseReferenceContact($contact);
         }
+
         return $result;
     }
 
@@ -131,7 +133,7 @@ trait ResponseModelTestTrait
             ->setLinks($this->createResponseObjectList(
                 $data['links'] ?? null,
                 [$this, 'createResponseLink'],
-                'first'
+                'first',
             ));
     }
 
@@ -156,7 +158,7 @@ trait ResponseModelTestTrait
             ->setLinks($this->createResponseObjectList(
                 $data['links'] ?? null,
                 [$this, 'createResponseLink'],
-                'first'
+                'first',
             ));
     }
 
@@ -219,7 +221,7 @@ trait ResponseModelTestTrait
             ->setLinks($this->createResponseObjectList(
                 $data['links'] ?? null,
                 [$this, 'createResponseLink'],
-                'first'
+                'first',
             ));
     }
 
@@ -259,12 +261,12 @@ trait ResponseModelTestTrait
             ->setDates($this->createResponseObjectList(
                 $data['dates'] ?? null,
                 [$this, 'createResponseDate'],
-                'first'
+                'first',
             ))
             ->setComments($this->createResponseObjectList(
                 $data['comments'] ?? null,
                 [$this, 'createResponseComment'],
-                'first'
+                'first',
             ))
             ->setTotalPrice($data['totalPrice'] ?? 240.5)
             ->setJobSummary($this->createResponseObjectList(
@@ -281,7 +283,7 @@ trait ResponseModelTestTrait
             ->setLinks($this->createResponseObjectList(
                 $data['links'] ?? null,
                 [$this, 'createResponseLink'],
-                'first'
+                'first',
             ));
     }
 
@@ -299,6 +301,7 @@ trait ResponseModelTestTrait
         } else {
             $objects = [$defaultKey => $callback([])];
         }
+
         return $objects;
     }
 }

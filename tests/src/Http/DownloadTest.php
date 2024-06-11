@@ -8,8 +8,8 @@ use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Http\Download;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
-use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +25,7 @@ class DownloadTest extends TestCase
     /**
      * @dataProvider providerTestFile
      *
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Http\Download
      */
@@ -58,7 +58,7 @@ class DownloadTest extends TestCase
                 [
                     new Response(200, [], 'Test file content'),
                 ],
-                'Test file content'
+                'Test file content',
             ],
             'failed file call' => [
                 'https://example.com/v2/files/12345678-90ab-cdef-1234-567890abc123',
@@ -67,7 +67,7 @@ class DownloadTest extends TestCase
                 ],
                 (new ValidationErrors())
                     ->setMessage('The file link with id 12345678-90ab-cdef-1234-567890abc123 was not found or it has expired'),
-            ]
+            ],
         ];
     }
 }

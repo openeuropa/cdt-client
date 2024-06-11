@@ -32,7 +32,7 @@ class TranslationTest extends TestCase
             'comments' => 'TEST_COMMENTS',
             'sendOptions' => 'TEST_SO',
             'service' => 'TEST_SERVICE',
-            'isQuotationOnly' => true
+            'isQuotationOnly' => true,
         ];
         $translation = $this->createRequestTranslation($data);
 

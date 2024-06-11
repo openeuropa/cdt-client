@@ -61,7 +61,7 @@ trait RequestModelTestTrait
             ->setOutputDocumentFormatCode($data['outputDocumentFormatCode'] ?? 'XM')
             ->setTranslationJobs($this->createRequestObjectList(
                 $data['translationJobs'] ?? [],
-                [$this, 'createRequestTranslationJob']
+                [$this, 'createRequestTranslationJob'],
             ))
             ->setConfidentialityCode($data['confidentialityCode'] ?? 'NO')
             ->setIsPrivate($data['isPrivate'] ?? false);
@@ -107,22 +107,22 @@ trait RequestModelTestTrait
             ->setComments($data['comments'] ?? 'Test Comments')
             ->setReferenceSetUrls($this->createRequestObjectList(
                 $data['referenceSetUrls'] ?? [],
-                [$this, 'createRequestReferenceUrl']
+                [$this, 'createRequestReferenceUrl'],
             ))
             ->setReferenceSetFiles($this->createRequestObjectList(
                 $data['referenceSetFiles'] ?? [],
-                [$this, 'createRequestReferenceFile']
+                [$this, 'createRequestReferenceFile'],
             ))
             ->setSourceDocuments($this->createRequestObjectList(
                 $data['sourceDocuments'] ?? [],
-                [$this, 'createRequestSourceDocument']
+                [$this, 'createRequestSourceDocument'],
             ))
             ->setSendOptions($data['sendOptions'] ?? 'Send')
             ->setService($data['service'] ?? 'Translation')
             ->setIsQuotationOnly($data['isQuotationOnly'] ?? false)
             ->setCallbacks($this->createRequestObjectList(
                 $data['callbacks'] ?? [],
-                [$this, 'createRequestCallback']
+                [$this, 'createRequestCallback'],
             ));
     }
 
@@ -140,6 +140,7 @@ trait RequestModelTestTrait
         } else {
             $objects = [$callback([])];
         }
+
         return $objects;
     }
 }

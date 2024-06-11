@@ -33,6 +33,7 @@ class ValidationErrors
     public function setErrors(array $errors): self
     {
         $this->errors = $errors;
+
         return $this;
     }
 
@@ -44,6 +45,7 @@ class ValidationErrors
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
         return $this;
     }
 }

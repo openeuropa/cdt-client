@@ -23,6 +23,7 @@ class File implements \JsonSerializable
     public function setFileName(string $fileName): self
     {
         $this->fileName = $fileName;
+
         return $this;
     }
 
@@ -34,6 +35,7 @@ class File implements \JsonSerializable
     public function setContent(string $content): self
     {
         $this->content = $content;
+
         return $this;
     }
 

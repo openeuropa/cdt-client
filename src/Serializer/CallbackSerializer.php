@@ -45,10 +45,10 @@ class CallbackSerializer
         return new Serializer([
             new GetSetMethodNormalizer(
                 new ClassMetadataFactory(
-                    new AttributeLoader()
+                    new AttributeLoader(),
                 ),
                 new CamelCaseToSnakeCaseNameConverter(),
-                new PhpDocExtractor()
+                new PhpDocExtractor(),
             ),
             new DateTimeNormalizer(),
             new ArrayDenormalizer(),

@@ -24,7 +24,7 @@ class File
     protected bool $isPrivate;
 
     /**
-     * @var array<string, Link>
+     * @var array<string, \OpenEuropa\CdtClient\Model\Response\Link>
      */
     #[SerializedPath('[_links]')]
     protected array $links;
@@ -37,6 +37,7 @@ class File
     public function setSourceLanguage(?string $sourceLanguage): self
     {
         $this->sourceLanguage = $sourceLanguage;
+
         return $this;
     }
 
@@ -48,6 +49,7 @@ class File
     public function setTargetLanguage(?string $targetLanguage): self
     {
         $this->targetLanguage = $targetLanguage;
+
         return $this;
     }
 
@@ -59,6 +61,7 @@ class File
     public function setSourceDocument(?string $sourceDocument): self
     {
         $this->sourceDocument = $sourceDocument;
+
         return $this;
     }
 
@@ -70,6 +73,7 @@ class File
     public function setFileName(string $fileName): self
     {
         $this->fileName = $fileName;
+
         return $this;
     }
 
@@ -81,11 +85,12 @@ class File
     public function setIsPrivate(bool $isPrivate): self
     {
         $this->isPrivate = $isPrivate;
+
         return $this;
     }
 
     /**
-     * @return array<string, Link>
+     * @return array<string, \OpenEuropa\CdtClient\Model\Response\Link>
      */
     public function getLinks(): array
     {
@@ -93,11 +98,12 @@ class File
     }
 
     /**
-     * @param array<string, Link> $links
+     * @param array<string, \OpenEuropa\CdtClient\Model\Response\Link> $links
      */
     public function setLinks(array $links): self
     {
         $this->links = $links;
+
         return $this;
     }
 }

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Traits;
 
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\HttpFactory;
 use OpenEuropa\CdtClient\ApiClient;
@@ -39,7 +39,7 @@ trait ApiTestTrait
             new HttpClient(['handler' => $this->getHandlerStack($responseQueue)]),
             new HttpFactory(),
             new HttpFactory(),
-            $configuration + $this->getDefaultConfiguration()
+            $configuration + $this->getDefaultConfiguration(),
         );
         if ($withToken) {
             $token = (new Token())->setAccessToken('JWT_TOKEN')
@@ -91,6 +91,7 @@ trait ApiTestTrait
     {
         $handlerStack = HandlerStack::create(new MockHandler($responseQueue));
         $handlerStack->push(Middleware::history($this->clientHistory));
+
         return $handlerStack;
     }
 }

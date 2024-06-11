@@ -30,6 +30,7 @@ class RequestStatus
     public function setRequestIdentifier(string $requestIdentifier): self
     {
         $this->requestIdentifier = $requestIdentifier;
+
         return $this;
     }
 
@@ -41,6 +42,7 @@ class RequestStatus
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -52,6 +54,7 @@ class RequestStatus
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
         return $this;
     }
 
@@ -63,6 +66,7 @@ class RequestStatus
     public function setCorrelationId(string $correlationId): self
     {
         $this->correlationId = $correlationId;
+
         return $this;
     }
 }

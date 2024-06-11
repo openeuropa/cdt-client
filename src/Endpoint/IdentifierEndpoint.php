@@ -20,7 +20,7 @@ class IdentifierEndpoint extends EndpointBase
 {
     use ValidationAwareTrait;
 
-    const ENDPOINT_URL_PATH = '/v2/requests/requestIdentifierByCorrelationId/:correlationId';
+    public const ENDPOINT_URL_PATH = '/v2/requests/requestIdentifierByCorrelationId/:correlationId';
 
     public function getPermanentIdentifier(string $correlationId): string
     {

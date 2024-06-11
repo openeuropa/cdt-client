@@ -10,8 +10,8 @@ use OpenEuropa\CdtClient\Endpoint\StatusEndpoint;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
-use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -35,7 +35,7 @@ class StatusEndpointTest extends TestCase
         $statusEndpoint = new StatusEndpoint(
             $this->createMock(RestInterface::class),
             ['apiBaseUrl' => 'https://example.com'],
-            new Token()
+            new Token(),
         );
         $statusEndpoint->getTranslationRequestStatus($permanentId);
     }
@@ -44,7 +44,7 @@ class StatusEndpointTest extends TestCase
      * @dataProvider providerTestStatus
      *
      * @param array<string, mixed> $clientConfig
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\StatusEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
@@ -80,7 +80,7 @@ class StatusEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/status_valid_response.json'))
+                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/status_valid_response.json')),
                 ],
                 [
                     'requestIdentifier' => '2024/000001',
@@ -101,8 +101,8 @@ class StatusEndpointTest extends TestCase
                             'links' => [
                                 'files' => [
                                     'href' => 'https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef',
-                                    'method' => 'GET'
-                                ]
+                                    'method' => 'GET',
+                                ],
                             ],
                         ],
                     ],
@@ -114,8 +114,8 @@ class StatusEndpointTest extends TestCase
                             'links' => [
                                 'files' => [
                                     'href' => 'https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef',
-                                    'method' => 'GET'
-                                ]
+                                    'method' => 'GET',
+                                ],
                             ],
                         ],
                     ],
@@ -130,8 +130,8 @@ class StatusEndpointTest extends TestCase
                             'links' => [
                                 'files' => [
                                     'href' => 'https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef',
-                                    'method' => 'GET'
-                                ]
+                                    'method' => 'GET',
+                                ],
                             ],
                         ],
                     ],
@@ -188,8 +188,8 @@ class StatusEndpointTest extends TestCase
                     'links' => [
                         'self' => [
                             'href' => 'https://example.com/v2/files/12345678-90ab-cdef-1234-567890abcdef',
-                            'method' => 'GET'
-                        ]
+                            'method' => 'GET',
+                        ],
                     ],
                 ],
             ],
@@ -199,12 +199,12 @@ class StatusEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/status_error_response.json'))
+                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/status_error_response.json')),
                 ],
                 (new ValidationErrors())
                     ->setMessage('The request does not exists.')
-                    ->setErrors([])
-            ]
+                    ->setErrors([]),
+            ],
         ];
     }
 

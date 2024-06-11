@@ -64,7 +64,7 @@ class ApiClientTest extends TestCase
     public function testGetReferenceData(): void
     {
         $responses = [
-            new Response(200, [], (string) file_get_contents(__DIR__ . '/../fixtures/json/reference_data_response.json'))
+            new Response(200, [], (string) file_get_contents(__DIR__ . '/../fixtures/json/reference_data_response.json')),
         ];
         $client = $this->getTestingApiClient([], $responses);
         $this->assertInstanceOf(ReferenceData::class, $client->getReferenceData());
@@ -88,7 +88,7 @@ class ApiClientTest extends TestCase
     public function testFailedValidateTranslationRequest(): void
     {
         $responses = [
-            new Response(400, [], (string) file_get_contents(__DIR__ . '/../fixtures/json/validate_error_response.json'))
+            new Response(400, [], (string) file_get_contents(__DIR__ . '/../fixtures/json/validate_error_response.json')),
         ];
         $client = $this->getTestingApiClient([], $responses);
         $this->expectException(ValidationErrorsException::class);
@@ -102,7 +102,7 @@ class ApiClientTest extends TestCase
     public function testSuccessfulValidateTranslationRequest(): void
     {
         $responses = [
-            new Response(200, [], 'true')
+            new Response(200, [], 'true'),
         ];
         $client = $this->getTestingApiClient([], $responses);
         $request = $this->createRequestTranslation();
@@ -115,7 +115,7 @@ class ApiClientTest extends TestCase
     public function testSendTranslationRequest(): void
     {
         $responses = [
-            new Response(200, [], '123')
+            new Response(200, [], '123'),
         ];
         $client = $this->getTestingApiClient([], $responses);
         $request = $this->createRequestTranslation();
@@ -128,7 +128,7 @@ class ApiClientTest extends TestCase
     public function testGetPermanentIdentifier(): void
     {
         $responses = [
-            new Response(200, [], '2024/123')
+            new Response(200, [], '2024/123'),
         ];
         $client = $this->getTestingApiClient([], $responses);
         self::assertEquals('2024/123', $client->getPermanentIdentifier('123'));
@@ -140,7 +140,7 @@ class ApiClientTest extends TestCase
     public function testGetRequestStatus(): void
     {
         $responses = [
-            new Response(200, [], (string) file_get_contents(__DIR__ . '/../fixtures/json/status_valid_response.json'))
+            new Response(200, [], (string) file_get_contents(__DIR__ . '/../fixtures/json/status_valid_response.json')),
         ];
         $client = $this->getTestingApiClient([], $responses);
         self::assertInstanceOf(Translation::class, $client->getRequestStatus('2024/123'));
@@ -152,7 +152,7 @@ class ApiClientTest extends TestCase
     public function testDownloadFile(): void
     {
         $responses = [
-            new Response(200, [], 'TEST FILE CONTENT')
+            new Response(200, [], 'TEST FILE CONTENT'),
         ];
         $client = $this->getTestingApiClient([], $responses);
         self::assertEquals('TEST FILE CONTENT', $client->downloadFile('https://example.com/file.txt'));

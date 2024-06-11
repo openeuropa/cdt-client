@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class TokenEndpoint extends EndpointBase
 {
-    const ENDPOINT_URL_PATH = '/token';
+    public const ENDPOINT_URL_PATH = '/token';
 
     protected function getConfigurationResolver(): OptionsResolver
     {
@@ -47,10 +47,11 @@ class TokenEndpoint extends EndpointBase
             'password' => $this->getConfigValue('password'),
             'client' => $this->getConfigValue('client'),
         ]);
+
         return $this->getSerializer()->deserialize(
             $response->getBody()->__toString(),
             Token::class,
-            'json'
+            'json',
         );
     }
 
@@ -60,7 +61,7 @@ class TokenEndpoint extends EndpointBase
             new GetSetMethodNormalizer(
                 null,
                 new CamelCaseToSnakeCaseNameConverter(),
-                new PhpDocExtractor()
+                new PhpDocExtractor(),
             ),
             new ArrayDenormalizer(),
         ], [

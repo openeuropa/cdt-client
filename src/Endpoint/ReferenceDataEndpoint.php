@@ -15,15 +15,16 @@ use OpenEuropa\CdtClient\Model\Response\ReferenceData;
  */
 class ReferenceDataEndpoint extends EndpointBase
 {
-    const ENDPOINT_URL_PATH = '/v2/requests/businessReferenceData';
+    public const ENDPOINT_URL_PATH = '/v2/requests/businessReferenceData';
 
     public function getReferenceData(): ReferenceData
     {
         $response = $this->rest->get($this->getEndpointUrl(), $this->getAuthorizationHeaders($this->token));
+
         return $this->getSerializer()->deserialize(
             $response->getBody()->__toString(),
             ReferenceData::class,
-            'json'
+            'json',
         );
     }
 }

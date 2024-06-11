@@ -44,7 +44,7 @@ trait AssertTestRequestTrait
     }
 
     /**
-     * @param RequestInterface $request
+     * @param \Psr\Http\Message\RequestInterface $request
      */
     protected function assertAuthorizationHeaders(RequestInterface $request): void
     {

@@ -23,7 +23,7 @@ class ReferenceFile
     protected bool $isPrivate;
 
     /**
-     * @var array<string, Link>
+     * @var array<string, \OpenEuropa\CdtClient\Model\Response\Link>
      */
     #[SerializedPath('[_links]')]
     protected array $links;
@@ -42,6 +42,7 @@ class ReferenceFile
     public function setLanguages(array $languages): self
     {
         $this->languages = $languages;
+
         return $this;
     }
 
@@ -53,6 +54,7 @@ class ReferenceFile
     public function setFileName(string $fileName): self
     {
         $this->fileName = $fileName;
+
         return $this;
     }
 
@@ -64,11 +66,12 @@ class ReferenceFile
     public function setIsPrivate(bool $isPrivate): self
     {
         $this->isPrivate = $isPrivate;
+
         return $this;
     }
 
     /**
-     * @return array<string, Link>
+     * @return array<string, \OpenEuropa\CdtClient\Model\Response\Link>
      */
     public function getLinks(): array
     {
@@ -76,11 +79,12 @@ class ReferenceFile
     }
 
     /**
-     * @param array<string, Link> $links
+     * @param array<string, \OpenEuropa\CdtClient\Model\Response\Link> $links
      */
     public function setLinks(array $links): self
     {
         $this->links = $links;
+
         return $this;
     }
 }

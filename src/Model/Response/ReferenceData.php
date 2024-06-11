@@ -12,27 +12,27 @@ namespace OpenEuropa\CdtClient\Model\Response;
 class ReferenceData
 {
     /**
-     * @var array<int, ReferenceItem>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     protected array $departments;
 
     /**
-     * @var array<int, ReferenceItem>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     protected array $priorities;
 
     /**
-     * @var array<int, ReferenceItem>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     protected array $purposes;
 
     /**
-     * @var array<int, ReferenceItem>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     protected array $deliveryModes;
 
     /**
-     * @var array<int, ReferenceItem>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     protected array $confidentialities;
 
@@ -42,27 +42,27 @@ class ReferenceData
     protected array $languages;
 
     /**
-     * @var array<int, ReferenceItem>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     protected array $statuses;
 
     /**
-     * @var array<int, ReferenceItem>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     protected array $services;
 
     /**
-     * @var array<int, ReferenceItem>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     protected array $sendOptions;
 
     /**
-     * @var array<int, ReferenceContact>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceContact>
      */
     protected array $contacts;
 
     /**
-     * @return array<int, ReferenceItem>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     public function getDepartments(): array
     {
@@ -70,16 +70,17 @@ class ReferenceData
     }
 
     /**
-     * @param array<int, ReferenceItem> $departments
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $departments
      */
     public function setDepartments(array $departments): self
     {
         $this->departments = $departments;
+
         return $this;
     }
 
     /**
-     * @return array<int, ReferenceItem>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     public function getPriorities(): array
     {
@@ -87,16 +88,17 @@ class ReferenceData
     }
 
     /**
-     * @param array<int, ReferenceItem> $priorities
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $priorities
      */
     public function setPriorities(array $priorities): self
     {
         $this->priorities = $priorities;
+
         return $this;
     }
 
     /**
-     * @return array<int, ReferenceItem>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     public function getPurposes(): array
     {
@@ -104,16 +106,17 @@ class ReferenceData
     }
 
     /**
-     * @param array<int, ReferenceItem> $purposes
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $purposes
      */
     public function setPurposes(array $purposes): self
     {
         $this->purposes = $purposes;
+
         return $this;
     }
 
     /**
-     * @return array<int, ReferenceItem>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     public function getDeliveryModes(): array
     {
@@ -121,16 +124,17 @@ class ReferenceData
     }
 
     /**
-     * @param array<int, ReferenceItem> $deliveryModes
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $deliveryModes
      */
     public function setDeliveryModes(array $deliveryModes): self
     {
         $this->deliveryModes = $deliveryModes;
+
         return $this;
     }
 
     /**
-     * @return array<int, ReferenceItem>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     public function getConfidentialities(): array
     {
@@ -138,11 +142,12 @@ class ReferenceData
     }
 
     /**
-     * @param array<int, ReferenceItem> $confidentialities
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $confidentialities
      */
     public function setConfidentialities(array $confidentialities): self
     {
         $this->confidentialities = $confidentialities;
+
         return $this;
     }
 
@@ -160,11 +165,12 @@ class ReferenceData
     public function setLanguages(array $languages): self
     {
         $this->languages = $languages;
+
         return $this;
     }
 
     /**
-     * @return array<int, ReferenceItem>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     public function getStatuses(): array
     {
@@ -172,16 +178,17 @@ class ReferenceData
     }
 
     /**
-     * @param array<int, ReferenceItem> $statuses
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $statuses
      */
     public function setStatuses(array $statuses): self
     {
         $this->statuses = $statuses;
+
         return $this;
     }
 
     /**
-     * @return array<int, ReferenceItem>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     public function getServices(): array
     {
@@ -189,16 +196,17 @@ class ReferenceData
     }
 
     /**
-     * @param array<int, ReferenceItem> $services
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $services
      */
     public function setServices(array $services): self
     {
         $this->services = $services;
+
         return $this;
     }
 
     /**
-     * @return array<int, ReferenceItem>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
      */
     public function getSendOptions(): array
     {
@@ -206,16 +214,17 @@ class ReferenceData
     }
 
     /**
-     * @param array<int, ReferenceItem> $sendOptions
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $sendOptions
      */
     public function setSendOptions(array $sendOptions): self
     {
         $this->sendOptions = $sendOptions;
+
         return $this;
     }
 
     /**
-     * @return array<int, ReferenceContact>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceContact>
      */
     public function getContacts(): array
     {
@@ -223,11 +232,12 @@ class ReferenceData
     }
 
     /**
-     * @param array<int, ReferenceContact> $contacts
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceContact> $contacts
      */
     public function setContacts(array $contacts): self
     {
         $this->contacts = $contacts;
+
         return $this;
     }
 }

@@ -6,8 +6,8 @@ namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint;
-use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -24,7 +24,7 @@ class ReferenceDataEndpointTest extends TestCase
      * @dataProvider providerTestReferenceData
      *
      * @param array<string, mixed> $clientConfig
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
@@ -53,7 +53,7 @@ class ReferenceDataEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/reference_data_response.json'))
+                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/reference_data_response.json')),
                 ],
                 [
                     'departments' => [

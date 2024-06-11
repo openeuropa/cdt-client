@@ -25,6 +25,7 @@ class TranslationJob
     public function setVolume(float $volume): self
     {
         $this->volume = $volume;
+
         return $this;
     }
 
@@ -36,6 +37,7 @@ class TranslationJob
     public function setSourceLanguage(string $sourceLanguage): self
     {
         $this->sourceLanguage = $sourceLanguage;
+
         return $this;
     }
 
@@ -47,6 +49,7 @@ class TranslationJob
     public function setTargetLanguage(string $targetLanguage): self
     {
         $this->targetLanguage = $targetLanguage;
+
         return $this;
     }
 }

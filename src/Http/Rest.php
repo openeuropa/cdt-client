@@ -6,7 +6,6 @@ namespace OpenEuropa\CdtClient\Http;
 
 use OpenEuropa\CdtClient\Contract\RestInterface;
 use OpenEuropa\CdtClient\Exception\InvalidStatusCodeException;
-use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -38,6 +37,7 @@ class Rest implements RestInterface
     public function postJson(string $uri, string $jsonBody, array $headers = []): ResponseInterface
     {
         $headers['Content-Type'] = 'application/json';
+
         return $this->doRequest('POST', $uri, $headers, $jsonBody);
     }
 
@@ -47,14 +47,15 @@ class Rest implements RestInterface
     public function postForm(string $uri, array $formFields, array $headers = []): ResponseInterface
     {
         $headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
         return $this->doRequest('POST', $uri, $headers, http_build_query($formFields));
     }
 
     /**
      * @param array<string, mixed> $headers
      *
-     * @throws ClientExceptionInterface If an error happens during the client request.
-     * @throws InvalidStatusCodeException If the API endpoint returns a status code other than 200.
+     * @throws \Psr\Http\Client\ClientExceptionInterface If an error happens during the client request.
+     * @throws \OpenEuropa\CdtClient\Exception\InvalidStatusCodeException If the API endpoint returns a status code other than 200.
      */
     protected function doRequest(string $method, string $uri, array $headers = [], ?string $body = null): ResponseInterface
     {
@@ -73,7 +74,7 @@ class Rest implements RestInterface
                 "The API endpoint returns {$response->getStatusCode()}",
                 0,
                 null,
-                $response
+                $response,
             );
         }
 

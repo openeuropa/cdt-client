@@ -25,6 +25,7 @@ class Comment
     public function setComment(string $comment): self
     {
         $this->comment = $comment;
+
         return $this;
     }
 
@@ -36,6 +37,7 @@ class Comment
     public function setIsHTML(bool $isHTML): self
     {
         $this->isHTML = $isHTML;
+
         return $this;
     }
 
@@ -47,6 +49,7 @@ class Comment
     public function setFrom(string $from): self
     {
         $this->from = $from;
+
         return $this;
     }
 }

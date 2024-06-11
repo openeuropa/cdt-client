@@ -6,8 +6,8 @@ namespace OpenEuropa\Tests\CdtClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Endpoint\MainEndpoint;
-use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,7 +22,7 @@ class MainEndpointTest extends TestCase
      * @dataProvider providerTestMain
      *
      * @param array<string, mixed> $clientConfig
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      * @param mixed $expectedResult
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\MainEndpoint
@@ -52,7 +52,7 @@ class MainEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(200, [], 'true')
+                    new Response(200, [], 'true'),
                 ],
                 true,
             ],
@@ -61,10 +61,10 @@ class MainEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(200, [], 'false')
+                    new Response(200, [], 'false'),
                 ],
                 false,
-            ]
+            ],
         ];
     }
 }

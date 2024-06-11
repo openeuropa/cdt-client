@@ -23,6 +23,7 @@ class ReferenceItem
     public function setCode(string $code): self
     {
         $this->code = $code;
+
         return $this;
     }
 
@@ -34,6 +35,7 @@ class ReferenceItem
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 }

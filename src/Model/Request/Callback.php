@@ -25,6 +25,7 @@ class Callback
     public function setCallbackType(string $callbackType): self
     {
         $this->callbackType = $callbackType;
+
         return $this;
     }
 
@@ -36,6 +37,7 @@ class Callback
     public function setCallbackBaseUrl(string $callbackBaseUrl): self
     {
         $this->callbackBaseUrl = $callbackBaseUrl;
+
         return $this;
     }
 
@@ -47,6 +49,7 @@ class Callback
     public function setClientApiKey(string $clientApiKey): self
     {
         $this->clientApiKey = $clientApiKey;
+
         return $this;
     }
 }

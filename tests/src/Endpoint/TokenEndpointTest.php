@@ -8,8 +8,8 @@ use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Contract\RestInterface;
 use OpenEuropa\CdtClient\Endpoint\TokenEndpoint;
 use OpenEuropa\CdtClient\Model\Response\Token;
-use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -27,7 +27,7 @@ class TokenEndpointTest extends TestCase
      * @dataProvider providerTestToken
      *
      * @param array<string, mixed> $clientConfig
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      * @param mixed $expectedResult
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\TokenEndpoint
@@ -58,7 +58,7 @@ class TokenEndpointTest extends TestCase
                 'password' => $password,
                 'client' => $client,
                 'apiBaseUrl' => 'https://example.com',
-            ]
+            ],
         );
     }
 
@@ -105,7 +105,7 @@ class TokenEndpointTest extends TestCase
                     'client' => 'foo',
                 ],
                 [
-                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/simple_token_call_response.json'))
+                    new Response(200, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/simple_token_call_response.json')),
                 ],
                 (new Token())
                     ->setAccessToken('JWT_TOKEN')

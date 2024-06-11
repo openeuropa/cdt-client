@@ -8,8 +8,8 @@ use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Endpoint\RequestsEndpoint;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
-use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\RequestModelTestTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
@@ -28,7 +28,7 @@ class RequestsEndpointTest extends TestCase
      *
      * @param array<string, mixed> $clientConfig
      * @param array<string, mixed> $requestArray
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\RequestsEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
@@ -68,7 +68,7 @@ class RequestsEndpointTest extends TestCase
                 ],
                 (string) file_get_contents(__DIR__ . '/../../fixtures/json/requests_valid_request.json'),
                 [
-                    new Response(200, [], '1xWrUG')
+                    new Response(200, [], '1xWrUG'),
                 ],
                 '1xWrUG',
             ],
@@ -77,18 +77,18 @@ class RequestsEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    'deliveryModeCode' => 'FOOBAR'
+                    'deliveryModeCode' => 'FOOBAR',
                 ],
                 (string) file_get_contents(__DIR__ . '/../../fixtures/json/requests_invalid_request.json'),
                 [
-                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/requests_error_response.json'))
+                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/requests_error_response.json')),
                 ],
                 (new ValidationErrors())
                     ->setMessage('Validation error')
                     ->setErrors([
-                        'deliveryModeCode' => ['Invalid delivery mode FOOBAR']
+                        'deliveryModeCode' => ['Invalid delivery mode FOOBAR'],
                     ]),
-            ]
+            ],
         ];
     }
 }

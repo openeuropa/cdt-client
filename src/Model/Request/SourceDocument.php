@@ -21,7 +21,7 @@ class SourceDocument
     protected string $outputDocumentFormatCode;
 
     /**
-     * @var array<int, TranslationJob>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Request\TranslationJob>
      */
     protected array $translationJobs;
 
@@ -37,6 +37,7 @@ class SourceDocument
     public function setFile(File $file): self
     {
         $this->file = $file;
+
         return $this;
     }
 
@@ -54,6 +55,7 @@ class SourceDocument
     public function setSourceLanguages(array $sourceLanguages): self
     {
         $this->sourceLanguages = $sourceLanguages;
+
         return $this;
     }
 
@@ -65,11 +67,12 @@ class SourceDocument
     public function setOutputDocumentFormatCode(string $outputDocumentFormatCode): self
     {
         $this->outputDocumentFormatCode = $outputDocumentFormatCode;
+
         return $this;
     }
 
     /**
-     * @return array<int, TranslationJob>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Request\TranslationJob>
      */
     public function getTranslationJobs(): array
     {
@@ -77,11 +80,12 @@ class SourceDocument
     }
 
     /**
-     * @param array<int, TranslationJob> $translationJobs
+     * @param array<int, \OpenEuropa\CdtClient\Model\Request\TranslationJob> $translationJobs
      */
     public function setTranslationJobs(array $translationJobs): self
     {
         $this->translationJobs = $translationJobs;
+
         return $this;
     }
 
@@ -93,6 +97,7 @@ class SourceDocument
     public function setConfidentialityCode(string $confidentialityCode): self
     {
         $this->confidentialityCode = $confidentialityCode;
+
         return $this;
     }
 
@@ -104,6 +109,7 @@ class SourceDocument
     public function setIsPrivate(bool $isPrivate): self
     {
         $this->isPrivate = $isPrivate;
+
         return $this;
     }
 }

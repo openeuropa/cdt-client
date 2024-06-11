@@ -28,6 +28,7 @@ class ReferenceUrl
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -39,6 +40,7 @@ class ReferenceUrl
     public function setShortName(string $shortName): self
     {
         $this->shortName = $shortName;
+
         return $this;
     }
 
@@ -56,6 +58,7 @@ class ReferenceUrl
     public function setReferenceLanguages(array $referenceLanguages): self
     {
         $this->referenceLanguages = $referenceLanguages;
+
         return $this;
     }
 }

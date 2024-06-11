@@ -36,6 +36,7 @@ class ReferenceContact
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -47,6 +48,7 @@ class ReferenceContact
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
+
         return $this;
     }
 
@@ -58,6 +60,7 @@ class ReferenceContact
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
         return $this;
     }
 
@@ -69,6 +72,7 @@ class ReferenceContact
     public function setUserName(string $userName): self
     {
         $this->userName = $userName;
+
         return $this;
     }
 
@@ -80,6 +84,7 @@ class ReferenceContact
     public function setCountryCode(?string $countryCode): self
     {
         $this->countryCode = $countryCode;
+
         return $this;
     }
 
@@ -91,6 +96,7 @@ class ReferenceContact
     public function setPhoneCountryCode(?string $phoneCountryCode): self
     {
         $this->phoneCountryCode = $phoneCountryCode;
+
         return $this;
     }
 
@@ -102,6 +108,7 @@ class ReferenceContact
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
         return $this;
     }
 
@@ -113,6 +120,7 @@ class ReferenceContact
     public function setCountryName(string $countryName): self
     {
         $this->countryName = $countryName;
+
         return $this;
     }
 }

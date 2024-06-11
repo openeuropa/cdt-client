@@ -54,32 +54,32 @@ class Translation
     protected array $deliverToContacts;
 
     /**
-     * @var array<int, SourceDocument>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\SourceDocument>
      */
     protected array $sourceDocuments;
 
     /**
-     * @var array<int, ReferenceFile>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceFile>
      */
     protected array $referenceFiles;
 
     /**
-     * @var array<int, File>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\File>
      */
     protected array $bilingualFiles;
 
     /**
-     * @var array<int, File>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\File>
      */
     protected array $targetFiles;
 
     /**
-     * @var array<int, Date>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\Date>
      */
     protected array $dates;
 
     /**
-     * @var array<int, Comment>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\Comment>
      */
     protected array $comments;
 
@@ -87,7 +87,7 @@ class Translation
     protected float $totalPrice;
 
     /**
-     * @var array<int, JobSummary>
+     * @var array<int, \OpenEuropa\CdtClient\Model\Response\JobSummary>
      */
     #[SerializedPath('[pricing][jobSummary]')]
     protected array $jobSummary;
@@ -107,7 +107,7 @@ class Translation
     protected bool $isQuotationOnly;
 
     /**
-     * @var array<string, Link>
+     * @var array<string, \OpenEuropa\CdtClient\Model\Response\Link>
      */
     #[SerializedPath('[_links]')]
     protected array $links;
@@ -120,6 +120,7 @@ class Translation
     public function setRequestIdentifier(string $requestIdentifier): self
     {
         $this->requestIdentifier = $requestIdentifier;
+
         return $this;
     }
 
@@ -131,6 +132,7 @@ class Translation
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -148,6 +150,7 @@ class Translation
     public function setSourceLanguages(array $sourceLanguages): self
     {
         $this->sourceLanguages = $sourceLanguages;
+
         return $this;
     }
 
@@ -165,6 +168,7 @@ class Translation
     public function setTargetLanguages(array $targetLanguages): self
     {
         $this->targetLanguages = $targetLanguages;
+
         return $this;
     }
 
@@ -176,6 +180,7 @@ class Translation
     public function setCreationDate(\DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
+
         return $this;
     }
 
@@ -187,6 +192,7 @@ class Translation
     public function setDeliveryDate(?\DateTimeInterface $deliveryDate): self
     {
         $this->deliveryDate = $deliveryDate;
+
         return $this;
     }
 
@@ -198,6 +204,7 @@ class Translation
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -209,6 +216,7 @@ class Translation
     public function setService(string $service): self
     {
         $this->service = $service;
+
         return $this;
     }
 
@@ -220,6 +228,7 @@ class Translation
     public function setDepartment(string $department): self
     {
         $this->department = $department;
+
         return $this;
     }
 
@@ -237,6 +246,7 @@ class Translation
     public function setContacts(array $contacts): self
     {
         $this->contacts = $contacts;
+
         return $this;
     }
 
@@ -254,11 +264,12 @@ class Translation
     public function setDeliverToContacts(array $deliverToContacts): self
     {
         $this->deliverToContacts = $deliverToContacts;
+
         return $this;
     }
 
     /**
-     * @return array<int, SourceDocument>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\SourceDocument>
      */
     public function getSourceDocuments(): array
     {
@@ -266,16 +277,17 @@ class Translation
     }
 
     /**
-     * @param array<int, SourceDocument> $sourceDocuments
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\SourceDocument> $sourceDocuments
      */
     public function setSourceDocuments(array $sourceDocuments): self
     {
         $this->sourceDocuments = $sourceDocuments;
+
         return $this;
     }
 
     /**
-     * @return array<int, ReferenceFile>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceFile>
      */
     public function getReferenceFiles(): array
     {
@@ -283,16 +295,17 @@ class Translation
     }
 
     /**
-     * @param array<int, ReferenceFile> $referenceFiles
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceFile> $referenceFiles
      */
     public function setReferenceFiles(array $referenceFiles): self
     {
         $this->referenceFiles = $referenceFiles;
+
         return $this;
     }
 
     /**
-     * @return array<int, File>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\File>
      */
     public function getBilingualFiles(): array
     {
@@ -300,16 +313,17 @@ class Translation
     }
 
     /**
-     * @param array<int, File> $bilingualFiles
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\File> $bilingualFiles
      */
     public function setBilingualFiles(array $bilingualFiles): self
     {
         $this->bilingualFiles = $bilingualFiles;
+
         return $this;
     }
 
     /**
-     * @return array<int, File>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\File>
      */
     public function getTargetFiles(): array
     {
@@ -317,16 +331,17 @@ class Translation
     }
 
     /**
-     * @param array<int, File> $targetFiles
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\File> $targetFiles
      */
     public function setTargetFiles(array $targetFiles): self
     {
         $this->targetFiles = $targetFiles;
+
         return $this;
     }
 
     /**
-     * @return array<int, Date>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\Date>
      */
     public function getDates(): array
     {
@@ -334,16 +349,17 @@ class Translation
     }
 
     /**
-     * @param array<int, Date> $dates
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\Date> $dates
      */
     public function setDates(array $dates): self
     {
         $this->dates = $dates;
+
         return $this;
     }
 
     /**
-     * @return array<int, Comment>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\Comment>
      */
     public function getComments(): array
     {
@@ -351,11 +367,12 @@ class Translation
     }
 
     /**
-     * @param array<int, Comment> $comments
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\Comment> $comments
      */
     public function setComments(array $comments): self
     {
         $this->comments = $comments;
+
         return $this;
     }
 
@@ -367,11 +384,12 @@ class Translation
     public function setTotalPrice(float $totalPrice): self
     {
         $this->totalPrice = $totalPrice;
+
         return $this;
     }
 
     /**
-     * @return array<int, JobSummary>
+     * @return array<int, \OpenEuropa\CdtClient\Model\Response\JobSummary>
      */
     public function getJobSummary(): array
     {
@@ -379,11 +397,12 @@ class Translation
     }
 
     /**
-     * @param array<int, JobSummary> $jobSummary
+     * @param array<int, \OpenEuropa\CdtClient\Model\Response\JobSummary> $jobSummary
      */
     public function setJobSummary(array $jobSummary): self
     {
         $this->jobSummary = $jobSummary;
+
         return $this;
     }
 
@@ -395,6 +414,7 @@ class Translation
     public function setIsInProgress(bool $isInProgress): self
     {
         $this->isInProgress = $isInProgress;
+
         return $this;
     }
 
@@ -406,6 +426,7 @@ class Translation
     public function setClientReference(string $clientReference): self
     {
         $this->clientReference = $clientReference;
+
         return $this;
     }
 
@@ -417,6 +438,7 @@ class Translation
     public function setDeliveryModeCode(string $deliveryModeCode): self
     {
         $this->deliveryModeCode = $deliveryModeCode;
+
         return $this;
     }
 
@@ -428,6 +450,7 @@ class Translation
     public function setDepartmentCode(string $departmentCode): self
     {
         $this->departmentCode = $departmentCode;
+
         return $this;
     }
 
@@ -439,6 +462,7 @@ class Translation
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
         return $this;
     }
 
@@ -450,6 +474,7 @@ class Translation
     public function setPurposeCode(string $purposeCode): self
     {
         $this->purposeCode = $purposeCode;
+
         return $this;
     }
 
@@ -461,11 +486,12 @@ class Translation
     public function setIsQuotationOnly(bool $isQuotationOnly): self
     {
         $this->isQuotationOnly = $isQuotationOnly;
+
         return $this;
     }
 
     /**
-     * @return array<string, Link>
+     * @return array<string, \OpenEuropa\CdtClient\Model\Response\Link>
      */
     public function getLinks(): array
     {
@@ -473,11 +499,12 @@ class Translation
     }
 
     /**
-     * @param array<string, Link> $links
+     * @param array<string, \OpenEuropa\CdtClient\Model\Response\Link> $links
      */
     public function setLinks(array $links): self
     {
         $this->links = $links;
+
         return $this;
     }
 }

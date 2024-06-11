@@ -8,8 +8,8 @@ use GuzzleHttp\Psr7\Response;
 use OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint;
 use OpenEuropa\CdtClient\Exception\ValidationErrorsException;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
-use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use OpenEuropa\Tests\CdtClient\Traits\ApiTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\AssertTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -24,7 +24,7 @@ class IdentifierEndpointTest extends TestCase
      * @dataProvider providerTestIdentifier
      *
      * @param array<string, mixed> $clientConfig
-     * @param Response[] $responses
+     * @param \GuzzleHttp\Psr7\Response[] $responses
      *
      * @covers \OpenEuropa\CdtClient\Endpoint\IdentifierEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
@@ -60,7 +60,7 @@ class IdentifierEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(200, [], '2024/332233')
+                    new Response(200, [], '2024/332233'),
                 ],
                 '2024/332233',
             ],
@@ -70,12 +70,12 @@ class IdentifierEndpointTest extends TestCase
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
-                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/identifier_error_response.json'))
+                    new Response(400, [], (string) file_get_contents(__DIR__ . '/../../fixtures/json/identifier_error_response.json')),
                 ],
                 (new ValidationErrors())
                     ->setMessage('The requestIdentifier does not exists for the correlationID -> AbCdE')
-                    ->setErrors([])
-            ]
+                    ->setErrors([]),
+            ],
         ];
     }
 }

@@ -32,6 +32,7 @@ class Download
     {
         try {
             $response = $this->rest->get($uri, $this->getAuthorizationHeaders($this->token));
+
             return $response->getBody()->__toString();
         } catch (InvalidStatusCodeException $e) {
             throw $this->dispatchValidationException($e);
