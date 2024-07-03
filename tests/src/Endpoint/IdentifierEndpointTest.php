@@ -54,13 +54,23 @@ class IdentifierEndpointTest extends TestCase
     public static function providerTestIdentifier(): array
     {
         return [
-            'connected' => [
+            'success' => [
                 '12345',
                 [
                     'apiBaseUrl' => 'https://example.com',
                 ],
                 [
                     new Response(200, [], '2024/332233'),
+                ],
+                '2024/332233',
+            ],
+            'success_quotes' => [
+                '12345',
+                [
+                    'apiBaseUrl' => 'https://example.com',
+                ],
+                [
+                    new Response(200, [], '"2024/332233"'),
                 ],
                 '2024/332233',
             ],

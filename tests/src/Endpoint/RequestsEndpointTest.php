@@ -72,6 +72,18 @@ class RequestsEndpointTest extends TestCase
                 ],
                 '1xWrUG',
             ],
+            'valid_quotes' => [
+                [
+                    'apiBaseUrl' => 'https://example.com',
+                ],
+                [
+                ],
+                (string) file_get_contents(__DIR__ . '/../../fixtures/json/requests_valid_request.json'),
+                [
+                    new Response(200, [], '"1xWrUG"'),
+                ],
+                '1xWrUG',
+            ],
             'failed_validation' => [
                 [
                     'apiBaseUrl' => 'https://example.com',
