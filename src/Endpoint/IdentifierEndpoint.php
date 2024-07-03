@@ -31,6 +31,6 @@ class IdentifierEndpoint extends EndpointBase
             throw $this->dispatchValidationException($e);
         }
 
-        return $response->getBody()->__toString();
+        return trim($response->getBody()->__toString(), '"');
     }
 }
