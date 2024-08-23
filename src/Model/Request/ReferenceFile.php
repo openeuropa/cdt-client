@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model\Request;
 
+use OpenEuropa\CdtClient\Model\StringCollection;
+
 /**
  * Class ReferenceFile.
  *
@@ -13,10 +15,7 @@ class ReferenceFile
 {
     protected File $file;
 
-    /**
-     * @var string[]
-     */
-    protected array $referenceLanguages;
+    protected StringCollection $referenceLanguages;
 
     public function getFile(): File
     {
@@ -30,20 +29,17 @@ class ReferenceFile
         return $this;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getReferenceLanguages(): array
+    public function getReferenceLanguages(): StringCollection
     {
         return $this->referenceLanguages;
     }
 
     /**
-     * @param string[] $referenceLanguages
+     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $referenceLanguages
      */
-    public function setReferenceLanguages(array $referenceLanguages): ReferenceFile
+    public function setReferenceLanguages(StringCollection|array $referenceLanguages): self
     {
-        $this->referenceLanguages = $referenceLanguages;
+        $this->referenceLanguages = is_array($referenceLanguages) ? new StringCollection($referenceLanguages) : $referenceLanguages;
 
         return $this;
     }

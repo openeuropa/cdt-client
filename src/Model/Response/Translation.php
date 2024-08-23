@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model\Response;
 
+use OpenEuropa\CdtClient\Model\StringCollection;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 /**
@@ -17,15 +18,9 @@ class Translation
 
     protected string $status;
 
-    /**
-     * @var array<int, string>
-     */
-    protected array $sourceLanguages;
+    protected StringCollection $sourceLanguages;
 
-    /**
-     * @var array<int, string>
-     */
-    protected array $targetLanguages;
+    protected StringCollection $targetLanguages;
 
     /**
      * @var \DateTimeInterface
@@ -43,54 +38,27 @@ class Translation
 
     protected string $department;
 
-    /**
-     * @var array<int, string>
-     */
-    protected array $contacts;
+    protected StringCollection $contacts;
 
-    /**
-     * @var array<int, string>
-     */
-    protected array $deliverToContacts;
+    protected StringCollection $deliverToContacts;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\SourceDocument>
-     */
-    protected array $sourceDocuments;
+    protected SourceDocumentCollection $sourceDocuments;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceFile>
-     */
-    protected array $referenceFiles;
+    protected ReferenceFileCollection $referenceFiles;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\File>
-     */
-    protected array $bilingualFiles;
+    protected FileCollection $bilingualFiles;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\File>
-     */
-    protected array $targetFiles;
+    protected FileCollection $targetFiles;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\Date>
-     */
-    protected array $dates;
+    protected DateCollection $dates;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\Comment>
-     */
-    protected array $comments;
+    protected CommentCollection $comments;
 
     #[SerializedPath('[pricing][totalPrice]')]
     protected float $totalPrice;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\JobSummary>
-     */
     #[SerializedPath('[pricing][jobSummary]')]
-    protected array $jobSummary;
+    protected JobSummaryCollection $jobSummary;
 
     protected bool $isInProgress;
 
@@ -106,11 +74,8 @@ class Translation
 
     protected bool $isQuotationOnly;
 
-    /**
-     * @var array<string, \OpenEuropa\CdtClient\Model\Response\Link>
-     */
     #[SerializedPath('[_links]')]
-    protected array $links;
+    protected LinkCollection $links;
 
     public function getRequestIdentifier(): string
     {
@@ -136,38 +101,32 @@ class Translation
         return $this;
     }
 
-    /**
-     * @return array<int, string>
-     */
-    public function getSourceLanguages(): array
+    public function getSourceLanguages(): StringCollection
     {
         return $this->sourceLanguages;
     }
 
     /**
-     * @param array<int, string> $sourceLanguages
+     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $sourceLanguages
      */
-    public function setSourceLanguages(array $sourceLanguages): self
+    public function setSourceLanguages(StringCollection|array $sourceLanguages): self
     {
-        $this->sourceLanguages = $sourceLanguages;
+        $this->sourceLanguages = is_array($sourceLanguages) ? new StringCollection($sourceLanguages) : $sourceLanguages;
 
         return $this;
     }
 
-    /**
-     * @return array<int, string>
-     */
-    public function getTargetLanguages(): array
+    public function getTargetLanguages(): StringCollection
     {
         return $this->targetLanguages;
     }
 
     /**
-     * @param array<int, string> $targetLanguages
+     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $targetLanguages
      */
-    public function setTargetLanguages(array $targetLanguages): self
+    public function setTargetLanguages(StringCollection|array $targetLanguages): self
     {
-        $this->targetLanguages = $targetLanguages;
+        $this->targetLanguages = is_array($targetLanguages) ? new StringCollection($targetLanguages) : $targetLanguages;
 
         return $this;
     }
@@ -232,146 +191,122 @@ class Translation
         return $this;
     }
 
-    /**
-     * @return array<int, string>
-     */
-    public function getContacts(): array
+    public function getContacts(): StringCollection
     {
         return $this->contacts;
     }
 
     /**
-     * @param array<int, string> $contacts
+     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $contacts
      */
-    public function setContacts(array $contacts): self
+    public function setContacts(StringCollection|array $contacts): self
     {
-        $this->contacts = $contacts;
+        $this->contacts = is_array($contacts) ? new StringCollection($contacts) : $contacts;
 
         return $this;
     }
 
-    /**
-     * @return array<int, string>
-     */
-    public function getDeliverToContacts(): array
+    public function getDeliverToContacts(): StringCollection
     {
         return $this->deliverToContacts;
     }
 
     /**
-     * @param array<int, string> $deliverToContacts
+     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $deliverToContacts
      */
-    public function setDeliverToContacts(array $deliverToContacts): self
+    public function setDeliverToContacts(StringCollection|array $deliverToContacts): self
     {
-        $this->deliverToContacts = $deliverToContacts;
+        $this->deliverToContacts = is_array($deliverToContacts) ? new StringCollection($deliverToContacts) : $deliverToContacts;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\SourceDocument>
-     */
-    public function getSourceDocuments(): array
+    public function getSourceDocuments(): SourceDocumentCollection
     {
         return $this->sourceDocuments;
     }
 
     /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\SourceDocument> $sourceDocuments
+     * @param \OpenEuropa\CdtClient\Model\Response\SourceDocumentCollection|array<int, \OpenEuropa\CdtClient\Model\Response\SourceDocument> $sourceDocuments
      */
-    public function setSourceDocuments(array $sourceDocuments): self
+    public function setSourceDocuments(SourceDocumentCollection|array $sourceDocuments): self
     {
-        $this->sourceDocuments = $sourceDocuments;
+        $this->sourceDocuments = is_array($sourceDocuments) ? new SourceDocumentCollection($sourceDocuments) : $sourceDocuments;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceFile>
-     */
-    public function getReferenceFiles(): array
+    public function getReferenceFiles(): ReferenceFileCollection
     {
         return $this->referenceFiles;
     }
 
     /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceFile> $referenceFiles
+     * @param \OpenEuropa\CdtClient\Model\Response\ReferenceFileCollection|array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceFile> $referenceFiles
      */
-    public function setReferenceFiles(array $referenceFiles): self
+    public function setReferenceFiles(ReferenceFileCollection|array $referenceFiles): self
     {
-        $this->referenceFiles = $referenceFiles;
+        $this->referenceFiles = is_array($referenceFiles) ? new ReferenceFileCollection($referenceFiles) : $referenceFiles;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\File>
-     */
-    public function getBilingualFiles(): array
+    public function getBilingualFiles(): FileCollection
     {
         return $this->bilingualFiles;
     }
 
     /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\File> $bilingualFiles
+     * @param \OpenEuropa\CdtClient\Model\Response\FileCollection|array<int, \OpenEuropa\CdtClient\Model\Response\File> $bilingualFiles
      */
-    public function setBilingualFiles(array $bilingualFiles): self
+    public function setBilingualFiles(FileCollection|array $bilingualFiles): self
     {
-        $this->bilingualFiles = $bilingualFiles;
+        $this->bilingualFiles = is_array($bilingualFiles) ? new FileCollection($bilingualFiles) : $bilingualFiles;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\File>
-     */
-    public function getTargetFiles(): array
+    public function getTargetFiles(): FileCollection
     {
         return $this->targetFiles;
     }
 
     /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\File> $targetFiles
+     * @param \OpenEuropa\CdtClient\Model\Response\FileCollection|array<int, \OpenEuropa\CdtClient\Model\Response\File> $targetFiles
      */
-    public function setTargetFiles(array $targetFiles): self
+    public function setTargetFiles(FileCollection|array $targetFiles): self
     {
-        $this->targetFiles = $targetFiles;
+        $this->targetFiles = is_array($targetFiles) ? new FileCollection($targetFiles) : $targetFiles;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\Date>
-     */
-    public function getDates(): array
+    public function getDates(): DateCollection
     {
         return $this->dates;
     }
 
     /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\Date> $dates
+     * @param \OpenEuropa\CdtClient\Model\Response\DateCollection|array<int, \OpenEuropa\CdtClient\Model\Response\Date> $dates
      */
-    public function setDates(array $dates): self
+    public function setDates(DateCollection|array $dates): self
     {
-        $this->dates = $dates;
+        $this->dates = is_array($dates) ? new DateCollection($dates) : $dates;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\Comment>
-     */
-    public function getComments(): array
+    public function getComments(): CommentCollection
     {
         return $this->comments;
     }
 
     /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\Comment> $comments
+     * @param \OpenEuropa\CdtClient\Model\Response\CommentCollection|array<int, \OpenEuropa\CdtClient\Model\Response\Comment> $comments
      */
-    public function setComments(array $comments): self
+    public function setComments(CommentCollection|array $comments): self
     {
-        $this->comments = $comments;
+        $this->comments = is_array($comments) ? new CommentCollection($comments) : $comments;
 
         return $this;
     }
@@ -388,20 +323,17 @@ class Translation
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\JobSummary>
-     */
-    public function getJobSummary(): array
+    public function getJobSummary(): JobSummaryCollection
     {
         return $this->jobSummary;
     }
 
     /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\JobSummary> $jobSummary
+     * @param \OpenEuropa\CdtClient\Model\Response\JobSummaryCollection|array<int, \OpenEuropa\CdtClient\Model\Response\JobSummary> $jobSummary
      */
-    public function setJobSummary(array $jobSummary): self
+    public function setJobSummary(JobSummaryCollection|array $jobSummary): self
     {
-        $this->jobSummary = $jobSummary;
+        $this->jobSummary = is_array($jobSummary) ? new JobSummaryCollection($jobSummary) : $jobSummary;
 
         return $this;
     }
@@ -490,20 +422,17 @@ class Translation
         return $this;
     }
 
-    /**
-     * @return array<string, \OpenEuropa\CdtClient\Model\Response\Link>
-     */
-    public function getLinks(): array
+    public function getLinks(): LinkCollection
     {
         return $this->links;
     }
 
     /**
-     * @param array<string, \OpenEuropa\CdtClient\Model\Response\Link> $links
+     * @param \OpenEuropa\CdtClient\Model\Response\LinkCollection|array<string, \OpenEuropa\CdtClient\Model\Response\Link> $links
      */
-    public function setLinks(array $links): self
+    public function setLinks(LinkCollection|array $links): self
     {
-        $this->links = $links;
+        $this->links = is_array($links) ? new LinkCollection($links) : $links;
 
         return $this;
     }

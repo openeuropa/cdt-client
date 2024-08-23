@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model\Request;
 
+use OpenEuropa\CdtClient\Model\StringCollection;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 /**
@@ -15,15 +16,9 @@ class Translation
 {
     protected string $departmentCode;
 
-    /**
-     * @var string[]
-     */
-    protected array $contactUserNames;
+    protected StringCollection $contactUserNames;
 
-    /**
-     * @var string[]
-     */
-    protected array $deliveryContactUsernames;
+    protected StringCollection $deliveryContactUsernames;
 
     protected string $phoneNumber;
 
@@ -39,22 +34,13 @@ class Translation
 
     protected string $comments;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceUrl>
-     */
     #[SerializedPath('[referenceSet][urls]')]
-    protected array $referenceSetUrls;
+    protected ReferenceUrlCollection $referenceSetUrls;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceFile>
-     */
     #[SerializedPath('[referenceSet][files]')]
-    protected array $referenceSetFiles;
+    protected ReferenceFileCollection $referenceSetFiles;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Request\SourceDocument>
-     */
-    protected array $sourceDocuments;
+    protected SourceDocumentCollection $sourceDocuments;
 
     protected string $sendOptions;
 
@@ -62,10 +48,7 @@ class Translation
 
     protected bool $isQuotationOnly;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Request\Callback>
-     */
-    protected array $callbacks;
+    protected CallbackCollection $callbacks;
 
     public function getDepartmentCode(): string
     {
@@ -79,38 +62,32 @@ class Translation
         return $this;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getContactUserNames(): array
+    public function getContactUserNames(): StringCollection
     {
         return $this->contactUserNames;
     }
 
     /**
-     * @param string[] $contactUserNames
+     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $contactUserNames
      */
-    public function setContactUserNames(array $contactUserNames): self
+    public function setContactUserNames(StringCollection|array $contactUserNames): self
     {
-        $this->contactUserNames = $contactUserNames;
+        $this->contactUserNames = is_array($contactUserNames) ? new StringCollection($contactUserNames) : $contactUserNames;
 
         return $this;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getDeliveryContactUsernames(): array
+    public function getDeliveryContactUsernames(): StringCollection
     {
         return $this->deliveryContactUsernames;
     }
 
     /**
-     * @param string[] $deliveryContactUsernames
+     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $deliveryContactUsernames
      */
-    public function setDeliveryContactUsernames(array $deliveryContactUsernames): self
+    public function setDeliveryContactUsernames(StringCollection|array $deliveryContactUsernames): self
     {
-        $this->deliveryContactUsernames = $deliveryContactUsernames;
+        $this->deliveryContactUsernames = is_array($deliveryContactUsernames) ? new StringCollection($deliveryContactUsernames) : $deliveryContactUsernames;
 
         return $this;
     }
@@ -199,56 +176,47 @@ class Translation
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceUrl>
-     */
-    public function getReferenceSetUrls(): array
+    public function getReferenceSetUrls(): ReferenceUrlCollection
     {
         return $this->referenceSetUrls;
     }
 
     /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceUrl> $referenceSetUrls
+     * @param \OpenEuropa\CdtClient\Model\Request\ReferenceUrlCollection|array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceUrl> $referenceSetUrls
      */
-    public function setReferenceSetUrls(array $referenceSetUrls): self
+    public function setReferenceSetUrls(ReferenceUrlCollection|array $referenceSetUrls): self
     {
-        $this->referenceSetUrls = $referenceSetUrls;
+        $this->referenceSetUrls = is_array($referenceSetUrls) ? new ReferenceUrlCollection($referenceSetUrls) : $referenceSetUrls;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceFile>
-     */
-    public function getReferenceSetFiles(): array
+    public function getReferenceSetFiles(): ReferenceFileCollection
     {
         return $this->referenceSetFiles;
     }
 
     /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceFile> $referenceSetFiles
+     * @param \OpenEuropa\CdtClient\Model\Request\ReferenceFileCollection|array<int, \OpenEuropa\CdtClient\Model\Request\ReferenceFile> $referenceSetFiles
      */
-    public function setReferenceSetFiles(array $referenceSetFiles): self
+    public function setReferenceSetFiles(ReferenceFileCollection|array $referenceSetFiles): self
     {
-        $this->referenceSetFiles = $referenceSetFiles;
+        $this->referenceSetFiles = is_array($referenceSetFiles) ? new ReferenceFileCollection($referenceSetFiles) : $referenceSetFiles;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Request\SourceDocument>
-     */
-    public function getSourceDocuments(): array
+    public function getSourceDocuments(): SourceDocumentCollection
     {
         return $this->sourceDocuments;
     }
 
     /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Request\SourceDocument> $sourceDocuments
+     * @param \OpenEuropa\CdtClient\Model\Request\SourceDocumentCollection|array<int, \OpenEuropa\CdtClient\Model\Request\SourceDocument> $sourceDocuments
      */
-    public function setSourceDocuments(array $sourceDocuments): self
+    public function setSourceDocuments(SourceDocumentCollection|array $sourceDocuments): self
     {
-        $this->sourceDocuments = $sourceDocuments;
+        $this->sourceDocuments = is_array($sourceDocuments) ? new SourceDocumentCollection($sourceDocuments) : $sourceDocuments;
 
         return $this;
     }
@@ -289,20 +257,17 @@ class Translation
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Request\Callback>
-     */
-    public function getCallbacks(): array
+    public function getCallbacks(): CallbackCollection
     {
         return $this->callbacks;
     }
 
     /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Request\Callback> $callbacks
+     * @param \OpenEuropa\CdtClient\Model\Request\CallbackCollection|array<int, \OpenEuropa\CdtClient\Model\Request\Callback> $callbacks
      */
-    public function setCallbacks(array $callbacks): self
+    public function setCallbacks(CallbackCollection|array $callbacks): self
     {
-        $this->callbacks = $callbacks;
+        $this->callbacks = is_array($callbacks) ? new CallbackCollection($callbacks) : $callbacks;
 
         return $this;
     }
