@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\CdtClient\Model\Response;
 
+use OpenEuropa\CdtClient\Model\Response\ReferenceContactCollection;
+use OpenEuropa\CdtClient\Model\Response\ReferenceItemCollection;
+use OpenEuropa\CdtClient\Model\StringCollection;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -24,15 +27,16 @@ class ReferenceDataTest extends TestCase
         ];
         $referenceItem = $this->createResponseReferenceData($data);
 
-        $this->assertEquals($data['languages'], $referenceItem->getLanguages());
-        $this->assertIsArray($referenceItem->getDepartments());
-        $this->assertIsArray($referenceItem->getPriorities());
-        $this->assertIsArray($referenceItem->getPurposes());
-        $this->assertIsArray($referenceItem->getDeliveryModes());
-        $this->assertIsArray($referenceItem->getConfidentialities());
-        $this->assertIsArray($referenceItem->getStatuses());
-        $this->assertIsArray($referenceItem->getServices());
-        $this->assertIsArray($referenceItem->getSendOptions());
-        $this->assertIsArray($referenceItem->getContacts());
+        $this->assertInstanceOf(StringCollection::class, $referenceItem->getLanguages());
+        $this->assertEquals($data['languages'], (array) $referenceItem->getLanguages());
+        $this->assertInstanceOf(ReferenceItemCollection::class, $referenceItem->getDepartments());
+        $this->assertInstanceOf(ReferenceItemCollection::class, $referenceItem->getPriorities());
+        $this->assertInstanceOf(ReferenceItemCollection::class, $referenceItem->getPurposes());
+        $this->assertInstanceOf(ReferenceItemCollection::class, $referenceItem->getDeliveryModes());
+        $this->assertInstanceOf(ReferenceItemCollection::class, $referenceItem->getConfidentialities());
+        $this->assertInstanceOf(ReferenceItemCollection::class, $referenceItem->getStatuses());
+        $this->assertInstanceOf(ReferenceItemCollection::class, $referenceItem->getServices());
+        $this->assertInstanceOf(ReferenceItemCollection::class, $referenceItem->getSendOptions());
+        $this->assertInstanceOf(ReferenceContactCollection::class, $referenceItem->getContacts());
     }
 }

@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace OpenEuropa\Tests\CdtClient\Model\Request;
+
+use OpenEuropa\CdtClient\Model\Request\CallbackCollection;
+use OpenEuropa\Tests\CdtClient\Traits\CollectionTestTrait;
+use OpenEuropa\Tests\CdtClient\Traits\RequestModelTestTrait;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @coversDefaultClass \OpenEuropa\CdtClient\Model\Request\CallbackCollection
+ */
+class CallbackCollectionTest extends TestCase
+{
+    use RequestModelTestTrait;
+    use CollectionTestTrait;
+
+    /**
+     * @covers \OpenEuropa\CdtClient\Model\BaseCollection
+     * @covers \OpenEuropa\CdtClient\Model\Request\CallbackCollection
+     */
+    public function testCollection(): void
+    {
+        $this->assertCollection([
+            $this->createRequestCallback(['callbackType' => 'TYPE 1']),
+            $this->createRequestCallback(['callbackType' => 'TYPE 2']),
+            $this->createRequestCallback(['callbackType' => 'TYPE 3']),
+        ], CallbackCollection::class);
+    }
+}

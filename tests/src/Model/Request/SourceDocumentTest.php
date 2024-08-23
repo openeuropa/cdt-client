@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Model\Request;
 
 use OpenEuropa\CdtClient\Model\Request\File;
+use OpenEuropa\CdtClient\Model\Request\TranslationJobCollection;
+use OpenEuropa\CdtClient\Model\StringCollection;
 use OpenEuropa\Tests\CdtClient\Traits\RequestModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -28,11 +30,12 @@ class SourceDocumentTest extends TestCase
         ];
         $sourceDocument = $this->createRequestSourceDocument($data);
 
-        $this->assertEquals($data['sourceLanguages'], $sourceDocument->getSourceLanguages());
+        $this->assertInstanceOf(StringCollection::class, $sourceDocument->getSourceLanguages());
+        $this->assertEquals($data['sourceLanguages'], (array) $sourceDocument->getSourceLanguages());
         $this->assertEquals($data['outputDocumentFormatCode'], $sourceDocument->getOutputDocumentFormatCode());
         $this->assertEquals($data['confidentialityCode'], $sourceDocument->getConfidentialityCode());
         $this->assertEquals($data['isPrivate'], $sourceDocument->isPrivate());
         $this->assertInstanceOf(File::class, $sourceDocument->getFile());
-        $this->assertIsArray($sourceDocument->getTranslationJobs());
+        $this->assertInstanceOf(TranslationJobCollection::class, $sourceDocument->getTranslationJobs());
     }
 }
