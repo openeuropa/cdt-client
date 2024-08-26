@@ -12,12 +12,12 @@ jobs:
     steps:
       - name: clone
         uses: actions/checkout@v2
-      - run: docker-compose up -d
-      - run: docker-compose exec -T web composer self-update # Fix for broken GitHub pipeline.
+      - run: docker compose up -d
+      - run: docker compose exec -T web composer self-update # Fix for broken GitHub pipeline.
       - name: build
-        run: docker-compose exec -T web ${{ matrix.composer_command }}
+        run: docker compose exec -T web ${{ matrix.composer_command }}
       - name: test
-        run: docker-compose exec -T web ./vendor/bin/phpunit
+        run: docker compose exec -T web ./vendor/bin/phpunit
   code-sniffer:
     runs-on: ubuntu-latest
     strategy:
@@ -28,9 +28,9 @@ jobs:
     steps:
       - name: clone
         uses: actions/checkout@v2
-      - run: docker-compose up -d
-      - run: docker-compose exec -T web composer self-update # Fix for broken GitHub pipeline.
+      - run: docker compose up -d
+      - run: docker compose exec -T web composer self-update # Fix for broken GitHub pipeline.
       - name: build
-        run: docker-compose exec -T web composer install
+        run: docker compose exec -T web composer install
       - name: test
-        run: docker-compose exec -T web ./vendor/bin/grumphp run
+        run: docker compose exec -T web ./vendor/bin/grumphp run
