@@ -18,15 +18,24 @@ abstract class BaseCollection extends \ArrayIterator
      */
     protected array $collection;
 
-    abstract public static function getItemType(): string;
+    /**
+     * The constant should be overridden in child classes.
+     *
+     * @var class-string|string ITEM_TYPE
+     */
+    public const ITEM_TYPE = '';
 
     /**
      * @param array<int|string, mixed> $array
      */
     public function __construct(array $array, int $flags = 0)
     {
-        foreach ($array as $value) {
-            $this->checkArgumentType($value);
+        if (empty(static::ITEM_TYPE)) {
+            throw new \LogicException('The ITEM_TYPE constant must be overridden in child classes.');
+        }
+
+        foreach ($array as $key => $value) {
+            $this->checkArgumentType($value, $key);
         }
 
         parent::__construct($array, $flags);
@@ -34,7 +43,7 @@ abstract class BaseCollection extends \ArrayIterator
 
     public function offsetSet(mixed $key, mixed $value): void
     {
-        $this->checkArgumentType($value);
+        $this->checkArgumentType($value, $key);
 
         parent::offsetSet($key, $value);
     }
@@ -46,27 +55,5 @@ abstract class BaseCollection extends \ArrayIterator
         parent::append($value);
     }
 
-    protected function checkArgumentType(mixed $value): void
-    {
-        $itemType = static::getItemType();
-        if ($itemType === 'string') {
-            // This is a special case for collections of strings.
-            $hasProperType = is_string($value);
-        } else {
-            $hasProperType = $value instanceof $itemType;
-        }
-
-        if (!$hasProperType) {
-            $detectedType = gettype($value);
-            if ($detectedType === 'object') {
-                $detectedType = $value::class;
-            }
-
-            throw new \InvalidArgumentException(sprintf(
-                'Invalid argument type: %s, expected instance of %s.',
-                $detectedType,
-                $itemType,
-            ));
-        }
-    }
+    abstract protected function checkArgumentType(mixed $value, mixed $affectedKey = null): void;
 }

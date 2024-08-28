@@ -5,26 +5,20 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient\Model;
 
 /**
- * Class StringCollection.
+ * Class ObjectCollection.
  *
- * Represents the collection of strings.
+ * Represents the collection of objects.
  */
-class StringCollection extends ObjectCollection
+abstract class ObjectCollection extends BaseCollection
 {
-    public const ITEM_TYPE = 'string';
-
-    public function offsetGet(mixed $key): ?string
-    {
-        return parent::offsetGet($key);
-    }
-
     protected function checkArgumentType(mixed $value, mixed $affectedKey = null): void
     {
-        if (!is_string($value)) {
+        if (!($value instanceof (static::ITEM_TYPE))) {
             throw new \InvalidArgumentException(sprintf(
-                'Invalid argument type on %s: %s, expected string.',
+                'Invalid argument type on %s: %s, expected instance of %s.',
                 is_null($affectedKey) ? 'appended item' : "item #$affectedKey",
                 get_debug_type($value),
+                static::ITEM_TYPE,
             ));
         }
     }

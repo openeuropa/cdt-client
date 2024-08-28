@@ -4,22 +4,19 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model\Response;
 
-use OpenEuropa\CdtClient\Model\BaseCollection;
+use OpenEuropa\CdtClient\Model\ObjectCollection;
 
 /**
  * Class SourceDocumentCollection.
  *
  * Represents the collection of source documents sent to the CDT API.
  */
-class SourceDocumentCollection extends BaseCollection
+class SourceDocumentCollection extends ObjectCollection
 {
+    public const ITEM_TYPE = SourceDocument::class;
+
     public function offsetGet(mixed $key): ?SourceDocument
     {
         return parent::offsetGet($key);
-    }
-
-    public static function getItemType(): string
-    {
-        return SourceDocument::class;
     }
 }

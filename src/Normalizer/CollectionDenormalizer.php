@@ -24,11 +24,9 @@ class CollectionDenormalizer implements DenormalizerInterface, DenormalizerAware
      */
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = [])
     {
-        if (class_exists($type)) {
-            $elementType = $type::getItemType();
-            foreach ($data as $key => $item) {
-                $data[$key] = $this->denormalizer->denormalize($item, $elementType, $format, $context);
-            }
+        $elementType = $type::ITEM_TYPE;
+        foreach ($data as $key => $item) {
+            $data[$key] = $this->denormalizer->denormalize($item, $elementType, $format, $context);
         }
 
         return new $type($data);

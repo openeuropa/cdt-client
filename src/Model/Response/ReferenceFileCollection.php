@@ -4,22 +4,19 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model\Response;
 
-use OpenEuropa\CdtClient\Model\BaseCollection;
+use OpenEuropa\CdtClient\Model\ObjectCollection;
 
 /**
  * Class ReferenceFileCollection.
  *
  * Represents the collection of reference files received from the CDT API.
  */
-class ReferenceFileCollection extends BaseCollection
+class ReferenceFileCollection extends ObjectCollection
 {
+    public const ITEM_TYPE = ReferenceFile::class;
+
     public function offsetGet(mixed $key): ?ReferenceFile
     {
         return parent::offsetGet($key);
-    }
-
-    public static function getItemType(): string
-    {
-        return ReferenceFile::class;
     }
 }
