@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\CdtClient\Traits;
 
 use OpenEuropa\CdtClient\Normalizer\CollectionDenormalizer;
-use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
+use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
@@ -36,7 +36,7 @@ trait SerializerAwareTrait
                     new AttributeLoader(),
                 ),
                 null,
-                new PhpDocExtractor(),
+                new ReflectionExtractor(),
             ),
             new DateTimeNormalizer(),
             new ArrayDenormalizer(),

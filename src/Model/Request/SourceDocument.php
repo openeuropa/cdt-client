@@ -42,12 +42,9 @@ class SourceDocument
         return $this->sourceLanguages;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $sourceLanguages
-     */
-    public function setSourceLanguages(StringCollection|array $sourceLanguages): self
+    public function setSourceLanguages(StringCollection $sourceLanguages): self
     {
-        $this->sourceLanguages = is_array($sourceLanguages) ? new StringCollection($sourceLanguages) : $sourceLanguages;
+        $this->sourceLanguages = $sourceLanguages;
 
         return $this;
     }
@@ -69,12 +66,9 @@ class SourceDocument
         return $this->translationJobs;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Request\TranslationJobCollection|array<int, \OpenEuropa\CdtClient\Model\Request\TranslationJob> $translationJobs
-     */
-    public function setTranslationJobs(TranslationJobCollection|array $translationJobs): self
+    public function setTranslationJobs(TranslationJobCollection $translationJobs): self
     {
-        $this->translationJobs = is_array($translationJobs) ? new TranslationJobCollection($translationJobs) : $translationJobs;
+        $this->translationJobs = $translationJobs;
 
         return $this;
     }

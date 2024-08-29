@@ -91,12 +91,9 @@ class File
         return $this->links;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\LinkCollection|array<int, \OpenEuropa\CdtClient\Model\Response\Link> $links
-     */
-    public function setLinks(LinkCollection|array $links): self
+    public function setLinks(LinkCollection $links): self
     {
-        $this->links = is_array($links) ? new LinkCollection($links) : $links;
+        $this->links = $links;
 
         return $this;
     }

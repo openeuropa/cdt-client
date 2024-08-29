@@ -106,12 +106,9 @@ class Translation
         return $this->sourceLanguages;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $sourceLanguages
-     */
-    public function setSourceLanguages(StringCollection|array $sourceLanguages): self
+    public function setSourceLanguages(StringCollection $sourceLanguages): self
     {
-        $this->sourceLanguages = is_array($sourceLanguages) ? new StringCollection($sourceLanguages) : $sourceLanguages;
+        $this->sourceLanguages = $sourceLanguages;
 
         return $this;
     }
@@ -121,12 +118,9 @@ class Translation
         return $this->targetLanguages;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $targetLanguages
-     */
-    public function setTargetLanguages(StringCollection|array $targetLanguages): self
+    public function setTargetLanguages(StringCollection $targetLanguages): self
     {
-        $this->targetLanguages = is_array($targetLanguages) ? new StringCollection($targetLanguages) : $targetLanguages;
+        $this->targetLanguages = $targetLanguages;
 
         return $this;
     }
@@ -196,12 +190,9 @@ class Translation
         return $this->contacts;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $contacts
-     */
-    public function setContacts(StringCollection|array $contacts): self
+    public function setContacts(StringCollection $contacts): self
     {
-        $this->contacts = is_array($contacts) ? new StringCollection($contacts) : $contacts;
+        $this->contacts = $contacts;
 
         return $this;
     }
@@ -211,12 +202,9 @@ class Translation
         return $this->deliverToContacts;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $deliverToContacts
-     */
-    public function setDeliverToContacts(StringCollection|array $deliverToContacts): self
+    public function setDeliverToContacts(StringCollection $deliverToContacts): self
     {
-        $this->deliverToContacts = is_array($deliverToContacts) ? new StringCollection($deliverToContacts) : $deliverToContacts;
+        $this->deliverToContacts = $deliverToContacts;
 
         return $this;
     }
@@ -226,12 +214,9 @@ class Translation
         return $this->sourceDocuments;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\SourceDocumentCollection|array<int, \OpenEuropa\CdtClient\Model\Response\SourceDocument> $sourceDocuments
-     */
-    public function setSourceDocuments(SourceDocumentCollection|array $sourceDocuments): self
+    public function setSourceDocuments(SourceDocumentCollection $sourceDocuments): self
     {
-        $this->sourceDocuments = is_array($sourceDocuments) ? new SourceDocumentCollection($sourceDocuments) : $sourceDocuments;
+        $this->sourceDocuments = $sourceDocuments;
 
         return $this;
     }
@@ -241,12 +226,9 @@ class Translation
         return $this->referenceFiles;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\ReferenceFileCollection|array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceFile> $referenceFiles
-     */
-    public function setReferenceFiles(ReferenceFileCollection|array $referenceFiles): self
+    public function setReferenceFiles(ReferenceFileCollection $referenceFiles): self
     {
-        $this->referenceFiles = is_array($referenceFiles) ? new ReferenceFileCollection($referenceFiles) : $referenceFiles;
+        $this->referenceFiles = $referenceFiles;
 
         return $this;
     }
@@ -256,12 +238,9 @@ class Translation
         return $this->bilingualFiles;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\FileCollection|array<int, \OpenEuropa\CdtClient\Model\Response\File> $bilingualFiles
-     */
-    public function setBilingualFiles(FileCollection|array $bilingualFiles): self
+    public function setBilingualFiles(FileCollection $bilingualFiles): self
     {
-        $this->bilingualFiles = is_array($bilingualFiles) ? new FileCollection($bilingualFiles) : $bilingualFiles;
+        $this->bilingualFiles = $bilingualFiles;
 
         return $this;
     }
@@ -271,12 +250,9 @@ class Translation
         return $this->targetFiles;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\FileCollection|array<int, \OpenEuropa\CdtClient\Model\Response\File> $targetFiles
-     */
-    public function setTargetFiles(FileCollection|array $targetFiles): self
+    public function setTargetFiles(FileCollection $targetFiles): self
     {
-        $this->targetFiles = is_array($targetFiles) ? new FileCollection($targetFiles) : $targetFiles;
+        $this->targetFiles = $targetFiles;
 
         return $this;
     }
@@ -286,12 +262,9 @@ class Translation
         return $this->dates;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\DateCollection|array<int, \OpenEuropa\CdtClient\Model\Response\Date> $dates
-     */
-    public function setDates(DateCollection|array $dates): self
+    public function setDates(DateCollection $dates): self
     {
-        $this->dates = is_array($dates) ? new DateCollection($dates) : $dates;
+        $this->dates = $dates;
 
         return $this;
     }
@@ -301,12 +274,9 @@ class Translation
         return $this->comments;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\CommentCollection|array<int, \OpenEuropa\CdtClient\Model\Response\Comment> $comments
-     */
-    public function setComments(CommentCollection|array $comments): self
+    public function setComments(CommentCollection $comments): self
     {
-        $this->comments = is_array($comments) ? new CommentCollection($comments) : $comments;
+        $this->comments = $comments;
 
         return $this;
     }
@@ -328,12 +298,9 @@ class Translation
         return $this->jobSummary;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\JobSummaryCollection|array<int, \OpenEuropa\CdtClient\Model\Response\JobSummary> $jobSummary
-     */
-    public function setJobSummary(JobSummaryCollection|array $jobSummary): self
+    public function setJobSummary(JobSummaryCollection $jobSummary): self
     {
-        $this->jobSummary = is_array($jobSummary) ? new JobSummaryCollection($jobSummary) : $jobSummary;
+        $this->jobSummary = $jobSummary;
 
         return $this;
     }
@@ -427,12 +394,9 @@ class Translation
         return $this->links;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\LinkCollection|array<string, \OpenEuropa\CdtClient\Model\Response\Link> $links
-     */
-    public function setLinks(LinkCollection|array $links): self
+    public function setLinks(LinkCollection $links): self
     {
-        $this->links = is_array($links) ? new LinkCollection($links) : $links;
+        $this->links = $links;
 
         return $this;
     }

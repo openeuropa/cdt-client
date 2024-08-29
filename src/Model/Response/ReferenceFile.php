@@ -28,12 +28,9 @@ class ReferenceFile
         return $this->languages;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $languages
-     */
-    public function setLanguages(StringCollection|array $languages): self
+    public function setLanguages(StringCollection $languages): self
     {
-        $this->languages = is_array($languages) ? new StringCollection($languages) : $languages;
+        $this->languages = $languages;
 
         return $this;
     }
@@ -67,12 +64,9 @@ class ReferenceFile
         return $this->links;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\LinkCollection|array<string, \OpenEuropa\CdtClient\Model\Response\Link> $links
-     */
-    public function setLinks(LinkCollection|array $links): self
+    public function setLinks(LinkCollection $links): self
     {
-        $this->links = is_array($links) ? new LinkCollection($links) : $links;
+        $this->links = $links;
 
         return $this;
     }

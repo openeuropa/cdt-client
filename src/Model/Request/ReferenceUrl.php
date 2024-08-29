@@ -48,12 +48,9 @@ class ReferenceUrl
         return $this->referenceLanguages;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $referenceLanguages
-     */
-    public function setReferenceLanguages(StringCollection|array $referenceLanguages): self
+    public function setReferenceLanguages(StringCollection $referenceLanguages): self
     {
-        $this->referenceLanguages = is_array($referenceLanguages) ? new StringCollection($referenceLanguages) : $referenceLanguages;
+        $this->referenceLanguages = $referenceLanguages;
 
         return $this;
     }

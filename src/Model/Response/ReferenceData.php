@@ -38,12 +38,9 @@ class ReferenceData
         return $this->departments;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\ReferenceItemCollection|array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $departments
-     */
-    public function setDepartments(ReferenceItemCollection|array $departments): self
+    public function setDepartments(ReferenceItemCollection $departments): self
     {
-        $this->departments = is_array($departments) ? new ReferenceItemCollection($departments) : $departments;
+        $this->departments = $departments;
 
         return $this;
     }
@@ -53,12 +50,9 @@ class ReferenceData
         return $this->priorities;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\ReferenceItemCollection|array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $priorities
-     */
-    public function setPriorities(ReferenceItemCollection|array $priorities): self
+    public function setPriorities(ReferenceItemCollection $priorities): self
     {
-        $this->priorities = is_array($priorities) ? new ReferenceItemCollection($priorities) : $priorities;
+        $this->priorities = $priorities;
 
         return $this;
     }
@@ -68,12 +62,9 @@ class ReferenceData
         return $this->purposes;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\ReferenceItemCollection|array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $purposes
-     */
-    public function setPurposes(ReferenceItemCollection|array $purposes): self
+    public function setPurposes(ReferenceItemCollection $purposes): self
     {
-        $this->purposes = is_array($purposes) ? new ReferenceItemCollection($purposes) : $purposes;
+        $this->purposes = $purposes;
 
         return $this;
     }
@@ -83,12 +74,9 @@ class ReferenceData
         return $this->deliveryModes;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\ReferenceItemCollection|array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $deliveryModes
-     */
-    public function setDeliveryModes(ReferenceItemCollection|array $deliveryModes): self
+    public function setDeliveryModes(ReferenceItemCollection $deliveryModes): self
     {
-        $this->deliveryModes = is_array($deliveryModes) ? new ReferenceItemCollection($deliveryModes) : $deliveryModes;
+        $this->deliveryModes = $deliveryModes;
 
         return $this;
     }
@@ -98,12 +86,9 @@ class ReferenceData
         return $this->confidentialities;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\ReferenceItemCollection|array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $confidentialities
-     */
-    public function setConfidentialities(ReferenceItemCollection|array $confidentialities): self
+    public function setConfidentialities(ReferenceItemCollection $confidentialities): self
     {
-        $this->confidentialities = is_array($confidentialities) ? new ReferenceItemCollection($confidentialities) : $confidentialities;
+        $this->confidentialities = $confidentialities;
 
         return $this;
     }
@@ -113,12 +98,9 @@ class ReferenceData
         return $this->languages;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\StringCollection|array<int, string> $languages
-     */
-    public function setLanguages(StringCollection|array $languages): self
+    public function setLanguages(StringCollection $languages): self
     {
-        $this->languages = is_array($languages) ? new StringCollection($languages) : $languages;
+        $this->languages = $languages;
 
         return $this;
     }
@@ -128,12 +110,9 @@ class ReferenceData
         return $this->statuses;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\ReferenceItemCollection|array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $statuses
-     */
-    public function setStatuses(ReferenceItemCollection|array $statuses): self
+    public function setStatuses(ReferenceItemCollection $statuses): self
     {
-        $this->statuses = is_array($statuses) ? new ReferenceItemCollection($statuses) : $statuses;
+        $this->statuses = $statuses;
 
         return $this;
     }
@@ -143,12 +122,9 @@ class ReferenceData
         return $this->services;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\ReferenceItemCollection|array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $services
-     */
-    public function setServices(ReferenceItemCollection|array $services): self
+    public function setServices(ReferenceItemCollection $services): self
     {
-        $this->services = is_array($services) ? new ReferenceItemCollection($services) : $services;
+        $this->services = $services;
 
         return $this;
     }
@@ -158,12 +134,9 @@ class ReferenceData
         return $this->sendOptions;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\ReferenceItemCollection|array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $sendOptions
-     */
-    public function setSendOptions(ReferenceItemCollection|array $sendOptions): self
+    public function setSendOptions(ReferenceItemCollection $sendOptions): self
     {
-        $this->sendOptions = is_array($sendOptions) ? new ReferenceItemCollection($sendOptions) : $sendOptions;
+        $this->sendOptions = $sendOptions;
 
         return $this;
     }
@@ -173,12 +146,9 @@ class ReferenceData
         return $this->contacts;
     }
 
-    /**
-     * @param \OpenEuropa\CdtClient\Model\Response\ReferenceContactCollection|array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceContact> $contacts
-     */
-    public function setContacts(ReferenceContactCollection|array $contacts): self
+    public function setContacts(ReferenceContactCollection $contacts): self
     {
-        $this->contacts = is_array($contacts) ? new ReferenceContactCollection($contacts) : $contacts;
+        $this->contacts = $contacts;
 
         return $this;
     }
