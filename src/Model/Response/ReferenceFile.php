@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model\Response;
 
+use OpenEuropa\CdtClient\Model\StringCollection;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 /**
@@ -13,33 +14,21 @@ use Symfony\Component\Serializer\Annotation\SerializedPath;
  */
 class ReferenceFile
 {
-    /**
-     * @var array<int, string>
-     */
-    protected array $languages;
+    protected StringCollection $languages;
 
     protected string $fileName;
 
     protected bool $isPrivate;
 
-    /**
-     * @var array<string, \OpenEuropa\CdtClient\Model\Response\Link>
-     */
     #[SerializedPath('[_links]')]
-    protected array $links;
+    protected LinkCollection $links;
 
-    /**
-     * @return array<int, string>
-     */
-    public function getLanguages(): array
+    public function getLanguages(): StringCollection
     {
         return $this->languages;
     }
 
-    /**
-     * @param array<int, string> $languages
-     */
-    public function setLanguages(array $languages): self
+    public function setLanguages(StringCollection $languages): self
     {
         $this->languages = $languages;
 
@@ -70,18 +59,12 @@ class ReferenceFile
         return $this;
     }
 
-    /**
-     * @return array<string, \OpenEuropa\CdtClient\Model\Response\Link>
-     */
-    public function getLinks(): array
+    public function getLinks(): LinkCollection
     {
         return $this->links;
     }
 
-    /**
-     * @param array<string, \OpenEuropa\CdtClient\Model\Response\Link> $links
-     */
-    public function setLinks(array $links): self
+    public function setLinks(LinkCollection $links): self
     {
         $this->links = $links;
 

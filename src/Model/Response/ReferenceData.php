@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model\Response;
 
+use OpenEuropa\CdtClient\Model\StringCollection;
+
 /**
  * Class ReferenceData.
  *
@@ -11,230 +13,140 @@ namespace OpenEuropa\CdtClient\Model\Response;
  */
 class ReferenceData
 {
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    protected array $departments;
+    protected ReferenceItemCollection $departments;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    protected array $priorities;
+    protected ReferenceItemCollection $priorities;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    protected array $purposes;
+    protected ReferenceItemCollection $purposes;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    protected array $deliveryModes;
+    protected ReferenceItemCollection $deliveryModes;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    protected array $confidentialities;
+    protected ReferenceItemCollection $confidentialities;
 
-    /**
-     * @var array<int, string>
-     */
-    protected array $languages;
+    protected StringCollection $languages;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    protected array $statuses;
+    protected ReferenceItemCollection $statuses;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    protected array $services;
+    protected ReferenceItemCollection $services;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    protected array $sendOptions;
+    protected ReferenceItemCollection $sendOptions;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceContact>
-     */
-    protected array $contacts;
+    protected ReferenceContactCollection $contacts;
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    public function getDepartments(): array
+    public function getDepartments(): ReferenceItemCollection
     {
         return $this->departments;
     }
 
-    /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $departments
-     */
-    public function setDepartments(array $departments): self
+    public function setDepartments(ReferenceItemCollection $departments): self
     {
         $this->departments = $departments;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    public function getPriorities(): array
+    public function getPriorities(): ReferenceItemCollection
     {
         return $this->priorities;
     }
 
-    /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $priorities
-     */
-    public function setPriorities(array $priorities): self
+    public function setPriorities(ReferenceItemCollection $priorities): self
     {
         $this->priorities = $priorities;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    public function getPurposes(): array
+    public function getPurposes(): ReferenceItemCollection
     {
         return $this->purposes;
     }
 
-    /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $purposes
-     */
-    public function setPurposes(array $purposes): self
+    public function setPurposes(ReferenceItemCollection $purposes): self
     {
         $this->purposes = $purposes;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    public function getDeliveryModes(): array
+    public function getDeliveryModes(): ReferenceItemCollection
     {
         return $this->deliveryModes;
     }
 
-    /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $deliveryModes
-     */
-    public function setDeliveryModes(array $deliveryModes): self
+    public function setDeliveryModes(ReferenceItemCollection $deliveryModes): self
     {
         $this->deliveryModes = $deliveryModes;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    public function getConfidentialities(): array
+    public function getConfidentialities(): ReferenceItemCollection
     {
         return $this->confidentialities;
     }
 
-    /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $confidentialities
-     */
-    public function setConfidentialities(array $confidentialities): self
+    public function setConfidentialities(ReferenceItemCollection $confidentialities): self
     {
         $this->confidentialities = $confidentialities;
 
         return $this;
     }
 
-    /**
-     * @return array<int, string>
-     */
-    public function getLanguages(): array
+    public function getLanguages(): StringCollection
     {
         return $this->languages;
     }
 
-    /**
-     * @param array<int, string> $languages
-     */
-    public function setLanguages(array $languages): self
+    public function setLanguages(StringCollection $languages): self
     {
         $this->languages = $languages;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    public function getStatuses(): array
+    public function getStatuses(): ReferenceItemCollection
     {
         return $this->statuses;
     }
 
-    /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $statuses
-     */
-    public function setStatuses(array $statuses): self
+    public function setStatuses(ReferenceItemCollection $statuses): self
     {
         $this->statuses = $statuses;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    public function getServices(): array
+    public function getServices(): ReferenceItemCollection
     {
         return $this->services;
     }
 
-    /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $services
-     */
-    public function setServices(array $services): self
+    public function setServices(ReferenceItemCollection $services): self
     {
         $this->services = $services;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem>
-     */
-    public function getSendOptions(): array
+    public function getSendOptions(): ReferenceItemCollection
     {
         return $this->sendOptions;
     }
 
-    /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceItem> $sendOptions
-     */
-    public function setSendOptions(array $sendOptions): self
+    public function setSendOptions(ReferenceItemCollection $sendOptions): self
     {
         $this->sendOptions = $sendOptions;
 
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceContact>
-     */
-    public function getContacts(): array
+    public function getContacts(): ReferenceContactCollection
     {
         return $this->contacts;
     }
 
-    /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Response\ReferenceContact> $contacts
-     */
-    public function setContacts(array $contacts): self
+    public function setContacts(ReferenceContactCollection $contacts): self
     {
         $this->contacts = $contacts;
 

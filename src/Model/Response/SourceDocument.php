@@ -17,11 +17,8 @@ class SourceDocument
 
     protected bool $isPrivate;
 
-    /**
-     * @var array<string, \OpenEuropa\CdtClient\Model\Response\Link>
-     */
     #[SerializedPath('[_links]')]
-    protected array $links;
+    protected LinkCollection $links;
 
     public function getFileName(): string
     {
@@ -47,18 +44,12 @@ class SourceDocument
         return $this;
     }
 
-    /**
-     * @return array<string, \OpenEuropa\CdtClient\Model\Response\Link>
-     */
-    public function getLinks(): array
+    public function getLinks(): LinkCollection
     {
         return $this->links;
     }
 
-    /**
-     * @param array<string, \OpenEuropa\CdtClient\Model\Response\Link> $links
-     */
-    public function setLinks(array $links): self
+    public function setLinks(LinkCollection $links): self
     {
         $this->links = $links;
 

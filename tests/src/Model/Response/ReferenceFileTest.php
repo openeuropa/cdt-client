@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\CdtClient\Model\Response;
 
+use OpenEuropa\CdtClient\Model\Response\LinkCollection;
+use OpenEuropa\CdtClient\Model\StringCollection;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -28,7 +30,8 @@ class ReferenceFileTest extends TestCase
 
         $this->assertEquals($data['fileName'], $referenceFile->getFileName());
         $this->assertEquals($data['isPrivate'], $referenceFile->isPrivate());
-        $this->assertEquals($data['languages'], $referenceFile->getLanguages());
-        $this->assertIsArray($referenceFile->getLinks());
+        $this->assertInstanceOf(StringCollection::class, $referenceFile->getLanguages());
+        $this->assertEquals($data['languages'], (array) $referenceFile->getLanguages());
+        $this->assertInstanceOf(LinkCollection::class, $referenceFile->getLinks());
     }
 }

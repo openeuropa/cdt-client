@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model\Request;
 
+use OpenEuropa\CdtClient\Model\StringCollection;
+
 /**
  * Class SourceDocument.
  *
@@ -13,17 +15,11 @@ class SourceDocument
 {
     protected File $file;
 
-    /**
-     * @var string[]
-     */
-    protected array $sourceLanguages;
+    protected StringCollection $sourceLanguages;
 
     protected string $outputDocumentFormatCode;
 
-    /**
-     * @var array<int, \OpenEuropa\CdtClient\Model\Request\TranslationJob>
-     */
-    protected array $translationJobs;
+    protected TranslationJobCollection $translationJobs;
 
     protected bool $isPrivate;
 
@@ -41,18 +37,12 @@ class SourceDocument
         return $this;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getSourceLanguages(): array
+    public function getSourceLanguages(): StringCollection
     {
         return $this->sourceLanguages;
     }
 
-    /**
-     * @param string[] $sourceLanguages
-     */
-    public function setSourceLanguages(array $sourceLanguages): self
+    public function setSourceLanguages(StringCollection $sourceLanguages): self
     {
         $this->sourceLanguages = $sourceLanguages;
 
@@ -71,18 +61,12 @@ class SourceDocument
         return $this;
     }
 
-    /**
-     * @return array<int, \OpenEuropa\CdtClient\Model\Request\TranslationJob>
-     */
-    public function getTranslationJobs(): array
+    public function getTranslationJobs(): TranslationJobCollection
     {
         return $this->translationJobs;
     }
 
-    /**
-     * @param array<int, \OpenEuropa\CdtClient\Model\Request\TranslationJob> $translationJobs
-     */
-    public function setTranslationJobs(array $translationJobs): self
+    public function setTranslationJobs(TranslationJobCollection $translationJobs): self
     {
         $this->translationJobs = $translationJobs;
 

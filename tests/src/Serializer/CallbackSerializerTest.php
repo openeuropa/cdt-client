@@ -23,7 +23,7 @@ class CallbackSerializerTest extends TestCase
         $this->assertEquals('2024/12345', $requestStatus->getRequestIdentifier());
         $this->assertEquals('abcd', $requestStatus->getCorrelationId());
         $this->assertEquals('COMP', $requestStatus->getStatus());
-        $this->assertEquals(new \DateTime('2024-02-28T12:03:03.6239422'), $requestStatus->getDate());
+        $this->assertEquals(new \DateTimeImmutable('2024-02-28T12:03:03.6239422'), $requestStatus->getDate());
     }
 
     /**

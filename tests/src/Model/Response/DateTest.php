@@ -20,7 +20,7 @@ class DateTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $data = [
-            'date' => new \DateTime('2024-02-07T16:00:00+01:00'),
+            'date' => new \DateTimeImmutable('2024-02-07T16:00:00+01:00'),
             'label' => 'Date and time',
             'ecdtDateType' => 'LastDeadline',
             'tooltip' => 'The Tooltip',

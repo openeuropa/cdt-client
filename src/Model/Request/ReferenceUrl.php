@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OpenEuropa\CdtClient\Model\Request;
 
+use OpenEuropa\CdtClient\Model\StringCollection;
+
 /**
  * Class ReferenceUrl.
  *
@@ -15,10 +17,7 @@ class ReferenceUrl
 
     protected string $shortName;
 
-    /**
-     * @var string[]
-     */
-    protected array $referenceLanguages;
+    protected StringCollection $referenceLanguages;
 
     public function getUrl(): string
     {
@@ -44,18 +43,12 @@ class ReferenceUrl
         return $this;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getReferenceLanguages(): array
+    public function getReferenceLanguages(): StringCollection
     {
         return $this->referenceLanguages;
     }
 
-    /**
-     * @param string[] $referenceLanguages
-     */
-    public function setReferenceLanguages(array $referenceLanguages): self
+    public function setReferenceLanguages(StringCollection $referenceLanguages): self
     {
         $this->referenceLanguages = $referenceLanguages;
 

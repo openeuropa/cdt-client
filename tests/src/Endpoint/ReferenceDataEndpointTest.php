@@ -29,6 +29,7 @@ class ReferenceDataEndpointTest extends TestCase
      * @covers \OpenEuropa\CdtClient\Endpoint\ReferenceDataEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
      * @covers \OpenEuropa\CdtClient\Http\Rest
+     * @covers \OpenEuropa\CdtClient\Normalizer\CollectionDenormalizer
      */
     public function testReferenceData(array $clientConfig, array $responses, mixed $expectedResult): void
     {

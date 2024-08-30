@@ -22,7 +22,7 @@ class RequestStatusTest extends TestCase
         $data = [
             'requestIdentifier' => 'TEST_ID',
             'status' => 'TEST_STATUS',
-            'date' => new \DateTime('2023-12-31T23:59:59+00:00'),
+            'date' => new \DateTimeImmutable('2023-12-31T23:59:59+00:00'),
             'correlationId' => '111',
         ];
         $requestStatus = $this->createCallbackRequestStatus($data);

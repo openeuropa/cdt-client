@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\CdtClient\Model\Response;
 
+use OpenEuropa\CdtClient\Model\Response\LinkCollection;
 use OpenEuropa\Tests\CdtClient\Traits\ResponseModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -33,6 +34,6 @@ class FileTest extends TestCase
         $this->assertEquals($data['targetLanguage'], $file->getTargetLanguage());
         $this->assertEquals($data['sourceDocument'], $file->getSourceDocument());
         $this->assertEquals($data['isPrivate'], $file->isPrivate());
-        $this->assertIsArray($file->getLinks());
+        $this->assertInstanceOf(LinkCollection::class, $file->getLinks());
     }
 }

@@ -36,7 +36,7 @@ trait CallbackModelTestTrait
         return (new RequestStatus())
             ->setRequestIdentifier($data['requestIdentifier'] ?? '2024/12345')
             ->setStatus($data['status'] ?? 'COMP')
-            ->setDate($data['date'] ?? new \DateTime())
+            ->setDate($data['date'] ?? new \DateTimeImmutable())
             ->setCorrelationId($data['correlationId'] ?? '12345');
     }
 

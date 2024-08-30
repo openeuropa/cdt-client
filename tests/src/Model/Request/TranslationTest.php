@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\CdtClient\Model\Request;
 
+use OpenEuropa\CdtClient\Model\Request\CallbackCollection;
+use OpenEuropa\CdtClient\Model\Request\ReferenceFileCollection;
+use OpenEuropa\CdtClient\Model\Request\ReferenceUrlCollection;
+use OpenEuropa\CdtClient\Model\Request\SourceDocumentCollection;
+use OpenEuropa\CdtClient\Model\StringCollection;
 use OpenEuropa\Tests\CdtClient\Traits\RequestModelTestTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -37,8 +42,10 @@ class TranslationTest extends TestCase
         $translation = $this->createRequestTranslation($data);
 
         $this->assertEquals($data['departmentCode'], $translation->getDepartmentCode());
-        $this->assertEquals($data['contactUserNames'], $translation->getContactUserNames());
-        $this->assertEquals($data['deliveryContactUsernames'], $translation->getDeliveryContactUsernames());
+        $this->assertInstanceOf(StringCollection::class, $translation->getContactUserNames());
+        $this->assertEquals($data['contactUserNames'], (array) $translation->getContactUserNames());
+        $this->assertInstanceOf(StringCollection::class, $translation->getDeliveryContactUsernames());
+        $this->assertEquals($data['deliveryContactUsernames'], (array) $translation->getDeliveryContactUsernames());
         $this->assertEquals($data['phoneNumber'], $translation->getPhoneNumber());
         $this->assertEquals($data['title'], $translation->getTitle());
         $this->assertEquals($data['clientReference'], $translation->getClientReference());
@@ -46,12 +53,12 @@ class TranslationTest extends TestCase
         $this->assertEquals($data['deliveryModeCode'], $translation->getDeliveryModeCode());
         $this->assertEquals($data['priorityCode'], $translation->getPriorityCode());
         $this->assertEquals($data['comments'], $translation->getComments());
-        $this->assertIsArray($translation->getReferenceSetUrls());
-        $this->assertIsArray($translation->getReferenceSetFiles());
-        $this->assertIsArray($translation->getSourceDocuments());
+        $this->assertInstanceOf(ReferenceUrlCollection::class, $translation->getReferenceSetUrls());
+        $this->assertInstanceOf(ReferenceFileCollection::class, $translation->getReferenceSetFiles());
+        $this->assertInstanceOf(SourceDocumentCollection::class, $translation->getSourceDocuments());
         $this->assertEquals($data['sendOptions'], $translation->getSendOptions());
         $this->assertEquals($data['service'], $translation->getService());
         $this->assertEquals($data['isQuotationOnly'], $translation->isQuotationOnly());
-        $this->assertIsArray($translation->getCallbacks());
+        $this->assertInstanceOf(CallbackCollection::class, $translation->getCallbacks());
     }
 }

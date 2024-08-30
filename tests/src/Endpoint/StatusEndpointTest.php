@@ -49,6 +49,7 @@ class StatusEndpointTest extends TestCase
      * @covers \OpenEuropa\CdtClient\Endpoint\StatusEndpoint
      * @covers \OpenEuropa\CdtClient\Endpoint\EndpointBase
      * @covers \OpenEuropa\CdtClient\Http\Rest
+     * @covers \OpenEuropa\CdtClient\Normalizer\CollectionDenormalizer
      */
     public function testStatus(string $permanentId, array $clientConfig, array $responses, mixed $expectedResult): void
     {
@@ -87,7 +88,7 @@ class StatusEndpointTest extends TestCase
                     'status' => 'UNDE',
                     'sourceLanguages' => ['EN'],
                     'targetLanguages' => ['FR'],
-                    'creationDate' => new \DateTime('2024-02-29T12:03:03.6239422'),
+                    'creationDate' => new \DateTimeImmutable('2024-02-29T12:03:03.6239422'),
                     'deliveryDate' => null,
                     'title' => 'Test Title',
                     'service' => 'Translation',
@@ -122,9 +123,9 @@ class StatusEndpointTest extends TestCase
                     'bilingualFiles' => [
                         [
                             'content' => '',
-                            'sourceLanguage' => '',
-                            'targetLanguage' => '',
-                            'sourceDocument' => '',
+                            'sourceLanguage' => null,
+                            'targetLanguage' => null,
+                            'sourceDocument' => null,
                             'fileName' => 'bilingual.xml',
                             'isPrivate' => false,
                             'links' => [
@@ -139,13 +140,13 @@ class StatusEndpointTest extends TestCase
                     'dates' => [
                         [
                             'label' => 'Deadline',
-                            'date' => new \DateTime('2024-03-07T16:00:00+01:00'),
+                            'date' => new \DateTimeImmutable('2024-03-07T16:00:00+01:00'),
                             'ecdtDateType' => 'Deadline',
                             'tooltip' => '',
                         ],
                         [
                             'label' => 'Receipt date',
-                            'date' => new \DateTime('2024-02-28T13:03:03.4248457+01:00'),
+                            'date' => new \DateTimeImmutable('2024-02-28T13:03:03.4248457+01:00'),
                             'ecdtDateType' => 'ReceiptDate',
                             'tooltip' => 'The receipt date depends on the date and time of request submission. Therefore, it is only displayed if the request is pre-approved.',
                         ],

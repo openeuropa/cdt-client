@@ -5,18 +5,28 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\CdtClient\Traits;
 
 use OpenEuropa\CdtClient\Model\Response\Comment;
+use OpenEuropa\CdtClient\Model\Response\CommentCollection;
 use OpenEuropa\CdtClient\Model\Response\Date;
+use OpenEuropa\CdtClient\Model\Response\DateCollection;
 use OpenEuropa\CdtClient\Model\Response\File;
+use OpenEuropa\CdtClient\Model\Response\FileCollection;
 use OpenEuropa\CdtClient\Model\Response\JobSummary;
+use OpenEuropa\CdtClient\Model\Response\JobSummaryCollection;
 use OpenEuropa\CdtClient\Model\Response\Link;
+use OpenEuropa\CdtClient\Model\Response\LinkCollection;
 use OpenEuropa\CdtClient\Model\Response\ReferenceContact;
+use OpenEuropa\CdtClient\Model\Response\ReferenceContactCollection;
 use OpenEuropa\CdtClient\Model\Response\ReferenceData;
 use OpenEuropa\CdtClient\Model\Response\ReferenceFile;
+use OpenEuropa\CdtClient\Model\Response\ReferenceFileCollection;
 use OpenEuropa\CdtClient\Model\Response\ReferenceItem;
+use OpenEuropa\CdtClient\Model\Response\ReferenceItemCollection;
 use OpenEuropa\CdtClient\Model\Response\SourceDocument;
+use OpenEuropa\CdtClient\Model\Response\SourceDocumentCollection;
 use OpenEuropa\CdtClient\Model\Response\Token;
 use OpenEuropa\CdtClient\Model\Response\Translation;
 use OpenEuropa\CdtClient\Model\Response\ValidationErrors;
+use OpenEuropa\CdtClient\Model\StringCollection;
 
 /**
  * Trait ResponseModelTestTrait
@@ -43,16 +53,16 @@ trait ResponseModelTestTrait
     public function createResponseReferenceData(array $data = []): ReferenceData
     {
         return (new ReferenceData())
-            ->setDepartments($data['departments'] ? $this->createResponseReferenceItemList($data['departments']) : [$this->createResponseReferenceItem()])
-            ->setPriorities($data['priorities'] ? $this->createResponseReferenceItemList($data['priorities']) : [$this->createResponseReferenceItem()])
-            ->setPurposes($data['purposes'] ? $this->createResponseReferenceItemList($data['purposes']) : [$this->createResponseReferenceItem()])
-            ->setDeliveryModes($data['deliveryModes'] ? $this->createResponseReferenceItemList($data['deliveryModes']) : [$this->createResponseReferenceItem()])
-            ->setConfidentialities($data['confidentialities'] ? $this->createResponseReferenceItemList($data['confidentialities']) : [$this->createResponseReferenceItem()])
-            ->setLanguages($data['languages'] ?? ['EN'])
-            ->setStatuses($data['statuses'] ? $this->createResponseReferenceItemList($data['statuses']) : [$this->createResponseReferenceItem()])
-            ->setServices($data['services'] ? $this->createResponseReferenceItemList($data['services']) : [$this->createResponseReferenceItem()])
-            ->setSendOptions($data['sendOptions'] ? $this->createResponseReferenceItemList($data['sendOptions']) : [$this->createResponseReferenceItem()])
-            ->setContacts($data['contacts'] ? $this->createResponseReferenceContactList($data['contacts']) : [$this->createResponseReferenceContact()]);
+            ->setDepartments(new ReferenceItemCollection($data['departments'] ? $this->createResponseReferenceItemList($data['departments']) : [$this->createResponseReferenceItem()]))
+            ->setPriorities(new ReferenceItemCollection($data['priorities'] ? $this->createResponseReferenceItemList($data['priorities']) : [$this->createResponseReferenceItem()]))
+            ->setPurposes(new ReferenceItemCollection($data['purposes'] ? $this->createResponseReferenceItemList($data['purposes']) : [$this->createResponseReferenceItem()]))
+            ->setDeliveryModes(new ReferenceItemCollection($data['deliveryModes'] ? $this->createResponseReferenceItemList($data['deliveryModes']) : [$this->createResponseReferenceItem()]))
+            ->setConfidentialities(new ReferenceItemCollection($data['confidentialities'] ? $this->createResponseReferenceItemList($data['confidentialities']) : [$this->createResponseReferenceItem()]))
+            ->setLanguages(new StringCollection($data['languages'] ?? ['EN']))
+            ->setStatuses(new ReferenceItemCollection($data['statuses'] ? $this->createResponseReferenceItemList($data['statuses']) : [$this->createResponseReferenceItem()]))
+            ->setServices(new ReferenceItemCollection($data['services'] ? $this->createResponseReferenceItemList($data['services']) : [$this->createResponseReferenceItem()]))
+            ->setSendOptions(new ReferenceItemCollection($data['sendOptions'] ? $this->createResponseReferenceItemList($data['sendOptions']) : [$this->createResponseReferenceItem()]))
+            ->setContacts(new ReferenceContactCollection($data['contacts'] ? $this->createResponseReferenceContactList($data['contacts']) : [$this->createResponseReferenceContact()]));
     }
 
     /**
@@ -124,17 +134,29 @@ trait ResponseModelTestTrait
      */
     public function createResponseFile(array $data = []): File
     {
-        return (new File())
+        $file = (new File())
             ->setFilename($data['fileName'] ?? 'test.xml')
-            ->setSourceLanguage($data['sourceLanguage'] ?? 'EN')
-            ->setTargetLanguage($data['targetLanguage'] ?? 'FR')
-            ->setSourceDocument($data['sourceDocument'] ?? 'test.xml')
             ->setIsPrivate($data['isPrivate'] ?? false)
-            ->setLinks($this->createResponseObjectList(
-                $data['links'] ?? null,
-                [$this, 'createResponseLink'],
-                'first',
+            ->setLinks(new LinkCollection(
+                $this->createResponseObjectList(
+                    $data['links'] ?? null,
+                    [$this, 'createResponseLink'],
+                    'first',
+                ),
             ));
+
+        // Set optional parameters.
+        if (!empty($data['sourceLanguage'])) {
+            $file->setSourceLanguage($data['sourceLanguage']);
+        }
+        if (!empty($data['targetLanguage'])) {
+            $file->setTargetLanguage($data['targetLanguage']);
+        }
+        if (!empty($data['sourceDocument'])) {
+            $file->setSourceDocument($data['sourceDocument']);
+        }
+
+        return $file;
     }
 
     /**
@@ -155,10 +177,12 @@ trait ResponseModelTestTrait
         return (new SourceDocument())
             ->setFileName($data['fileName'] ?? 'test.xml')
             ->setIsPrivate($data['isPrivate'] ?? false)
-            ->setLinks($this->createResponseObjectList(
-                $data['links'] ?? null,
-                [$this, 'createResponseLink'],
-                'first',
+            ->setLinks(new LinkCollection(
+                $this->createResponseObjectList(
+                    $data['links'] ?? null,
+                    [$this, 'createResponseLink'],
+                    'first',
+                ),
             ));
     }
 
@@ -179,7 +203,7 @@ trait ResponseModelTestTrait
     public function createResponseDate(array $data = []): Date
     {
         return (new Date())
-            ->setDate($data['date'] ?? new \DateTime('2024-03-07T16:00:00+01:00'))
+            ->setDate($data['date'] ?? new \DateTimeImmutable('2024-03-07T16:00:00+01:00'))
             ->setLabel($data['label'] ?? 'Date')
             ->setEcdtDateType($data['ecdtDateType'] ?? 'Deadline')
             ->setTooltip($data['tooltip'] ?? 'This is a date');
@@ -215,13 +239,15 @@ trait ResponseModelTestTrait
     public function createResponseReferenceFile(array $data = []): ReferenceFile
     {
         return (new ReferenceFile())
-            ->setLanguages($data['languages'] ?? ['EN', 'FR'])
+            ->setLanguages(new StringCollection($data['languages'] ?? ['EN', 'FR']))
             ->setFileName($data['fileName'] ?? 'test.xml')
             ->setIsPrivate($data['isPrivate'] ?? false)
-            ->setLinks($this->createResponseObjectList(
-                $data['links'] ?? null,
-                [$this, 'createResponseLink'],
-                'first',
+            ->setLinks(new LinkCollection(
+                $this->createResponseObjectList(
+                    $data['links'] ?? null,
+                    [$this, 'createResponseLink'],
+                    'first',
+                ),
             ));
     }
 
@@ -233,45 +259,59 @@ trait ResponseModelTestTrait
         return (new Translation())
             ->setRequestIdentifier($data['requestIdentifier'] ?? '123456')
             ->setStatus($data['status'] ?? 'new')
-            ->setSourceLanguages($data['sourceLanguages'] ?? ['EN'])
-            ->setTargetLanguages($data['targetLanguages'] ?? ['FR'])
-            ->setCreationDate($data['creationDate'] ?? new \DateTime('2024-02-28T12:03:03.6239422'))
-            ->setDeliveryDate(array_key_exists('deliveryDate', $data) ? $data['deliveryDate'] : new \DateTime('2024-03-07T16:00:00+01:00'))
+            ->setSourceLanguages(new StringCollection($data['sourceLanguages'] ?? ['EN']))
+            ->setTargetLanguages(new StringCollection($data['targetLanguages'] ?? ['FR']))
+            ->setCreationDate($data['creationDate'] ?? new \DateTimeImmutable('2024-02-28T12:03:03.6239422'))
+            ->setDeliveryDate(array_key_exists('deliveryDate', $data) ? $data['deliveryDate'] : new \DateTimeImmutable('2024-03-07T16:00:00+01:00'))
             ->setTitle($data['title'] ?? 'Test translation')
             ->setService($data['service'] ?? 'translation')
             ->setDepartment($data['department'] ?? 'TR')
-            ->setContacts($data['contacts'] ?? ['JohnDoe'])
-            ->setDeliverToContacts($data['deliverToContacts'] ?? ['JaneSmith'])
-            ->setSourceDocuments($this->createResponseObjectList(
-                $data['sourceDocuments'] ?? null,
-                [$this, 'createResponseSourceDocument'],
+            ->setContacts(new StringCollection($data['contacts'] ?? ['JohnDoe']))
+            ->setDeliverToContacts(new StringCollection($data['deliverToContacts'] ?? ['JaneSmith']))
+            ->setSourceDocuments(new SourceDocumentCollection(
+                $this->createResponseObjectList(
+                    $data['sourceDocuments'] ?? null,
+                    [$this, 'createResponseSourceDocument'],
+                ),
             ))
-            ->setReferenceFiles($this->createResponseObjectList(
-                $data['referenceFiles'] ?? null,
-                [$this, 'createResponseReferenceFile'],
+            ->setReferenceFiles(new ReferenceFileCollection(
+                $this->createResponseObjectList(
+                    $data['referenceFiles'] ?? null,
+                    [$this, 'createResponseReferenceFile'],
+                ),
             ))
-            ->setBilingualFiles($this->createResponseObjectList(
-                $data['bilingualFiles'] ?? null,
-                [$this, 'createResponseFile'],
+            ->setBilingualFiles(new FileCollection(
+                $this->createResponseObjectList(
+                    $data['bilingualFiles'] ?? null,
+                    [$this, 'createResponseFile'],
+                ),
             ))
-            ->setTargetFiles($this->createResponseObjectList(
-                $data['targetFiles'] ?? null,
-                [$this, 'createResponseFile'],
+            ->setTargetFiles(new FileCollection(
+                $this->createResponseObjectList(
+                    $data['targetFiles'] ?? null,
+                    [$this, 'createResponseFile'],
+                ),
             ))
-            ->setDates($this->createResponseObjectList(
-                $data['dates'] ?? null,
-                [$this, 'createResponseDate'],
-                'first',
+            ->setDates(new DateCollection(
+                $this->createResponseObjectList(
+                    $data['dates'] ?? null,
+                    [$this, 'createResponseDate'],
+                    'first',
+                ),
             ))
-            ->setComments($this->createResponseObjectList(
-                $data['comments'] ?? null,
-                [$this, 'createResponseComment'],
-                'first',
+            ->setComments(new CommentCollection(
+                $this->createResponseObjectList(
+                    $data['comments'] ?? null,
+                    [$this, 'createResponseComment'],
+                    'first',
+                ),
             ))
             ->setTotalPrice($data['totalPrice'] ?? 240.5)
-            ->setJobSummary($this->createResponseObjectList(
-                $data['jobSummary'] ?? null,
-                [$this, 'createResponseJobSummary'],
+            ->setJobSummary(new JobSummaryCollection(
+                $this->createResponseObjectList(
+                    $data['jobSummary'] ?? null,
+                    [$this, 'createResponseJobSummary'],
+                ),
             ))
             ->setIsInProgress($data['isInProgress'] ?? false)
             ->setClientReference($data['clientReference'] ?? '123456')
@@ -280,10 +320,12 @@ trait ResponseModelTestTrait
             ->setPhoneNumber($data['phoneNumber'] ?? '1234567890')
             ->setPurposeCode($data['purposeCode'] ?? 'TR')
             ->setIsQuotationOnly($data['isQuotationOnly'] ?? false)
-            ->setLinks($this->createResponseObjectList(
-                $data['links'] ?? null,
-                [$this, 'createResponseLink'],
-                'first',
+            ->setLinks(new LinkCollection(
+                $this->createResponseObjectList(
+                    $data['links'] ?? null,
+                    [$this, 'createResponseLink'],
+                    'first',
+                ),
             ));
     }
 
