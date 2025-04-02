@@ -1,32 +1,11 @@
+imports:
+  - { resource: ./vendor/openeuropa/code-review-library/dist/library-conventions.yml }
+
 grumphp:
   git_hook_variables:
-    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -T web'
-
-  # Tasks.
-  tasks:
-
-    # PHP Code Sniffer.
-    phpcs:
-      triggered_by: '%tasks.triggered_by%'
-      metadata:
-        priority: 300
-
-    # PHPStan.
-    phpstan:
-      triggered_by: '%tasks.triggered_by%'
-      memory_limit: "-1"
-      use_grumphp_paths: true
-
-    # Commit message format.
-    git_commit_message:
-      matchers: '%tasks.git_commit_message.matchers%'
-      case_insensitive: false
-      enforce_no_subject_trailing_period: false
-      multiline: false
-      max_body_width: 0
-      max_subject_width: 0
+    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -T php'
 
 parameters:
-  tasks.triggered_by: ['php']
-  tasks.git_commit_message.matchers:
-    - '/^([A-Z0-9]+\-\d+|Issue #\d+): [A-Z].+\./'
+  # The OpenEuropa library standard is expanded with some custom rules.
+  tasks.phpcs.standard: 'phpcs-ruleset.xml'
+  tasks.phpstan.level: 8
