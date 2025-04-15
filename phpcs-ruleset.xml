@@ -2,8 +2,8 @@
 <ruleset name="CdtClient">
   <description>Custom coding rules for the CdtClient.</description>
 
-  <!-- Include main rules you want. -->
-  <rule ref="PSR12"/>
+  <!-- Include OpenEuropa library rules. -->
+  <rule ref="vendor/openeuropa/code-review-library/resources/library-phpcs-ruleset.xml"/>
 
   <!-- Slevomat / Arrays -->
   <rule ref="SlevomatCodingStandard.Arrays.MultiLineArrayEndBracketPlacement"/>
@@ -74,20 +74,6 @@
   <!-- Adjust the severity of warnings. -->
   <arg name="warning-severity" value="0"/>
 
-  <!-- Comments and multi-line statements should be indented with 4 spaces. -->
-  <rule ref="Generic.WhiteSpace.ScopeIndent">
-    <properties>
-      <property name="ignoreIndentationTokens" type="array" value="" />
-      <property name="exact" value="true" />
-    </properties>
-  </rule>
-
-  <!-- Arrays that span multiple lines should be indented with 4 spaces. -->
-  <rule ref="Generic.Arrays.ArrayIndent" />
-
   <!-- Use one space after keyword. -->
   <rule ref="Generic.WhiteSpace.LanguageConstructSpacing" />
-
-  <!-- Chained method calls should be indented with 4 spaces. -->
-  <rule ref="PEAR.WhiteSpace.ObjectOperatorIndent" />
 </ruleset>
