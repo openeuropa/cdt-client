@@ -22,7 +22,7 @@ class CollectionDenormalizer implements DenormalizerInterface, DenormalizerAware
      * @param class-string $type
      * @param array<mixed> $context
      */
-    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = [])
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
         $elementType = $type::ITEM_TYPE;
         foreach ($data as $key => $item) {
@@ -34,8 +34,9 @@ class CollectionDenormalizer implements DenormalizerInterface, DenormalizerAware
 
     /**
      * @param class-string $type
+     * @param array<mixed> $context
      */
-    public function supportsDenormalization(mixed $data, string $type, ?string $format = null)
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
         if (class_exists($type)) {
             $class = new \ReflectionClass($type);
@@ -44,5 +45,12 @@ class CollectionDenormalizer implements DenormalizerInterface, DenormalizerAware
         }
 
         return false;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            BaseCollection::class => true,
+        ];
     }
 }
