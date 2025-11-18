@@ -3,7 +3,7 @@ imports:
 
 grumphp:
   git_hook_variables:
-    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -T php'
+    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -T web'
 
 parameters:
   # The OpenEuropa library standard is expanded with some custom rules.
